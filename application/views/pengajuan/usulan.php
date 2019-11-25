@@ -57,19 +57,19 @@
                                                         <?php foreach ($draft as $d1) { ?>
                                                             <tr>
                                                                 <td>1</td>
-                                                                <td><?= date('d-m-Y', strtotime($d1['TGL_INPUT'])); ?></td>
-                                                                <td><?= $d1['JENIS_PERUMUSAN']; ?></td>
-                                                                <td><?= $d1['KOMTEK']; ?></td>
-                                                                <td><?= $d1['JUDUL']; ?></td>
-                                                                <td><?= $d1['TAHAPAN']; ?></td>
+                                                                <td><?= date('d-m-Y', strtotime($d1['tgl_input'])); ?></td>
+                                                                <td><?= $d1['jenis_perumusan']; ?></td>
+                                                                <td><?= $d1['komtek']; ?></td>
+                                                                <td><?= $d1['judul']; ?></td>
+                                                                <td><?= $d1['tahapan']; ?></td>
                                                                 <td>
                                                                     Menunggu Pengesahan
                                                                 </td>
                                                                 <td>
-                                                                    <a href="<?= base_url() ?>pengajuan/detail/<?= $d1['ID']; ?>" class="btn btn-xs btn-success" value="<?= $d1['ID'] ?>;"><i class="fa fa-file-text-o"></i></a>
-                                                                    <a href="<?= base_url() ?>pengajuan/edit_usulan/<?= $d1['ID']; ?>" class="btn btn-xs btn-warning" value="<?= $d1['ID'] ?>;"><i class="fa fa-pencil"></i></a>
-                                                                    <a href="<?= base_url() ?>pengajuan/ajukan/<?= $d1['ID']; ?>" class="btn btn-xs btn-info" value="<?= $d1['ID'] ?>;" onclick="return confirm('Anda yakin ingin mengajukan usulan?');"><i class="fa fa-send"></i></a>
-                                                                    <a href="<?= base_url() ?>pengajuan/hapus_usulan/<?= $d1['ID']; ?>" class="btn btn-xs  btn-danger" value="<?= $d1['ID'] ?>;" onclick="return confirm('Anda yakin ingin menghapus usulan?');"><i class="fa fa-trash"></i></a>
+                                                                    <a href="<?= base_url() ?>pengajuan/detail/<?= $d1['id']; ?>" class="btn btn-xs btn-success" value="<?= $d1['ID'] ?>;"><i class="fa fa-file-text-o"></i></a>
+                                                                    <a href="<?= base_url() ?>pengajuan/edit_usulan/<?= $d1['id']; ?>" class="btn btn-xs btn-warning" value="<?= $d1['ID'] ?>;"><i class="fa fa-pencil"></i></a>
+                                                                    <a href="<?= base_url() ?>pengajuan/ajukan/<?= $d1['id']; ?>" class="btn btn-xs btn-info" value="<?= $d1['ID'] ?>;" onclick="return confirm('Anda yakin ingin mengajukan usulan?');"><i class="fa fa-send"></i></a>
+                                                                    <a href="<?= base_url() ?>pengajuan/hapus_usulan/<?= $d1['id']; ?>" class="btn btn-xs  btn-danger" value="<?= $d1['ID'] ?>;" onclick="return confirm('Anda yakin ingin menghapus usulan?');"><i class="fa fa-trash"></i></a>
                                                                 </td>
                                                             </tr>
                                                         <?php } ?>
@@ -119,17 +119,17 @@
                                                         <?php foreach ($diajukan as $d2) { ?>
                                                             <tr>
                                                                 <td><?= $i; ?></td>
-                                                                <td><?= date('d-m-Y', strtotime($d2['TGL_INPUT'])); ?></td>
-                                                                <td><?= $d2['JENIS_PERUMUSAN']; ?></td>
-                                                                <td><?= $d2['KOMTEK']; ?></td>
-                                                                <td><?= $d2['JUDUL']; ?></td>
-                                                                <td><?= $d2['TAHAPAN']; ?></td>
+                                                                <td><?= date('d-m-Y', strtotime($d2['tgl_input'])); ?></td>
+                                                                <td><?= $d2['jenis_perumusan']; ?></td>
+                                                                <td><?= $d2['komtek']; ?></td>
+                                                                <td><?= $d2['judul']; ?></td>
+                                                                <td><?= $d2['tahapan']; ?></td>
                                                                 <td>
-                                                                    <a href="<?= base_url() ?>pengajuan/detail/<?= $d2['ID']; ?>" class="btn btn-xs btn-success" value="<?= $d2['ID'] ?>;"><i class="fa fa-file-text-o"></i></a>
+                                                                    <a href="<?= base_url() ?>pengajuan/detail/<?= $d2['id']; ?>" class="btn btn-xs btn-success" value="<?= $d2['id'] ?>;"><i class="fa fa-file-text-o"></i></a>
                                                                     <?php if ($d2['JENIS_STANDAR'] == 48) { ?>
-                                                                        <a href="<?= base_url() ?>pengajuan/perbaikan_usulan_rsni/<?= $d2['ID']; ?>" class="btn btn-xs btn-warning" value="<?= $d2['ID'] ?>;"><i class="fa fa-pencil"></i></a>
+                                                                        <a href="<?= base_url() ?>pengajuan/perbaikan_usulan_rsni/<?= $d2['id']; ?>" class="btn btn-xs btn-warning" value="<?= $d2['ID'] ?>;"><i class="fa fa-pencil"></i></a>
                                                                     <?php } else { ?>
-                                                                        <a href="<?= base_url() ?>pengajuan/perbaikan_usulan_rsl/<?= $d2['ID']; ?>" class="btn btn-xs btn-warning" value="<?= $d2['ID'] ?>;"><i class="fa fa-pencil"></i></a>
+                                                                        <a href="<?= base_url() ?>pengajuan/perbaikan_usulan_rsl/<?= $d2['id']; ?>" class="btn btn-xs btn-warning" value="<?= $d2['ID'] ?>;"><i class="fa fa-pencil"></i></a>
                                                                     <?php } ?>
                                                                 </td>
                                                             </tr>
@@ -176,11 +176,11 @@
                                                         <?php foreach ($ditolak as $d3) { ?>
                                                             <tr>
                                                                 <td><?= $i; ?></td>
-                                                                <td><?= date('d-m-Y', strtotime($d3['TGL_INPUT'])); ?></td>
-                                                                <td><?= $d3['JENIS_PERUMUSAN']; ?></td>
-                                                                <td><?= $d3['KOMTEK']; ?></td>
-                                                                <td><?= $d3['JUDUL']; ?></td>
-                                                                <td><?= $d3['ALASAN_PENOLAKAN']; ?></td>
+                                                                <td><?= date('d-m-Y', strtotime($d3['tgl_input'])); ?></td>
+                                                                <td><?= $d3['jenis_perumusan']; ?></td>
+                                                                <td><?= $d3['komtek']; ?></td>
+                                                                <td><?= $d3['judul']; ?></td>
+                                                                <td><?= $d3['alasan_penolakan']; ?></td>
                                                                 <td>
                                                                 </td>
                                                             </tr>
@@ -212,18 +212,18 @@
                                                         <?php foreach ($diterima as $d4) { ?>
                                                             <tr>
                                                                 <td><?= $i; ?></td>
-                                                                <td><?= date('d-m-Y', strtotime($d4['TGL_INPUT'])); ?></td>
-                                                                <td><?= $d4['JENIS_PERUMUSAN']; ?></td>
-                                                                <td><?= $d4['KOMTEK']; ?></td>
-                                                                <td><?= $d4['JUDUL']; ?></td>
+                                                                <td><?= date('d-m-Y', strtotime($d4['tgl_input'])); ?></td>
+                                                                <td><?= $d4['jenis_perumusan']; ?></td>
+                                                                <td><?= $d4['komtek']; ?></td>
+                                                                <td><?= $d4['judul']; ?></td>
                                                                 <td></td>
                                                                 <td></td>
                                                                 <td>
-                                                                    <a href="<?= base_url() ?>pengajuan/detail/<?= $d4['ID']; ?>" class="btn btn-xs btn-success" value="<?= $d4['ID'] ?>;"><i class="fa fa-file-text-o"></i></a>
+                                                                    <a href="<?= base_url() ?>pengajuan/detail/<?= $d4['id']; ?>" class="btn btn-xs btn-success" value="<?= $d4['id'] ?>;"><i class="fa fa-file-text-o"></i></a>
                                                                     <?php if ($d4['JENIS_STANDAR'] == 48) { ?>
-                                                                        <a href="<?= base_url() ?>pengajuan/perbaikan_usulan_rsni/<?= $d4['ID']; ?>" class="btn btn-xs btn-warning" value="<?= $d4['ID'] ?>;"><i class="fa fa-pencil"></i></a>
+                                                                        <a href="<?= base_url() ?>pengajuan/perbaikan_usulan_rsni/<?= $d4['id']; ?>" class="btn btn-xs btn-warning" value="<?= $d4['id'] ?>;"><i class="fa fa-pencil"></i></a>
                                                                     <?php } else { ?>
-                                                                        <a href="<?= base_url() ?>pengajuan/perbaikan_usulan_rsl/<?= $d4['ID']; ?>" class="btn btn-xs btn-warning" value="<?= $d4['ID'] ?>;"><i class="fa fa-pencil"></i></a>
+                                                                        <a href="<?= base_url() ?>pengajuan/perbaikan_usulan_rsl/<?= $d4['id']; ?>" class="btn btn-xs btn-warning" value="<?= $d4['id'] ?>;"><i class="fa fa-pencil"></i></a>
                                                                     <?php } ?>
                                                                 </td>
                                                             </tr>

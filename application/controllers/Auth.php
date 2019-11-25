@@ -28,13 +28,25 @@ class Auth extends CI_Controller
 		$email = $this->input->post('email');
 		$password = $this->input->post('password');
 
-		$user = $this->db->get_where('msuserstandar', ['EMAIL' => $email])->row_array();
-
-		if ($user) {
-			if ($user['IS_ACTIVE'] == 3) {
-				if (password_verify($password, $user['PASSWORD'])) {
+		$data = array(
+            'email' => $email,
+            'password' => $password
+        );
+		$user = $this->lapan_api_library->call('users/login', $data);
+		if ($user['status'] == 200) {
+			if ($user['is_active'] == 3) {
+				if ($user['token']){
 					$data = [
-						'email' => $user['EMAIL']
+						'email' => $user['email'],
+						'role_id' => $user['role'],
+						'user_id' => $user['user_id'],
+						'name' => $user['name'],
+						'is_active' => $user['is_active'],
+						'name_rev' => $user['nama_rev'],
+						'status' => $user['status_rev'],
+						'keterangan' => $user['keterangan'],
+						'golongan' => $user['golongan'],
+						'token' => $user['token']
 					];
 					$this->session->set_userdata($data);
 					redirect('dashboard');
@@ -83,11 +95,6 @@ class Auth extends CI_Controller
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|trim|is_unique[msuserstandar.email]');
 		$this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[8]|matches[password2]');
 		$this->form_validation->set_rules('password2', 'Konfirmasi Password', 'required|trim|min_length[8]|matches[password1]');
-		//$this->form_validation->set_rules('no_handphone', 'No Handphone/Telepon', 'required|numeric');
-		//$this->form_validation->set_rules('stakeholder', 'Stakeholder', 'required');
-		//$this->form_validation->set_rules('alamat', 'Alamat', 'required');
-		//$this->form_validation->set_rules('id_provinsi', 'Provinsi', 'required');
-		//$this->form_validation->set_rules('id_kota', 'Kota/Kabupaten', 'required');
 
 		if ($this->form_validation->run($this) == false) {
 			$data['provinsi'] = $this->db->get('msprovinsi')->result_array();

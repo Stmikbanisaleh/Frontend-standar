@@ -14,22 +14,24 @@ class Dashboard extends CI_Controller
 
 	public function index()
 	{
-		$data['user'] = $this->db->get_where('msuserstandar', ['EMAIL' =>
-		$this->session->userdata('email')])->row_array();
-
-		$roleId = $data['user']['ROLE_ID'];
-		$userId = $data['user']['ID'];
-		$data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
-
-		$this->load->model('Dashboard_model', 'dashboard');
-		$data['jumlahUsulan'] = $this->dashboard->JumlahUsulan();
-		$data['jumlahSNI'] = $this->dashboard->JumlahSNI();
-		$data['jumlahSL'] = $this->dashboard->JumlahSL();
-		$data['jumlahPNPS'] = $this->dashboard->JumlahPNPS();
-		$data['rsni'] = $this->dashboard->getRumusanSNI();
-		$data['rsl'] = $this->dashboard->getRumusanSL();
-		$data['daftarsni'] = $this->dashboard->getSNI();
-		$data['daftarsl'] = $this->dashboard->getSL();
+		$data['user'] = $this->session->userdata('email');
+		$data['role'] = $this->session->userdata('role_id');
+		$jumlah = $this->lapan_api_library->call('usulan/jumlahusulan', ['token' => $this->session->userdata('token')]);
+		$data['jumlahUsulan'] = $jumlah[0]['jumlah'];
+		$jumlahsni = $this->lapan_api_library->call('usulan/jumlahsni', ['token' => $this->session->userdata('token')]);
+		$data['jumlahSNI'] =  $jumlahsni[0]['jumlah'];
+		$jumlahsl = $this->lapan_api_library->call('usulan/jumlahsl', ['token' => $this->session->userdata('token')]);
+		$data['jumlahSL'] = $jumlahsl[0]['jumlah'];
+		$jumlahpnps = $this->lapan_api_library->call('usulan/jumlahpnps', ['token' => $this->session->userdata('token')]);
+		$data['jumlahPNPS'] = $jumlahpnps[0]['jumlah'];
+		$getrumusansni = $this->lapan_api_library->call('usulan/getrumusansni', ['token' => $this->session->userdata('token')]);
+		$data['rsni'] = $getrumusansni;
+		$getrumusansl = $this->lapan_api_library->call('usulan/getrumusansl', ['token' => $this->session->userdata('token')]);
+		$data['rsl'] = $getrumusansl;
+		$getsni = $this->lapan_api_library->call('usulan/getsni', ['token' => $this->session->userdata('token')]);
+		$data['daftarsni'] = $getsni[0];
+		$getsl = $this->lapan_api_library->call('usulan/getsl', ['token' => $this->session->userdata('token')]);
+		$data['daftarsl'] = $getsl[0];
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/side_menu');

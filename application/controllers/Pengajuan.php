@@ -10,21 +10,18 @@ class Pengajuan extends CI_Controller
         if (!$this->session->userdata('email')) {
             redirect('auth');
         }
-        $this->load->library('upload');
-        $this->load->model('Pengajuan_model', 'mPengajuan');
+        // $this->load->library('upload');
+        // $this->load->model('Pengajuan_model', 'mPengajuan');
     }
 
     public function index()
     {
-        $data['user'] = $this->db->get_where('msuserstandar', ['EMAIL' =>
-        $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->session->userdata('email');
+		$data['role'] = $this->session->userdata('role_id');
 
-        $roleId = $data['user']['ROLE_ID'];
-        $data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
+        $data['draft'] = $this->lapan_api_library->call('usulan/getusulandraft', ['token' => $this->session->userdata('token')]);
 
-        $data['draft'] = $this->mPengajuan->getUsulanDraft();
-
-        $this->load->view('templates/header', $data);
+        $this->load->view('templates/header');
         $this->load->view('templates/side_menu');
         $this->load->view('pengajuan/usulan', $data);
         $this->load->view('templates/footer');
@@ -508,27 +505,29 @@ class Pengajuan extends CI_Controller
 
     public function usulan_baru()
     {
-        $data['user'] = $this->db->get_where('msuserstandar', ['EMAIL' =>
-        $this->session->userdata('email')])->row_array();
+        $detailuser = $this->lapan_api_library->call('usulan/getdetailuser', ['token' => $this->session->userdata('token'), 'id' => $this->session->userdata('id')]);
+        $data['detailuser'] = $detailuser;
 
-        $roleId = $data['user']['ROLE_ID'];
-        $userId = $data['user']['ID'];
-        $data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
-
-        $data['detailuser'] = $this->mPengajuan->getDataUser($userId);
-
-        if ($roleId == 96) {
-            $data['draft'] = $this->mPengajuan->getUsulanDraft();
-            $data['diajukan'] = $this->mPengajuan->getUsulanDiajukan();
-            $data['ditolak'] = $this->mPengajuan->getUsulanDitolak();
-            $data['diterima'] = $this->mPengajuan->getUsulanDiterima();
+        if ($this->session->userdata('role_id') == 96) {
+            $getusulandraft = $this->lapan_api_library->call('usulan/getusulandraft', ['token' => $this->session->userdata('token')]);
+            $data['draft'] = $getusulandraft;
+            $getusulandiajukan = $this->lapan_api_library->call('usulan/getusulandiajukan', ['token' => $this->session->userdata('token')]);
+            $data['diajukan'] = $getusulandiajukan;
+            $getusulandiatolak = $this->lapan_api_library->call('usulan/getusulanditolak', ['token' => $this->session->userdata('token')]);
+            $data['ditolak'] = $getusulandiatolak;
+            $getusulanditerima = $this->lapan_api_library->call('usulan/getusulanditolak', ['token' => $this->session->userdata('token')]);
+            $data['diterima'] = $getusulanditerima;
         } else {
-            $data['draft'] = $this->mPengajuan->getUsulanDraftByUser($userId);
-            $data['diajukan'] = $this->mPengajuan->getUsulanDiajukanByUser($userId);
-            $data['ditolak'] = $this->mPengajuan->getUsulanDitolakByUser($userId);
-            $data['diterima'] = $this->mPengajuan->getUsulanDiterimaByUser($userId);
+            $getusulandraft = $this->lapan_api_library->call('usulan/getusulandraftbyuser', ['token' => $this->session->userdata('token'), 'id' => $this->session->userdata('id')]);
+            $data['draft'] = $getusulandraft;
+            $getusulandiajukan = $this->lapan_api_library->call('usulan/getusulandiajukanbyuser', ['token' => $this->session->userdata('token'), 'id' => $this->session->userdata('id')]);
+            $data['diajukan'] = $getusulandiajukan;
+            $getusulanditolak = $this->lapan_api_library->call('usulan/getusulanditolakbyuser', ['token' => $this->session->userdata('token'), 'id' => $this->session->userdata('id')]);
+            $data['ditolak'] = $getusulanditolak;
+            $getusulanditerima = $this->lapan_api_library->call('usulan/getusulanditerimabyuser', ['token' => $this->session->userdata('token'), 'id' => $this->session->userdata('id')]);
+            $data['diterima'] = $getusulanditerima;
         }
-        $this->load->view('templates/header', $data);
+        $this->load->view('templates/header');
         $this->load->view('templates/side_menu');
         $this->load->view('pengajuan/usulan', $data);
         $this->load->view('templates/footer');

@@ -11,7 +11,7 @@
             </a>
           </li>
           <?php
-          $roleid = $user['ROLE_ID'];
+          $roleid = $this->session->userdata('role_id');
           if ($roleid == 96) {
             include('menu_pengusul.php');
             include('menu_sekretariat.php');
@@ -19,14 +19,14 @@
           ?>
 
           <?php
-          $roleid = $user['ROLE_ID'];
+          $roleid =  $this->session->userdata('role_id');
           if ($roleid == 97) {
             include('menu_pengusul.php');
           }
           ?>
 
           <?php
-          $roleid = $user['ROLE_ID'];
+          $roleid =  $this->session->userdata('role_id');
           if ($roleid == 98) {
             include('menu_sekretariat.php');
           }

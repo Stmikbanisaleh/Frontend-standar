@@ -98,12 +98,12 @@
                                         <?php foreach ($rsni as $rsn) { ?>
                                             <tr>
                                                 <td><?= $i; ?></td>
-                                                <td><?= $rsn['KODE']; ?></td>
-                                                <td><?= $rsn['JUDUL']; ?></td>
-                                                <td><?= $rsn['KOMTEK']; ?></td>
-                                                <td><?= $rsn['JENIS_PERUMUSAN']; ?></td>
+                                                <td><?= $rsn['kode']; ?></td>
+                                                <td><?= $rsn['judul']; ?></td>
+                                                <td><?= $rsn['komtek']; ?></td>
+                                                <td><?= $rsn['jenis_perumusan']; ?></td>
                                                 <td>
-                                                    <?php if ($rsn['PROSES_PERUMUSAN'] >= 80) { ?>
+                                                    <?php if ($rsn['proses_perumusan'] >= 80) { ?>
                                                         <span class="text-left">
                                                             <h4>
                                                                 <a class="btn btn-xs btn-primary" href="#">
@@ -112,11 +112,11 @@
                                                                 <a class="btn btn-xs btn-success" href="<?= base_url('perumusan/rsni1'); ?>">
                                                                     RSNI 1
                                                                 </a>
-                                                                <?php if ($rsn['PROSES_PERUMUSAN'] >= 81) { ?>
+                                                                <?php if ($rsn['proses_perumusan'] >= 81) { ?>
                                                                     <a class="btn btn-xs btn-success" href="<?= base_url('perumusan/rsni2'); ?>">
                                                                         RSNI 2
                                                                     </a>
-                                                                    <?php if ($rsn['PROSES_PERUMUSAN'] >= 83) { ?>
+                                                                    <?php if ($rsn['proses_perumusan'] >= 83) { ?>
                                                                         <a class="btn btn-xs btn-success" href="<?= base_url('perumusan/rsni3'); ?>">
                                                                             RSNI 3
                                                                         </a>
@@ -124,19 +124,19 @@
                                                         </span>
                                                         <span class="text-left">
                                                             <h4>
-                                                                <?php if ($rsn['PROSES_PERUMUSAN'] >= 84) { ?>
+                                                                <?php if ($rsn['proses_perumusan'] >= 84) { ?>
                                                                     <a class="btn btn-xs btn-success" href="<?= base_url('perumusan/jajak_pendapat'); ?>">
                                                                         JP
                                                                     </a>
-                                                                    <?php if ($rsn['PROSES_PERUMUSAN'] >= 86) { ?>
+                                                                    <?php if ($rsn['proses_perumusan'] >= 86) { ?>
                                                                         <a class="btn btn-xs btn-success" href="#">
                                                                             RSNI 4
                                                                         </a>
-                                                                        <?php if ($rsn['PROSES_PERUMUSAN'] >= 88) { ?>
+                                                                        <?php if ($rsn['proses_perumusan'] >= 88) { ?>
                                                                             <a class="btn btn-xs btn-success" href="#">
                                                                                 RASNI
                                                                             </a>
-                                                                            <?php if ($rsn['PROSES_PERUMUSAN'] >= 89) { ?>
+                                                                            <?php if ($rsn['proses_perumusan'] >= 89) { ?>
                                                                                 <a class="btn btn-xs btn-success" href="#">
                                                                                     SNI
                                                                                 </a>
@@ -189,12 +189,12 @@
                                     <?php foreach ($rsl as $rs) { ?>
                                         <tr>
                                             <td><?= $i; ?></td>
-                                            <td><?= $rs['KODE']; ?></td>
-                                            <td><?= $rs['JENIS_PERUMUSAN']; ?></td>
-                                            <td><?= $rs['KOMTEK']; ?></td>
-                                            <td><?= $rs['JUDUL']; ?></td>
+                                            <td><?= $rs['kode']; ?></td>
+                                            <td><?= $rs['jenis_perumusan']; ?></td>
+                                            <td><?= $rs['komtek']; ?></td>
+                                            <td><?= $rs['judul']; ?></td>
                                             <td>
-                                                <?php if ($rs['PROSES_PERUMUSAN'] >= 90) { ?>
+                                                <?php if ($rs['proses_perumusan'] >= 90) { ?>
                                                     <span class="text-left">
                                                         <h4>
                                                             <a class="btn btn-xs btn-primary" href="#">
@@ -203,7 +203,7 @@
                                                             <a class="btn btn-xs btn-success" href="<?= base_url('perumusan/rsl1'); ?>">
                                                                 RSL 1
                                                             </a>
-                                                            <?php if ($rs['PROSES_PERUMUSAN'] >= 91) { ?>
+                                                            <?php if ($rs['proses_perumusan'] >= 91) { ?>
                                                                 <a class="btn btn-xs btn-success" href="<?= base_url('perumusan/rsl2'); ?>">
                                                                     RSL 2
                                                                 </a>
@@ -211,15 +211,15 @@
                                                     </span>
                                                     <span class="text-left">
                                                         <h4>
-                                                            <?php if ($rs['PROSES_PERUMUSAN'] >= 93) { ?>
+                                                            <?php if ($rs['proses_perumusan'] >= 93) { ?>
                                                                 <a class="btn btn-xs btn-success" href="<?= base_url('perumusan/rsl3'); ?>">
                                                                     RSL 3
                                                                 </a>
-                                                                <?php if ($rs['PROSES_PERUMUSAN'] >= 94) { ?>
+                                                                <?php if ($rs['proses_perumusan'] >= 94) { ?>
                                                                     <a class="btn btn-xs btn-success" href="#">
                                                                         Penetapan SL
                                                                     </a>
-                                                                    <?php if ($rs['PROSES_PERUMUSAN'] >= 95) { ?>
+                                                                    <?php if ($rs['proses_perumusan'] >= 95) { ?>
                                                                         <a class="btn btn-xs btn-success" href="#">
                                                                             SL
                                                                         </a>
