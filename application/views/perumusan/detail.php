@@ -26,7 +26,7 @@
                                     </tr>
                                     <tr>
                                         <td>Komite Teknis</td>
-                                        <td><?= $detail['KOMTEK']; ?></td>
+                                        <td><?= $detail['komtek']; ?></td>
                                     </tr>
                                     <tr>
                                         <td>Judul</td>

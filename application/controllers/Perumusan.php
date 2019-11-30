@@ -29,9 +29,12 @@ class Perumusan extends CI_Controller
 
     public function detail($id)
     {
+        $data['detail'] = $this->lapan_api_library->call('usulan/getdetail', ['token' => $this->session->userdata('token'), 'id' => $id]);
 
-        $data['detail'] = $this->mPerumusan->getDetail($id);
-
+        if(count($data['detail'])>0){
+            $data['detail'] = $data['detail'][0];
+        }
+        
         $this->load->view('templates/header', $data);
         $this->load->view('templates/side_menu');
         $this->load->view('perumusan/detail');
