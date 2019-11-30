@@ -29,11 +29,6 @@ class Perumusan extends CI_Controller
 
     public function detail($id)
     {
-        $data['user'] = $this->db->get_where('msuserstandar', ['EMAIL' =>
-        $this->session->userdata('email')])->row_array();
-
-        $roleId = $data['user']['ROLE_ID'];
-        $data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
 
         $data['detail'] = $this->mPerumusan->getDetail($id);
 
@@ -44,14 +39,14 @@ class Perumusan extends CI_Controller
     }
 
     public function rsni()
-    {
-        $data['user'] = $this->db->get_where('msuserstandar', ['EMAIL' =>
-        $this->session->userdata('email')])->row_array();
+    {   
+        // $data['rsni'] = $this->mPerumusan->getRumusanSNI();
 
-        $roleId = $data['user']['ROLE_ID'];
-        $data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
+        $data['rsni'] = $this->lapan_api_library->call('perumusan/getrumusansni', ['token' => $this->session->userdata('token')]);
 
-        $data['rsni'] = $this->mPerumusan->getRumusanSNI();
+        print(json_encode($data['rsni']));exit;
+
+        
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/side_menu');
@@ -76,18 +71,14 @@ class Perumusan extends CI_Controller
     }
 
     public function rsni1()
-    {
-        $data['user'] = $this->db->get_where('msuserstandar', ['EMAIL' =>
-        $this->session->userdata('email')])->row_array();
-
-        $roleId = $data['user']['ROLE_ID'];
-        $userId = $data['user']['ID'];
-        $data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
+    {   
+        $userId = $this->session->userdata('user_id');
+        $roleId = $this->session->userdata('role_id');
 
         if ($roleId == 97) {
-            $data['rsni1'] = $this->mPerumusan->getProsesPerumusanByUser(80, $userId);
+            $data['rsni1'] = $this->lapan_api_library->call('usulan/getprosesperumusanbyuser', ['token' => $this->session->userdata('token'), 'user_input' => $userId]);
         } else {
-            $data['rsni1'] = $this->mPerumusan->getProsesPerumusan(80);
+            $data['rsni1'] = $this->lapan_api_library->call('usulan/getprosesperumusan', ['token' => $this->session->userdata('token')]);
         }
 
         $this->load->view('templates/header', $data);
