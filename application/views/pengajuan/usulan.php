@@ -66,10 +66,10 @@
                                                                     Menunggu Pengesahan
                                                                 </td>
                                                                 <td>
-                                                                    <a href="<?= base_url() ?>pengajuan/detail/<?= $d1['id']; ?>" class="btn btn-xs btn-success" value="<?= $d1['ID'] ?>;"><i class="fa fa-file-text-o"></i></a>
-                                                                    <a href="<?= base_url() ?>pengajuan/edit_usulan/<?= $d1['id']; ?>" class="btn btn-xs btn-warning" value="<?= $d1['ID'] ?>;"><i class="fa fa-pencil"></i></a>
-                                                                    <a href="<?= base_url() ?>pengajuan/ajukan/<?= $d1['id']; ?>" class="btn btn-xs btn-info" value="<?= $d1['ID'] ?>;" onclick="return confirm('Anda yakin ingin mengajukan usulan?');"><i class="fa fa-send"></i></a>
-                                                                    <a href="<?= base_url() ?>pengajuan/hapus_usulan/<?= $d1['id']; ?>" class="btn btn-xs  btn-danger" value="<?= $d1['ID'] ?>;" onclick="return confirm('Anda yakin ingin menghapus usulan?');"><i class="fa fa-trash"></i></a>
+                                                                    <a href="<?= base_url() ?>pengajuan/detail/<?= $d1['id']; ?>" class="btn btn-xs btn-success" value="<?= $d1['id'] ?>;"><i class="fa fa-file-text-o"></i></a>
+                                                                    <a href="<?= base_url() ?>pengajuan/edit_usulan/<?= $d1['id']; ?>" class="btn btn-xs btn-warning" value="<?= $d1['id'] ?>;"><i class="fa fa-pencil"></i></a>
+                                                                    <a href="<?= base_url() ?>pengajuan/ajukan/<?= $d1['id']; ?>" class="btn btn-xs btn-info" value="<?= $d1['id'] ?>;" onclick="return confirm('Anda yakin ingin mengajukan usulan?');"><i class="fa fa-send"></i></a>
+                                                                    <a href="<?= base_url() ?>pengajuan/hapus_usulan/<?= $d1['id']; ?>" class="btn btn-xs  btn-danger" value="<?= $d1['id'] ?>;" onclick="return confirm('Anda yakin ingin menghapus usulan?');"><i class="fa fa-trash"></i></a>
                                                                 </td>
                                                             </tr>
                                                         <?php } ?>
@@ -126,10 +126,10 @@
                                                                 <td><?= $d2['tahapan']; ?></td>
                                                                 <td>
                                                                     <a href="<?= base_url() ?>pengajuan/detail/<?= $d2['id']; ?>" class="btn btn-xs btn-success" value="<?= $d2['id'] ?>;"><i class="fa fa-file-text-o"></i></a>
-                                                                    <?php if ($d2['JENIS_STANDAR'] == 48) { ?>
-                                                                        <a href="<?= base_url() ?>pengajuan/perbaikan_usulan_rsni/<?= $d2['id']; ?>" class="btn btn-xs btn-warning" value="<?= $d2['ID'] ?>;"><i class="fa fa-pencil"></i></a>
+                                                                    <?php if ($d2['jenis_standar'] == 48) { ?>
+                                                                        <a href="<?= base_url() ?>pengajuan/perbaikan_usulan_rsni/<?= $d2['id']; ?>" class="btn btn-xs btn-warning" value="<?= $d2['id'] ?>;"><i class="fa fa-pencil"></i></a>
                                                                     <?php } else { ?>
-                                                                        <a href="<?= base_url() ?>pengajuan/perbaikan_usulan_rsl/<?= $d2['id']; ?>" class="btn btn-xs btn-warning" value="<?= $d2['ID'] ?>;"><i class="fa fa-pencil"></i></a>
+                                                                        <a href="<?= base_url() ?>pengajuan/perbaikan_usulan_rsl/<?= $d2['id']; ?>" class="btn btn-xs btn-warning" value="<?= $d2['id'] ?>;"><i class="fa fa-pencil"></i></a>
                                                                     <?php } ?>
                                                                 </td>
                                                             </tr>
@@ -220,7 +220,7 @@
                                                                 <td></td>
                                                                 <td>
                                                                     <a href="<?= base_url() ?>pengajuan/detail/<?= $d4['id']; ?>" class="btn btn-xs btn-success" value="<?= $d4['id'] ?>;"><i class="fa fa-file-text-o"></i></a>
-                                                                    <?php if ($d4['JENIS_STANDAR'] == 48) { ?>
+                                                                    <?php if ($d4['jenis_standar'] == 48) { ?>
                                                                         <a href="<?= base_url() ?>pengajuan/perbaikan_usulan_rsni/<?= $d4['id']; ?>" class="btn btn-xs btn-warning" value="<?= $d4['id'] ?>;"><i class="fa fa-pencil"></i></a>
                                                                     <?php } else { ?>
                                                                         <a href="<?= base_url() ?>pengajuan/perbaikan_usulan_rsl/<?= $d4['id']; ?>" class="btn btn-xs btn-warning" value="<?= $d4['id'] ?>;"><i class="fa fa-pencil"></i></a>

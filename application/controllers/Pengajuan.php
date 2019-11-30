@@ -507,7 +507,6 @@ class Pengajuan extends CI_Controller
     {
         $detailuser = $this->lapan_api_library->call('usulan/getdetailuser', ['token' => $this->session->userdata('token'), 'id' => $this->session->userdata('id')]);
         $data['detailuser'] = $detailuser;
-
         if ($this->session->userdata('role_id') == 96) {
             $getusulandraft = $this->lapan_api_library->call('usulan/getusulandraft', ['token' => $this->session->userdata('token')]);
             $data['draft'] = $getusulandraft;

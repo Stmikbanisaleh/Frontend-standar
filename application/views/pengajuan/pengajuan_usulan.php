@@ -77,7 +77,7 @@
                                         <select id="jenis_standar" onchange="gantiJenis()" class="form-control my-10" name="jenis_standar" value="<?= set_value('jenis_standar'); ?>">
                                             <option value="">Pilih Jenis Standar</option>
                                             <?php foreach ($jnstandar as $js) : ?>
-                                                <option value="<?= $js['ID']; ?>"><?= $js['NAMA_REV'] ?></option>
+                                                <option value="<?= $js['id']; ?>"><?= $js['nama_rev'] ?></option>
                                             <?php endforeach; ?>
                                         </select>
 
@@ -85,7 +85,7 @@
                                         <select id="komite_teknis" class="form-control my-10" name="komite_teknis" value="<?= set_value('komite_teknis'); ?>">
                                             <option value="">Pilih Komite Teknis</option>
                                             <?php foreach ($kmteknis as $kt) : ?>
-                                                <option data-chained="<?= $kt['KETERANGAN']; ?>" value="<?= $kt['ID']; ?>"><?= $kt['NAMA_REV'] ?></option>
+                                                <option data-chained="<?= $kt['keterangan']; ?>" value="<?= $kt['ID']; ?>"><?= $kt['nama_rev'] ?></option>
                                             <?php endforeach; ?>
                                         </select>
 

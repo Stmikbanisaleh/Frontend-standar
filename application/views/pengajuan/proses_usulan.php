@@ -299,20 +299,20 @@
                                         Proses Usulan Standar
                                         <select id="proses_usulan" class="form-control mb-10" name="proses_usulan" value="<?= set_value('proses_usulan'); ?>">
                                             <option value="">Pilih Proses Usulan Standar</option>
-                                            <?php if ($usulan['JENIS_STANDAR'] == 49) { ?>
+                                            <?php if ($usulan['jenis_standar'] == 49) { ?>
                                                 <?php foreach ($prusulansl as $prusl) { ?>
-                                                    <?php if ($usulan['PROSES_USULAN'] == $prusl['ID']) { ?>
-                                                        <option value="<?= $prusl['ID']; ?>" selected><?= $prusl['NAMA_REV'] ?></option>
+                                                    <?php if ($usulan['proses_usulan'] == $prusl['id']) { ?>
+                                                        <option value="<?= $prusl['id']; ?>" selected><?= $prusl['nama_rev'] ?></option>
                                                     <?php } else { ?>
-                                                        <option value="<?= $prusl['ID']; ?>"><?= $prusl['NAMA_REV'] ?></option>
+                                                        <option value="<?= $prusl['id']; ?>"><?= $prusl['nama_rev'] ?></option>
                                                     <?php } ?>
                                                 <?php } ?>
                                             <?php } else { ?>
                                                 <?php foreach ($prusulansni as $prusni) { ?>
-                                                    <?php if ($usulan['PROSES_USULAN'] == $prusni['ID']) { ?>
-                                                        <option value="<?= $prusni['ID']; ?>" selected><?= $prusni['NAMA_REV'] ?></option>
+                                                    <?php if ($usulan['proses_usulan'] == $prusni['id']) { ?>
+                                                        <option value="<?= $prusni['id']; ?>" selected><?= $prusni['nama_rev'] ?></option>
                                                     <?php } else { ?>
-                                                        <option value="<?= $prusni['ID']; ?>"><?= $prusni['NAMA_REV'] ?></option>
+                                                        <option value="<?= $prusni['id']; ?>"><?= $prusni['nama_rev'] ?></option>
                                                     <?php } ?>
                                                 <?php } ?>
                                             <?php } ?>
@@ -325,7 +325,7 @@
                                     </div>
                                     <div class="tab">
 
-                                        <?php if ($usulan['JENIS_STANDAR'] == 49) {
+                                        <?php if ($usulan['jenis_standar'] == 49) {
                                             $perumusan = 'SL';
                                         } else {
                                             $perumusan = 'SNI';
@@ -333,38 +333,38 @@
 
                                         Proses Perumusan <?= $perumusan; ?>
 
-                                        <?php if ($usulan['JENIS_STANDAR'] == 49) { ?>
-                                            <?php if ($usulan['STATUS'] == 102) { ?>
+                                        <?php if ($usulan['jenis_standar'] == 49) { ?>
+                                            <?php if ($usulan['status'] == 102) { ?>
                                                 <select id="proses_perumusan" class="form-control mb-10" name="proses_perumusan" value="<?= set_value('proses_perumusan'); ?>">
                                                 <?php } else { ?>
                                                     <select disabled id="proses_perumusan" class="form-control mb-10" name="proses_perumusan" value="<?= set_value('proses_perumusan'); ?>">
                                                     <?php } ?>
                                                     <option value="">Pilih Perumusan SL</option>
                                                     <?php foreach ($psl as $pl) { ?>
-                                                        <?php if ($usulan['PROSES_PERUMUSAN'] == $pl['ID']) { ?>
-                                                            <option value="<?= $pl['ID']; ?>" selected><?= $pl['NAMA_REV'] ?></option>
+                                                        <?php if ($usulan['proses_perumusan'] == $pl['id']) { ?>
+                                                            <option value="<?= $pl['id']; ?>" selected><?= $pl['nama_rev'] ?></option>
                                                         <?php } else { ?>
-                                                            <option value="<?= $pl['ID']; ?>"><?= $pl['NAMA_REV'] ?></option>
+                                                            <option value="<?= $pl['id']; ?>"><?= $pl['nama_rev'] ?></option>
                                                         <?php } ?>
                                                     <?php } ?>
                                                     </select>
-                                                <?php } elseif ($usulan['JENIS_STANDAR'] == 48) { ?>
-                                                    <?php if ($usulan['STATUS'] == 102) { ?>
+                                                <?php } elseif ($usulan['jenis_standar'] == 48) { ?>
+                                                    <?php if ($usulan['status'] == 102) { ?>
                                                         <select id="proses_perumusan" class="form-control mb-10" name="proses_perumusan" value="<?= set_value('proses_perumusan'); ?>">
                                                         <?php } else { ?>
                                                             <select disabled id="proses_perumusan" class="form-control mb-10" name="proses_perumusan" value="<?= set_value('proses_perumusan'); ?>">
                                                             <?php } ?>
                                                             <option value="">Pilih Perumusan SNI</option>
                                                             <?php foreach ($psni as $psn) { ?>
-                                                                <?php if ($usulan['PROSES_PERUMUSAN'] == $psn['ID']) { ?>
-                                                                    <option value="<?= $psn['ID']; ?>" selected><?= $psn['NAMA_REV'] ?></option>
+                                                                <?php if ($usulan['proses_perumusan'] == $psn['id']) { ?>
+                                                                    <option value="<?= $psn['id']; ?>" selected><?= $psn['nama_rev'] ?></option>
                                                                 <?php } else { ?>
-                                                                    <option value="<?= $psn['ID']; ?>"><?= $psn['NAMA_REV'] ?></option>
+                                                                    <option value="<?= $psn['id']; ?>"><?= $psn['nama_rev'] ?></option>
                                                                 <?php } ?>
                                                             <?php } ?>
                                                         <?php  } ?>
                                                             </select>
-                                                            <?php if ($usulan['JENIS_STANDAR'] == 49) {
+                                                            <?php if ($usulan['jenis_standar'] == 49) {
                                                                 $jenis = 'RSL';
                                                             } else {
                                                                 $jenis = 'RSNI';
@@ -374,7 +374,7 @@
                                                                 <tr>
                                                                     <td>Surat Pengantar</td>
                                                                     <td>
-                                                                        <?php if ($perbaikan['SURAT_PENGANTAR_1']) { ?>
+                                                                        <?php if ($perbaikan['surat_pengantar_1']) { ?>
                                                                             <table class="table">
                                                                                 <tr>
                                                                                     <td>
@@ -389,7 +389,7 @@
 
                                                                                     <td>
                                                                                         <input type="file" name="surat_pengantar_1" data-plugin="dropify" data-height="60">
-                                                                                        <input type="hidden" name="sp_1_lama" value="<?= $perbaikan['SURAT_PENGANTAR_1']; ?>">
+                                                                                        <input type="hidden" name="sp_1_lama" value="<?= $perbaikan['surat_pengantar_1']; ?>">
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
