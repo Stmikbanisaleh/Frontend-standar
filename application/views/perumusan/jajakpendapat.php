@@ -40,14 +40,14 @@
                                         <?php foreach ($jpendapat as $jp) { ?>
                                             <tr>
                                                 <td><?= $i; ?></td>
-                                                <td><?= date('d-m-Y', strtotime($jp['TGL_INPUT'])); ?></td>
-                                                <td><?= $jp['KODE']; ?></td>
-                                                <td><?= $jp['JENIS_PERUMUSAN']; ?></td>
-                                                <td><?= $jp['JUDUL']; ?></td>
-                                                <td><?php echo ($jp['KEB_MENDESAK'] == 1) ? "Ya" : "Tidak"; ?></td>
-                                                <td><?= $jp['TAHAPAN']; ?></td>
+                                                <td><?= date('d-m-Y', strtotime($jp['tgl_input'])); ?></td>
+                                                <td><?= $jp['kode']; ?></td>
+                                                <td><?= $jp['jenis_perumusan']; ?></td>
+                                                <td><?= $jp['judul']; ?></td>
+                                                <td><?php echo ($jp['keb_mendesak'] == 1) ? "Ya" : "Tidak"; ?></td>
+                                                <td><?= $jp['tahapan']; ?></td>
                                                 <td></td>
-                                                <td><a href="<?= base_url() ?>perumusan/detail/<?= $jp['ID']; ?>" class="btn btn-xs btn-info" value="<?= $jp['ID'] ?>;"><i class="fa fa-file-text-o"></i></a></td>
+                                                <td><a href="<?= base_url() ?>perumusan/detail/<?= $jp['id']; ?>" class="btn btn-xs btn-info" value="<?= $jp['id'] ?>;"><i class="fa fa-file-text-o"></i></a></td>
                                             </tr>
                                             <?php $i++; ?>
                                         <?php } ?>

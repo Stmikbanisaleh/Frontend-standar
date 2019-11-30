@@ -31,6 +31,7 @@
                                             <th>Judul</th>
                                             <th>Mendesak</th>
                                             <th>Tahapan</th>
+                                            <th>Status</th>
                                             <th class="text-nowrap">Aksi</th>
                                         </tr>
                                     </thead>
@@ -39,14 +40,14 @@
                                         <?php foreach ($rsni3 as $r3) { ?>
                                             <tr>
                                                 <td><?= $i; ?></td>
-                                                <td><?= date('d-m-Y', strtotime($r3['TGL_INPUT'])); ?></td>
-                                                <td><?= $r3['KODE']; ?></td>
-                                                <td><?= $r3['JENIS_PERUMUSAN']; ?></td>
-                                                <td><?= $r3['JUDUL']; ?></td>
-                                                <td><?php echo ($r3['KEB_MENDESAK'] == 1) ? "Ya" : "Tidak"; ?></td>
-                                                <td><?= $r3['TAHAPAN']; ?></td>
+                                                <td><?= date('d-m-Y', strtotime($r3['tgl_input'])); ?></td>
+                                                <td><?= $r3['kode']; ?></td>
+                                                <td><?= $r3['jenis_perumusan']; ?></td>
+                                                <td><?= $r3['judul']; ?></td>
+                                                <td><?php echo ($r3['keb_mendesak'] == 1) ? "Ya" : "Tidak"; ?></td>
+                                                <td><?= $r3['tahapan']; ?></td>
                                                 <td>Menunggu Perumusan</td>
-                                                <td><a href="<?= base_url() ?>perumusan/detail/<?= $r3['ID']; ?>" class="btn btn-xs btn-info" value="<?= $r3['ID'] ?>;"><i class="fa fa-file-text-o"></i></a></td>
+                                                <td><a href="<?= base_url() ?>perumusan/detail/<?= $r3['id']; ?>" class="btn btn-xs btn-info" value="<?= $r3['id'] ?>;"><i class="fa fa-file-text-o"></i></a></td>
                                             </tr>
                                             <?php $i++; ?>
                                         <?php } ?>

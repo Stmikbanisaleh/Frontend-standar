@@ -35,23 +35,23 @@
                                         <?php foreach ($daftarsni as $sni) { ?>
                                             <tr>
                                                 <td><?= $i; ?></td>
-                                                <td><?= $sni['KODE']; ?></td>
-                                                <td><?= $sni['JUDUL']; ?></td>
-                                                <td><?= $sni['KOMTEK']; ?></td>
-                                                <td><a href="<?= base_url() ?>perumusan/detail/<?= $sn['ID']; ?>" class="btn btn-xs btn-info" value="<?= $sn['ID'] ?>;"><i class="fa fa-file-text-o"></i></a></td>
+                                                <td><?= $sni['kode']; ?></td>
+                                                <td><?= $sni['judul']; ?></td>
+                                                <td><?= $sni['komtek']; ?></td>
+                                                <td><a href="<?= base_url() ?>perumusan/detail/<?= $sni['id']; ?>" class="btn btn-xs btn-info" value="<?= $sni['id'] ?>;"><i class="fa fa-file-text-o"></i></a></td>
                                             </tr>
                                             <?php $i++; ?>
                                         <?php } ?>
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td colspan="9">
+                                            <!-- <td colspan="9"> -->
                                                 <div class="text-right">
                                                     <span class="badge badge-round badge-info text-right">
                                                         <li class="fa fa-file-text-o"></li> Lihat Detail
                                                     </span>
                                                 </div>
-                                            </td>
+                                            <!-- </td> -->
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -64,12 +64,6 @@
         </div>
     </div>
     <!-- End Example Tabs Line Top -->
-</div>
-</div>
-</div>
-</div>
-<!-- End Panel Tabs -->
-</div>
 </div>
 </div>
 </div>
