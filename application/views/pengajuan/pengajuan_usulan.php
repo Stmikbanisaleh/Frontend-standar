@@ -85,7 +85,7 @@
                                         <select id="komite_teknis" class="form-control my-10" name="komite_teknis" value="<?= set_value('komite_teknis'); ?>">
                                             <option value="">Pilih Komite Teknis</option>
                                             <?php foreach ($kmteknis as $kt) : ?>
-                                                <option data-chained="<?= $kt['keterangan']; ?>" value="<?= $kt['ID']; ?>"><?= $kt['nama_rev'] ?></option>
+                                                <option data-chained="<?= $kt['keterangan']; ?>" value="<?= $kt['id']; ?>"><?= $kt['nama_rev'] ?></option>
                                             <?php endforeach; ?>
                                         </select>
 
@@ -107,25 +107,25 @@
                                             <tr>
                                                 <td>
                                                     Nama
-                                                    <input type="text" class="form-control" name="nama_konseptor" id="namakonseptor" placeholder="Nama Konseptor" value="<?= $detailuser['NAMA_LENGKAP']; ?>">
+                                                    <input type="text" class="form-control" name="nama_konseptor" id="namakonseptor" placeholder="Nama Konseptor" value="<?= $detailuser['nama_lengkap']; ?>">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
                                                     Alamat
-                                                    <input type="text" class="form-control" name="alamat_konseptor" id="alamatkonseptor" placeholder="Alamat Konseptor" value="<?= $detailuser['ALAMAT']; ?>">
+                                                    <input type="text" class="form-control" name="alamat_konseptor" id="alamatkonseptor" placeholder="Alamat Konseptor" value="<?= $detailuser['alamat']; ?>">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
                                                     No. Telepon
-                                                    <input type="text" class="form-control" name="telepon_konseptor" id="teleponkonseptor" placeholder="Telepon Konseptor" value="<?= $detailuser['NO_HANDPHONE']; ?>">
+                                                    <input type="text" class="form-control" name="telepon_konseptor" id="teleponkonseptor" placeholder="Telepon Konseptor" value="<?= $detailuser['no_handphone']; ?>">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
                                                     Email
-                                                    <input type="text" class="form-control" name="email_konseptor" id="emailkonseptor" placeholder="Email Konseptor" value="<?= $detailuser['EMAIL']; ?>">
+                                                    <input type="text" class="form-control" name="email_konseptor" id="emailkonseptor" placeholder="Email Konseptor" value="<?= $detailuser['email']; ?>">
                                                 </td>
                                             </tr>
                                         </table>
