@@ -34,23 +34,21 @@
                                     <?php foreach ($daftarsl as $sl) { ?>
                                         <tr>
                                             <td><?= $i; ?></td>
-                                            <td><?= $sl['KODE']; ?></td>
-                                            <td><?= $sl['KOMTEK']; ?></td>
-                                            <td><?= $sl['JUDUL']; ?></td>
-                                            <td><a href="<?= base_url() ?>perumusan/detail/<?= $sl['ID']; ?>" class="btn btn-xs btn-info" value="<?= $sl['ID'] ?>;"><i class="fa fa-file-text-o"></i></a></td>
+                                            <td><?= $sl['kode']; ?></td>
+                                            <td><?= $sl['komtek']; ?></td>
+                                            <td><?= $sl['judul']; ?></td>
+                                            <td><a href="<?= base_url() ?>perumusan/detail/<?= $sl['id']; ?>" class="btn btn-xs btn-info" value="<?= $sl['id']; ?>"><i class="fa fa-file-text-o"></i></a></td>
                                         </tr>
                                         <?php $i++; ?>
                                     <?php } ?>
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="9">
-                                            <div class="text-right">
-                                                <span class="badge badge-round badge-info text-right">
-                                                    <li class="fa fa-file-text-o"></li> Lihat Detail
-                                                </span>
-                                            </div>
-                                        </td>
+                                        <div class="text-right">
+                                            <span class="badge badge-round badge-info text-right">
+                                                <li class="fa fa-file-text-o"></li> Lihat Detail
+                                            </span>
+                                        </div>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -63,13 +61,6 @@
     </div>
 </div>
 <!-- End Example Tabs Line Top -->
-</div>
-</div>
-</div>
-</div>
-<!-- End Panel Tabs -->
-</div>
-</div>
 </div>
 </div>
 </div>

@@ -29,13 +29,10 @@ class Perumusan extends CI_Controller
 
     public function detail($id)
     {
-        $data['user'] = $this->db->get_where('msuserstandar', ['EMAIL' =>
-        $this->session->userdata('email')])->row_array();
-
-        $roleId = $data['user']['ROLE_ID'];
-        $data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
-
-        $data['detail'] = $this->mPerumusan->getDetail($id);
+        $data['detail'] = $this->lapan_api_library->call('usulan/getdetail', ['token' => $this->session->userdata('token'), 'id' => $id]);
+        if(count($data['detail'])>0){
+            $data['detail'] = $data['detail'][0];
+        }
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/side_menu');
@@ -44,14 +41,14 @@ class Perumusan extends CI_Controller
     }
 
     public function rsni()
-    {
-        $data['user'] = $this->db->get_where('msuserstandar', ['EMAIL' =>
-        $this->session->userdata('email')])->row_array();
+    {   
+        // $data['rsni'] = $this->mPerumusan->getRumusanSNI();
 
-        $roleId = $data['user']['ROLE_ID'];
-        $data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
+        $data['rsni'] = $this->lapan_api_library->call('perumusan/getrumusansni', ['token' => $this->session->userdata('token')]);
 
-        $data['rsni'] = $this->mPerumusan->getRumusanSNI();
+        print(json_encode($data['rsni']));exit;
+
+        
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/side_menu');
@@ -76,18 +73,14 @@ class Perumusan extends CI_Controller
     }
 
     public function rsni1()
-    {
-        $data['user'] = $this->db->get_where('msuserstandar', ['EMAIL' =>
-        $this->session->userdata('email')])->row_array();
-
-        $roleId = $data['user']['ROLE_ID'];
-        $userId = $data['user']['ID'];
-        $data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
+    {   
+        $userId = $this->session->userdata('user_id');
+        $roleId = $this->session->userdata('role_id');
 
         if ($roleId == 97) {
-            $data['rsni1'] = $this->mPerumusan->getProsesPerumusanByUser(80, $userId);
+            $data['rsni1'] = $this->lapan_api_library->call('usulan/getprosesperumusanbyuser', ['token' => $this->session->userdata('token'), 'proses_perumusan' => '80', 'user_input' => $userId]);
         } else {
-            $data['rsni1'] = $this->mPerumusan->getProsesPerumusan(80);
+            $data['rsni1'] = $this->lapan_api_library->call('usulan/getprosesperumusan', ['token' => $this->session->userdata('token'), 'proses_perumusan' => '80']);
         }
 
         $this->load->view('templates/header', $data);
@@ -98,17 +91,13 @@ class Perumusan extends CI_Controller
 
     public function rsni2()
     {
-        $data['user'] = $this->db->get_where('msuserstandar', ['EMAIL' =>
-        $this->session->userdata('email')])->row_array();
-
-        $roleId = $data['user']['ROLE_ID'];
-        $userId = $data['user']['ID'];
-        $data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
+        $userId = $this->session->userdata('user_id');
+        $roleId = $this->session->userdata('role_id');
 
         if ($roleId == 97) {
-            $data['rsni2'] = $this->mPerumusan->getProsesPerumusanByUser(82, $userId);
+            $data['rsni2'] = $this->lapan_api_library->call('usulan/getprosesperumusanbyuser', ['token' => $this->session->userdata('token'), 'proses_perumusan' => '82', 'user_input' => $userId]);
         } else {
-            $data['rsni2'] = $this->mPerumusan->getProsesPerumusan(82);
+            $data['rsni2'] = $this->lapan_api_library->call('usulan/getprosesperumusan', ['token' => $this->session->userdata('token'), 'proses_perumusan' => '82']);
         }
 
         $this->load->view('templates/header', $data);
@@ -119,17 +108,13 @@ class Perumusan extends CI_Controller
 
     public function rsni3()
     {
-        $data['user'] = $this->db->get_where('msuserstandar', ['EMAIL' =>
-        $this->session->userdata('email')])->row_array();
-
-        $roleId = $data['user']['ROLE_ID'];
-        $userId = $data['user']['ID'];
-        $data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
+        $userId = $this->session->userdata('user_id');
+        $roleId = $this->session->userdata('role_id');
 
         if ($roleId == 97) {
-            $data['rsni3'] = $this->mPerumusan->getProsesPerumusanByUser(83, $userId);
+            $data['rsni3'] = $this->lapan_api_library->call('usulan/getprosesperumusanbyuser', ['token' => $this->session->userdata('token'), 'proses_perumusan' => '83', 'user_input' => $userId]);
         } else {
-            $data['rsni3'] = $this->mPerumusan->getProsesPerumusan(83);
+            $data['rsni3'] = $this->lapan_api_library->call('usulan/getprosesperumusan', ['token' => $this->session->userdata('token'), 'proses_perumusan' => '83']);
         }
 
         $this->load->view('templates/header', $data);
@@ -140,17 +125,13 @@ class Perumusan extends CI_Controller
 
     public function jajak_pendapat()
     {
-        $data['user'] = $this->db->get_where('msuserstandar', ['EMAIL' =>
-        $this->session->userdata('email')])->row_array();
-
-        $roleId = $data['user']['ROLE_ID'];
-        $userId = $data['user']['ID'];
-        $data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
+        $userId = $this->session->userdata('user_id');
+        $roleId = $this->session->userdata('role_id');
 
         if ($roleId == 97) {
-            $data['jpendapat'] = $this->mPerumusan->getProsesPerumusanByUser(84, $userId);
+            $data['jpendapat'] = $this->lapan_api_library->call('usulan/getprosesperumusanbyuser', ['token' => $this->session->userdata('token'), 'proses_perumusan' => '84', 'user_input' => $userId]);
         } else {
-            $data['jpendapat'] = $this->mPerumusan->getProsesPerumusan(84);
+            $data['jpendapat'] = $this->lapan_api_library->call('usulan/getprosesperumusan', ['token' => $this->session->userdata('token'), 'proses_perumusan' => '84']);
         }
 
         $this->load->view('templates/header', $data);
@@ -161,17 +142,13 @@ class Perumusan extends CI_Controller
 
     public function jajak_pendapat_ulang()
     {
-        $data['user'] = $this->db->get_where('msuserstandar', ['EMAIL' =>
-        $this->session->userdata('email')])->row_array();
-
-        $roleId = $data['user']['ROLE_ID'];
-        $userId = $data['user']['ID'];
-        $data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
+        $userId = $this->session->userdata('user_id');
+        $roleId = $this->session->userdata('role_id');
 
         if ($roleId == 97) {
-            $data['jpendapatulang'] = $this->mPerumusan->getProsesPerumusanByUser(5, $userId);
+            $data['jpendapatulang'] = $this->lapan_api_library->call('usulan/getprosesperumusanbyuser', ['token' => $this->session->userdata('token'), 'proses_perumusan' => '85', 'user_input' => $userId]);
         } else {
-            $data['jpendapatulang'] = $this->mPerumusan->getProsesPerumusan(85);
+            $data['jpendapatulang'] = $this->lapan_api_library->call('usulan/getprosesperumusan', ['token' => $this->session->userdata('token'), 'proses_perumusan' => '85']);
         }
 
         $this->load->view('templates/header', $data);
@@ -182,17 +159,13 @@ class Perumusan extends CI_Controller
 
     public function rsl1()
     {
-        $data['user'] = $this->db->get_where('msuserstandar', ['EMAIL' =>
-        $this->session->userdata('email')])->row_array();
-
-        $roleId = $data['user']['ROLE_ID'];
-        $userId = $data['user']['ID'];
-        $data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
+        $userId = $this->session->userdata('user_id');
+        $roleId = $this->session->userdata('role_id');
 
         if ($roleId == 97) {
-            $data['rsl1'] = $this->mPerumusan->getProsesPerumusanByUser(90, $userId);
+            $data['rsl1'] = $this->lapan_api_library->call('usulan/getprosesperumusanbyuser', ['token' => $this->session->userdata('token'), 'proses_perumusan' => '90', 'user_input' => $userId]);
         } else {
-            $data['rsl1'] = $this->mPerumusan->getProsesPerumusan(90);
+            $data['rsl1'] = $this->lapan_api_library->call('usulan/getprosesperumusan', ['token' => $this->session->userdata('token'), 'proses_perumusan' => '90']);
         }
 
         $this->load->view('templates/header', $data);
@@ -204,17 +177,13 @@ class Perumusan extends CI_Controller
 
     public function rsl2()
     {
-        $data['user'] = $this->db->get_where('msuserstandar', ['EMAIL' =>
-        $this->session->userdata('email')])->row_array();
-
-        $roleId = $data['user']['ROLE_ID'];
-        $userId = $data['user']['ID'];
-        $data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
+        $userId = $this->session->userdata('user_id');
+        $roleId = $this->session->userdata('role_id');
 
         if ($roleId == 97) {
-            $data['rsl2'] = $this->mPerumusan->getProsesPerumusanByUser(92, $userId);
+            $data['rsl2'] = $this->lapan_api_library->call('usulan/getprosesperumusanbyuser', ['token' => $this->session->userdata('token'), 'proses_perumusan' => '92', 'user_input' => $userId]);
         } else {
-            $data['rsl2'] = $this->mPerumusan->getProsesPerumusan(92);
+            $data['rsl2'] = $this->lapan_api_library->call('usulan/getprosesperumusan', ['token' => $this->session->userdata('token'), 'proses_perumusan' => '92']);
         }
 
         $this->load->view('templates/header', $data);
@@ -225,38 +194,30 @@ class Perumusan extends CI_Controller
 
     public function rsl3()
     {
-        $data['user'] = $this->db->get_where('msuserstandar', ['EMAIL' =>
-        $this->session->userdata('email')])->row_array();
-
-        $roleId = $data['user']['ROLE_ID'];
-        $userId = $data['user']['ID'];
-        $data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
+        $userId = $this->session->userdata('user_id');
+        $roleId = $this->session->userdata('role_id');
 
         if ($roleId == 97) {
-            $data['rsl3'] = $this->mPerumusan->getProsesPerumusanByUser(93, $userId);
+            $data['rsl3'] = $this->lapan_api_library->call('usulan/getprosesperumusanbyuser', ['token' => $this->session->userdata('token'), 'proses_perumusan' => '93', 'user_input' => $userId]);
         } else {
-            $data['rsl3'] = $this->mPerumusan->getProsesPerumusan(93);
+            $data['rsl3'] = $this->lapan_api_library->call('usulan/getprosesperumusan', ['token' => $this->session->userdata('token'), 'proses_perumusan' => '93']);
         }
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/side_menu');
-        $this->load->view('perumusan/rsl1');
+        $this->load->view('perumusan/rsl3');
         $this->load->view('templates/footer');
     }
 
     public function daftar_sni()
     {
-        $data['user'] = $this->db->get_where('msuserstandar', ['EMAIL' =>
-        $this->session->userdata('email')])->row_array();
-
-        $roleId = $data['user']['ROLE_ID'];
-        $userId = $data['user']['ID'];
-        $data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
+        $userId = $this->session->userdata('user_id');
+        $roleId = $this->session->userdata('role_id');
 
         if ($roleId == 97) {
-            $data['daftarsni'] = $this->mPerumusan->getProsesPerumusanByUser(89, $userId);
+            $data['daftarsni'] = $this->lapan_api_library->call('usulan/getprosesperumusanbyuser', ['token' => $this->session->userdata('token'), 'proses_perumusan' => '89', 'user_input' => $userId]);
         } else {
-            $data['daftarsni'] = $this->mPerumusan->getProsesPerumusan(89);
+            $data['daftarsni'] = $this->lapan_api_library->call('usulan/getprosesperumusan', ['token' => $this->session->userdata('token'), 'proses_perumusan' => '89']);
         }
 
         $this->load->view('templates/header', $data);
@@ -267,17 +228,13 @@ class Perumusan extends CI_Controller
 
     public function daftar_sl()
     {
-        $data['user'] = $this->db->get_where('msuserstandar', ['EMAIL' =>
-        $this->session->userdata('email')])->row_array();
-
-        $roleId = $data['user']['ROLE_ID'];
-        $userId = $data['user']['ID'];
-        $data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
+        $userId = $this->session->userdata('user_id');
+        $roleId = $this->session->userdata('role_id');
 
         if ($roleId == 97) {
-            $data['daftarsl'] = $this->mPerumusan->getProsesPerumusanByUser(95, $userId);
+            $data['daftarsl'] = $this->lapan_api_library->call('usulan/getprosesperumusanbyuser', ['token' => $this->session->userdata('token'), 'proses_perumusan' => '95', 'user_input' => $userId]);
         } else {
-            $data['daftarsl'] = $this->mPerumusan->getProsesPerumusan(95);
+            $data['daftarsl'] = $this->lapan_api_library->call('usulan/getprosesperumusan', ['token' => $this->session->userdata('token'), 'proses_perumusan' => '95']);
         }
 
         $this->load->view('templates/header', $data);

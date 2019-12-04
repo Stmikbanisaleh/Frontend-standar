@@ -40,14 +40,14 @@
                                         <?php foreach ($rsl1 as $r1) { ?>
                                             <tr>
                                                 <td><?= $i; ?></td>
-                                                <td><?= date('d-m-Y', strtotime($r1['TGL_INPUT'])); ?></td>
-                                                <td><?= $r1['KODE']; ?></td>
-                                                <td><?= $r1['JENIS_PERUMUSAN']; ?></td>
-                                                <td><?= $r1['JUDUL']; ?></td>
-                                                <td><?php echo ($r1['KEB_MENDESAK'] == 1) ? "Ya" : "Tidak"; ?></td>
-                                                <td><?= $r1['TAHAPAN']; ?></td>
+                                                <td><?= date('d-m-Y', strtotime($r1['tgl_input'])); ?></td>
+                                                <td><?= $r1['kode']; ?></td>
+                                                <td><?= $r1['jenis_perumusan']; ?></td>
+                                                <td><?= $r1['judul']; ?></td>
+                                                <td><?php echo ($r1['keb_mendesak'] == 1) ? "Ya" : "Tidak"; ?></td>
+                                                <td><?= $r1['tahapan']; ?></td>
                                                 <td>Menunggu Perumusan</td>
-                                                <td><a href="<?= base_url() ?>perumusan/detail/<?= $r2['ID']; ?>" class="btn btn-xs btn-info" value="<?= $r2['ID'] ?>;"><i class="fa fa-file-text-o"></i></a></td>
+                                                <td><a href="<?= base_url() ?>perumusan/detail/<?= $r1['id']; ?>" class="btn btn-xs btn-info" value="<?= $r1['id'] ?>;"><i class="fa fa-file-text-o"></i></a></td>
                                             </tr>
                                             <?php $i++; ?>
                                         <?php } ?>

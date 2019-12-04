@@ -22,37 +22,37 @@
                                 <table class="table table-bordered">
                                     <tr>
                                         <td>Kode</td>
-                                        <td><?= $detail['KODE']; ?></td>
+                                        <td><?= $detail['kode']; ?></td>
                                     </tr>
                                     <tr>
                                         <td>Komite Teknis</td>
-                                        <td><?= $detail['KOMTEK']; ?></td>
+                                        <td><?= $detail['komtek']; ?></td>
                                     </tr>
                                     <tr>
                                         <td>Judul</td>
-                                        <td><?= $detail['JUDUL']; ?></td>
+                                        <td><?= $detail['judul']; ?></td>
                                     </tr>
                                     <tr>
                                         <td>Ruang Lingkup</td>
-                                        <td><?= $detail['RUANG_LINGKUP']; ?></td>
+                                        <td><?= $detail['ruang_lingkup']; ?></td>
                                     </tr>
                                     <tr>
                                         <td>Jenis Perumusan</td>
-                                        <td><?= $detail['JENIS_PERUMUSAN']; ?></td>
+                                        <td><?= $detail['jenis_perumusan']; ?></td>
                                     </tr>
                                     <tr>
                                         <td>Jalur Perumusan</td>
-                                        <td><?= $detail['JALUR_PERUMUSAN']; ?></td>
+                                        <td><?= $detail['jalur_perumusan']; ?></td>
                                     </tr>
                                     <tr>
                                         <td width="30%">Detail Penelitian</td>
-                                        <td><?= $detail['DETAIL_PENELITIAN']; ?></td>
+                                        <td><?= $detail['detail_penelitian']; ?></td>
                                     </tr>
                                     <tr>
                                         <td>Lampiran Detail Penelitian</td>
                                         <td>
-                                            <?php if ($detail['DOK_DETAIL_PENELITIAN']) { ?>
-                                                <a class="btn btn-sm btn-success" href="<?= base_url() ?>assets/dokumen/detail_penelitian/<?= $detail['DOK_DETAIL_PENELITIAN']; ?>" target="_blank"><i class="fa fa-download"> Download</i></a>
+                                            <?php if ($detail['dok_detail_penelitian']) { ?>
+                                                <a class="btn btn-sm btn-success" href="<?= base_url() ?>assets/dokumen/detail_penelitian/<?= $detail['dok_detail_penelitian']; ?>" target="_blank"><i class="fa fa-download"> Download</i></a>
                                             <?php } else { ?>
                                                 <a class="btn btn-xs btn-danger disabled" href="#">Dokumen tidak tersedia</a>
                                             <?php } ?>
