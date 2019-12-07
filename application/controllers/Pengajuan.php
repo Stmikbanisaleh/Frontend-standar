@@ -52,7 +52,6 @@ class Pengajuan extends CI_Controller
         // print_r($this->session->userdata('id'));exit;
         $detailuser = $this->lapan_api_library->call('users/getuserdetail', ['token' => $this->session->userdata('token'), 'id' => $this->session->userdata('user_id')]);
         $data['detailuser'] = $detailuser[0];
-
         $this->load->view('templates/header', $data);
         $this->load->view('templates/side_menu');
         $this->load->view('pengajuan/pengajuan_usulan');
@@ -216,8 +215,8 @@ class Pengajuan extends CI_Controller
 
         $data = [
             'jenis_standar' => $this->input->post('jenis_standar'),
-            'komiter_teknis' => $this->input->post('komite_teknis'),
-            'judul' => htmlspecialchars($this->input->post('judul', true)),
+            'komite_teknis' => $this->input->post('komite_teknis'),
+            'judul' => $this->input->post('judul'),
             'ruang_lingkup' => htmlspecialchars($this->input->post('ruang_lingkup', true)),
             'detail_penelitian' => htmlspecialchars($this->input->post('detail_penelitian', true)),
             'dok_detail_penelitian' => $dokdp,
@@ -648,24 +647,52 @@ class Pengajuan extends CI_Controller
 
     public function proses_usulan($id)
     {
-        $data['usulan'] = $this->mPengajuan->getUsulanById($id);
-        $data['jnstandar'] = $this->mPengajuan->getJenisStandar();
-        $data['kmteknik'] = $this->mPengajuan->getKomiteTeknis();
-        $data['jnperumusan'] = $this->mPengajuan->getJenisPerumusan();
-        $data['jlperumusan'] = $this->mPengajuan->getJalurPerumusan();
-        $data['jnadopsi'] = $this->mPengajuan->getJenisAdopsi();
-        $data['mtadopsi'] = $this->mPengajuan->getMetodeAdopsi();
-        $data['prusulansni'] = $this->mPengajuan->getProsesUsulanSNI();
-        $data['prusulansl'] = $this->mPengajuan->getProsesUsulanSL();
-        $data['psni'] = $this->mPengajuan->getPerumusanSNI();
-        $data['psl'] = $this->mPengajuan->getPerumusanSL();
-        $data['status'] = $this->mPengajuan->getStatus();
+        $usulan = $this->lapan_api_library->call('usulan/getusulanbyid', ['token' => $this->session->userdata('token'), 'id' => $id]);
+        $data['usulan'] = $usulan[0];
+        $perbaikan = $this->lapan_api_library->call('usulan/getperbaikanbyid', ['token' => $this->session->userdata('token'), 'id' => $id]);
+        $data['perbaikan'] = $perbaikan[0];
+        $psni = $this->lapan_api_library->call('usulan/getperumusansni', ['token' => $this->session->userdata('token')]);
+        $data['psni'] = $psni[0];
+        $psi = $this->lapan_api_library->call('usulan/getperumusansl',['token' => $this->session->userdata('token')]);
+        $data['psl'] = $psi[0];
+        $jenisstandar = $this->lapan_api_library->call('usulan/jenisstandar', ['token' => $this->session->userdata('token')]);
+        $data['jnstandar'] = $jenisstandar;
+        $komiteteknis = $this->lapan_api_library->call('usulan/komiteteknis', ['token' => $this->session->userdata('token')]);
+        $data['kmteknik'] = $komiteteknis;
+        $jenisperumusan = $this->lapan_api_library->call('usulan/jenisperumusan', ['token' => $this->session->userdata('token')]);
+        $data['jnperumusan'] = $jenisperumusan;
+        $jalurrumusan = $this->lapan_api_library->call('usulan/jalurperumusan', ['token' => $this->session->userdata('token')]);
+        $data['jlperumusan'] = $jalurrumusan;
+        $konseptor = $this->lapan_api_library->call('usulan/konseptor', ['token' => $this->session->userdata('token')]);
+        $data['gkonseptor'] = $konseptor;
+        $jenisadopsi = $this->lapan_api_library->call('usulan/getjenisadopsi', ['token' => $this->session->userdata('token')]);
+        $data['jnadopsi'] = $jenisadopsi;
+        $metodeadopsi = $this->lapan_api_library->call('usulan/getmetodeadopsi', ['token' => $this->session->userdata('token')]);
+        $data['mtadopsi'] = $metodeadopsi;
+        $status = $this->lapan_api_library->call('usulan/getstatus', ['token' => $this->session->userdata('token')]);
+        $data['status'] = $status;
+        // $data['kmteknik'] = $this->mPengajuan->getKomiteTeknis();
+        // $data['jnperumusan'] = $this->mPengajuan->getJenisPerumusan();
+        // $data['jlperumusan'] = $this->mPengajuan->getJalurPerumusan();
 
-        $data['email'] = $this->mPengajuan->getEmailByUsulan($id);
-        $data['perbaikan'] = $this->mPengajuan->getPerbaikanById($id);
+        // $data['jnadopsi'] = $this->mPengajuan->getJenisAdopsi();
+        // $data['mtadopsi'] = $this->mPengajuan->getMetodeAdopsi();
+        // $data['prusulansni'] = $this->mPengajuan->getProsesUsulanSNI();
+        // $data['prusulansl'] = $this->mPengajuan->getProsesUsulanSL();
 
-        if ($roleId == 96 or $roleId == 98) {
-            $this->load->view('templates/header', $data);
+        // $data['jnstandar'] = $this->mPengajuan->getJenisStandar();
+        // $data['usulan'] = $this->mPengajuan->getUsulanById($id);
+        // $data['psni'] = $this->mPengajuan->getPerumusanSNI();
+        // $data['psl'] = $this->mPengajuan->getPerumusanSL();
+        // $data['perbaikan'] = $this->mPengajuan->getPerbaikanById($id);
+
+        // $data['status'] = $this->mPengajuan->getStatus();
+        $email['email'] = $this->session->userdata('email');
+        // print_r($email);exit;
+        $data['email'] = $email;
+
+        if ($this->session->userdata('role_id') == 96 or $this->session->userdata('role_id') == 98) {
+            $this->load->view('templates/header');
             $this->load->view('templates/side_menu');
             $this->load->view('pengajuan/proses_usulan', $data);
             $this->load->view('templates/footer');
@@ -682,64 +709,85 @@ class Pengajuan extends CI_Controller
         $id = $this->input->post('id');
 
         //Upload dokumen kebutuhan mendesak
-        $configskm['file_name']          = 'surat_kebutuhan_mendesak_' . $id;
-        $configskm['upload_path']          = './assets/dokumen/kebutuhan_mendesak/';
-        $configskm['allowed_types']        = 'pdf';
-        $configskm['overwrite']        = TRUE;
+        // $configskm['file_name']          = 'surat_kebutuhan_mendesak_' . $id;
+        // $configskm['upload_path']          = './assets/dokumen/kebutuhan_mendesak/';
+        // $configskm['allowed_types']        = 'pdf';
+        // $configskm['overwrite']        = TRUE;
 
-        $this->upload->initialize($configskm);
-
-        if ($this->upload->do_upload('dok_keb_mendesak')) {
-            $dokkm = $this->upload->data('file_name');
-        } else {
-            $dokkm = $this->input->post('dok_skm_lama');
+        if(!empty($_FILES['dok_keb_mendesak']['tmp_name']) && file_exists($_FILES['dok_keb_mendesak']['tmp_name'])) {
+            $dok_keb_mendesak = 'surat_kebutuhan_mendesak_' . $id.'.pdf';
+            $file_tmp = $_FILES['dok_keb_mendesak']['tmp_name'];
+			$data = file_get_contents($file_tmp);
+			$dok_keb_mendesak64 = base64_encode($data);
+        }else {
+            $dok_keb_mendesak = null;
+            $dok_keb_mendesak64 = null;
         }
+
+        if(!empty($_FILES['dok_kesediaan_paten']['tmp_name']) && file_exists($_FILES['dok_kesediaan_paten']['tmp_name'])) {
+            $dokkpp = 'surat_kesediaan_pencantuman_paten_' . $id.'.pdf';
+            $file_tmp = $_FILES['dok_kesediaan_paten']['tmp_name'];
+			$data = file_get_contents($file_tmp);
+			$dokkpp64 = base64_encode($data);
+        }else {
+            $dokkpp64 = null;
+            $dokkpp = null;
+        }
+        // $this->upload->initialize($configskm);
+
+        // if ($this->upload->do_upload('dok_keb_mendesak')) {
+        //     $dokkm = $this->upload->data('file_name');
+        // } else {
+        //     $dokkm = $this->input->post('dok_skm_lama');
+        // }
 
         //Upload dokumen kesediaan pencantuman paten
-        $configkpp['file_name']          = 'surat_kesediaan_pencantuman_paten_' . $id;
-        $configkpp['upload_path']          = './assets/dokumen/kesediaan_paten/';
-        $configkpp['allowed_types']        = 'doc|docx';
-        $configkpp['overwrite']        = TRUE;
+        // $configkpp['file_name']          = 'surat_kesediaan_pencantuman_paten_' . $id;
+        // $configkpp['upload_path']          = './assets/dokumen/kesediaan_paten/';
+        // $configkpp['allowed_types']        = 'doc|docx';
+        // $configkpp['overwrite']        = TRUE;
 
-        $this->upload->initialize($configkpp);
+        // $this->upload->initialize($configkpp);
 
-        if ($this->upload->do_upload('dok_kesediaan_paten')) {
-            $dokkpp = $this->upload->data('file_name');
-        } else {
-            $dokkpp = $this->input->post('dok_ksp_lama');
-        }
+        // if ($this->upload->do_upload('dok_kesediaan_paten')) {
+        //     $dokkpp = $this->upload->data('file_name');
+        // } else {
+        //     $dokkpp = $this->input->post('dok_ksp_lama');
+        // }
 
 
         $data = [
-            'JENIS_PERUMUSAN' => $this->input->post('jenis_perumusan'),
-            'JALUR_PERUMUSAN' => $this->input->post('jalur_perumusan'),
-            'KODE' => $this->input->post('kode'),
-            'NO_SNI_RALAT' => htmlspecialchars($this->input->post('no_sni_ralat', true)),
-            'P_SNI_RALAT' => htmlspecialchars($this->input->post('p_sni_ralat', true)),
-            'NO_SNI_AMANDEMEN' => htmlspecialchars($this->input->post('no_sni_amandemen', true)),
-            'P_SNI_AMANDEMEN' => htmlspecialchars($this->input->post('p_sni_amandemen', true)),
-            'NO_SNI_TERJEMAH' => htmlspecialchars($this->input->post('no_sni_terjemah', true)),
-            'JENIS_ADOPSI' => $this->input->post('jenis_adopsi'),
-            'METODE_ADOPSI' => $this->input->post('metode_adopsi'),
-            'KEB_MENDESAK' => $this->input->post('keb_mendesak'),
-            'DOK_KEB_MENDESAK' => $dokkm,
-            'TERKAIT_PATEN' => $this->input->post('terkait_paten'),
-            'DOK_KESEDIAAN_PATEN' => $dokkpp,
-            'INFORMASI_PATEN' => $this->input->post('informasi_paten'),
-            'KESESUAIAN' => htmlspecialchars($this->input->post('kesesuaian', true)),
-            'ULASAN' => htmlspecialchars($this->input->post('ulasan', true)),
-            'STATUS' => $this->input->post('status'),
-            'ALASAN_PENOLAKAN' => htmlspecialchars($this->input->post('alasan_penolakan', true)),
-            'PROSES_USULAN' => $this->input->post('proses_usulan'),
-            'PROSES_PERUMUSAN' => $this->input->post('proses_perumusan')
+            'jenis_perumusan' => $this->input->post('jenis_perumusan'),
+            'jalur_perumusan' => $this->input->post('jalur_perumusan'),
+            'kode' => $this->input->post('kode'),
+            'no_sni_ralat' => htmlspecialchars($this->input->post('no_sni_ralat', true)),
+            'p_sni_ralat' => htmlspecialchars($this->input->post('p_sni_ralat', true)),
+            'no_sni_amademen' => htmlspecialchars($this->input->post('no_sni_amandemen', true)),
+            'p_sni_amademen' => htmlspecialchars($this->input->post('p_sni_amandemen', true)),
+            'no_sni_terjemah' => htmlspecialchars($this->input->post('no_sni_terjemah', true)),
+            'jenis_adopsi' => $this->input->post('jenis_adopsi'),
+            'metode_adopsi' => $this->input->post('metode_adopsi'),
+            'keb_mendesak' => $this->input->post('keb_mendesak'),
+            'dok_keb_mendesak' => $dok_keb_mendesak,
+            'dok_keb_mendesak64' => $dok_keb_mendesak64,
+            'terkait_paten' => $this->input->post('terkait_paten'),
+            'dok_kesediaan_paten' => $dokkpp,
+            'dok_kesediaan_paten64' => $dokkpp64,
+            'informasi_paten' => $this->input->post('informasi_paten'),
+            'kesesuaian' => htmlspecialchars($this->input->post('kesesuaian', true)),
+            'ulasan' => htmlspecialchars($this->input->post('ulasan', true)),
+            'status' => $this->input->post('status'),
+            'alasan_penolakan' => htmlspecialchars($this->input->post('alasan_penolakan', true)),
+            'proses_usulan' => $this->input->post('proses_usulan'),
+            'proses_perumusan' => $this->input->post('proses_perumusan'),
+            'token' => $this->session->userdata('token'),
+            'id' => $id
         ];
 
 
         $post = $this->input->post();
-
-        $this->db->where('ID', $id);
-        if ($this->db->update('msusulan', $data)) {
-
+        $update = $this->lapan_api_library->call('usulan/saveprosesusulan',$data);
+        if ($update['status'] == 200) {
             for ($i = 1; $i <= 4; $i++) {
                 //Upload dokumen SURAT PENGANTAR
                 $configsp['file_name']          = 'surat_pengantar_' . $i . '_' . $id;
@@ -754,7 +802,7 @@ class Pengajuan extends CI_Controller
                     $sp[$i] = $this->input->post('sp_' . $i . '_lama');
                 }
 
-                //upload dokumen RSNI
+                //upload dokumen rsni
                 $configrsni['file_name']          = 'rsni_' . $i . '_' . $id;
                 $configrsni['upload_path']          = './assets/dokumen/perbaikan_usulan/';
                 $configrsni['allowed_types']        = 'pdf';
@@ -784,18 +832,18 @@ class Pengajuan extends CI_Controller
             }
 
             $dataper = [
-                'SURAT_PENGANTAR_1' => $sp[1],
-                'SURAT_PENGANTAR_2' => $sp[2],
-                'SURAT_PENGANTAR_3' => $sp[3],
-                'SURAT_PENGANTAR_4' => $sp[4],
-                'RSNI_1' => $rsni[1],
-                'RSNI_2' => $rsni[2],
-                'RSNI_3' => $rsni[3],
-                'RSNI_4' => $rsni[4],
-                'NOTULENSI_1' => $notulensi[1],
-                'NOTULENSI_2' => $notulensi[2],
-                'NOTULENSI_3' => $notulensi[3],
-                'NOTULENSI_4' => $notulensi[4]
+                'surat_pengantar_1' => $sp[1],
+                'surat_pengantar_2' => $sp[2],
+                'surat_pengantar_3' => $sp[3],
+                'surat_pengantar_4' => $sp[4],
+                'rsni_1' => $rsni[1],
+                'rsni_2' => $rsni[2],
+                'rsni_3' => $rsni[3],
+                'rsni_4' => $rsni[4],
+                'notulensi_1' => $notulensi[1],
+                'notulensi_2' => $notulensi[2],
+                'notulensi_3' => $notulensi[3],
+                'notulensi_4' => $notulensi[4]
             ];
             $this->db->where('ID_USULAN', $id);
             $this->db->update('d_perbaikan', $dataper);
@@ -1058,24 +1106,6 @@ class Pengajuan extends CI_Controller
         redirect('pengajuan/usulan_baru');
     }
 
-    public function pembatalan_usulan()
-    {
-        $data['user'] = $this->db->get_where('msuserstandar', ['EMAIL' =>
-        $this->session->userdata('email')])->row_array();
-
-        $roleId = $data['user']['ROLE_ID'];
-        $data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
-
-        $data['usulan'] = $this->mPengajuan->getUsulanDiajukan();
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/side_menu');
-        $this->load->view('pengajuan/pembatalan_usulan', $data);
-        $this->load->view('templates/footer');
-    }
-
-
-
     private function _send_email($proses)
     {
         require 'assets/PHPMailer/PHPMailerAutoload.php';
@@ -1186,27 +1216,27 @@ class Pengajuan extends CI_Controller
                 //Kirim Notifiakasi Proses Perumusan
 
             case "sn1mraptek":
-                $mail->Subject = 'RSNI 1-Menunggu rapat teknis';
+                $mail->Subject = 'rsni 1-Menunggu rapat teknis';
                 $mail->isHTML(true);
-                $mailContent = 'Pengajuan PNPS "' . $judul . '" telah masuk tahapan RSNI 1 dan menunggu rapat teknis.';
+                $mailContent = 'Pengajuan PNPS "' . $judul . '" telah masuk tahapan rsni 1 dan menunggu rapat teknis.';
                 $mail->Body = $mailContent;
                 break;
             case "sn2mperbaikan":
-                $mail->Subject = 'RSNI 2-Menunggu perbaikan';
+                $mail->Subject = 'rsni 2-Menunggu perbaikan';
                 $mail->isHTML(true);
-                $mailContent = 'Pengajuan PNPS "' . $judul . '" telah masuk tahapan RSNI 1 dan menunggu perbaikan RSNI.';
+                $mailContent = 'Pengajuan PNPS "' . $judul . '" telah masuk tahapan rsni 1 dan menunggu perbaikan rsni.';
                 $mail->Body = $mailContent;
                 break;
             case "sn2mraptek":
-                $mail->Subject = 'RSNI 2-Menunggu rapat teknis';
+                $mail->Subject = 'rsni 2-Menunggu rapat teknis';
                 $mail->isHTML(true);
-                $mailContent = 'Pengajuan PNPS "' . $judul . '" telah masuk tahapan RSNI 2 dan menunggu rapat teknis.';
+                $mailContent = 'Pengajuan PNPS "' . $judul . '" telah masuk tahapan rsni 2 dan menunggu rapat teknis.';
                 $mail->Body = $mailContent;
                 break;
             case "sn3mpengesahan":
-                $mail->Subject = 'RSNI 3-Menunggu pengesahan';
+                $mail->Subject = 'rsni 3-Menunggu pengesahan';
                 $mail->isHTML(true);
-                $mailContent = 'Pengajuan PNPS "' . $judul . '" telah masuk tahapan RSNI 3 dan menunggu pengesahan.';
+                $mailContent = 'Pengajuan PNPS "' . $judul . '" telah masuk tahapan rsni 3 dan menunggu pengesahan.';
                 $mail->Body = $mailContent;
                 break;
             case "jpproses":
@@ -1222,15 +1252,15 @@ class Pengajuan extends CI_Controller
                 $mail->Body = $mailContent;
                 break;
             case "sn4mperbaikan":
-                $mail->Subject = 'RSNI 4-Menunggu Perbaikan';
+                $mail->Subject = 'rsni 4-Menunggu Perbaikan';
                 $mail->isHTML(true);
-                $mailContent = 'Pengajuan PNPS "' . $judul . '" telah masuk tahapan RSNI 4 dan menunggu perbaikan RSNI.';
+                $mailContent = 'Pengajuan PNPS "' . $judul . '" telah masuk tahapan rsni 4 dan menunggu perbaikan rsni.';
                 $mail->Body = $mailContent;
                 break;
             case "sn4raptek":
-                $mail->Subject = 'RSNI 4-Rapat Teknis';
+                $mail->Subject = 'rsni 4-Rapat Teknis';
                 $mail->isHTML(true);
-                $mailContent = 'Pengajuan PNPS "' . $judul . '" telah masuk tahapan RSNI 4 dan menunggu rapat teknis.';
+                $mailContent = 'Pengajuan PNPS "' . $judul . '" telah masuk tahapan rsni 4 dan menunggu rapat teknis.';
                 $mail->Body = $mailContent;
                 break;
             case "rasni":

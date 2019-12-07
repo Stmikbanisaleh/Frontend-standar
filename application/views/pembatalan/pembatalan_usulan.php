@@ -41,10 +41,10 @@
                                             <tr>
                                                 <td><?= $i; ?></td>
                                                 <td></td>
-                                                <td><?= $dtl['JUDUL']; ?></td>
-                                                <td><?= $dtl['JENIS_PERUMUSAN']; ?></td>
-                                                <td><?= $dtl['TAHAPAN']; ?></td>
-                                                <td><?= $dtl['ALASAN_PENOLAKAN']; ?></td>
+                                                <td><?= $dtl['judul']; ?></td>
+                                                <td><?= $dtl['jenis_perumusan']; ?></td>
+                                                <td><?= $dtl['tahapan']; ?></td>
+                                                <td><?= $dtl['alasan_penolakan']; ?></td>
                                                 <td></td>
 
                                             </tr>

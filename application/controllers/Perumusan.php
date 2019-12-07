@@ -15,15 +15,10 @@ class Perumusan extends CI_Controller
 
     public function index()
     {
-        $data['user'] = $this->db->get_where('msuserstandar', ['EMAIL' =>
-        $this->session->userdata('email')])->row_array();
 
-        $roleId = $data['user']['ROLE_ID'];
-        $data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
-
-        $this->load->view('templates/header', $data);
+        $this->load->view('templates/header');
         $this->load->view('templates/side_menu');
-        $this->load->view('perumusan/rsni');
+        $this->load->view('perumusan/rsni1');
         $this->load->view('templates/footer');
     }
 
@@ -42,14 +37,7 @@ class Perumusan extends CI_Controller
 
     public function rsni()
     {   
-        // $data['rsni'] = $this->mPerumusan->getRumusanSNI();
-
         $data['rsni'] = $this->lapan_api_library->call('perumusan/getrumusansni', ['token' => $this->session->userdata('token')]);
-
-        print(json_encode($data['rsni']));exit;
-
-        
-
         $this->load->view('templates/header', $data);
         $this->load->view('templates/side_menu');
         $this->load->view('perumusan/sni');
@@ -58,14 +46,8 @@ class Perumusan extends CI_Controller
 
     public function rsl()
     {
-        $data['user'] = $this->db->get_where('msuserstandar', ['EMAIL' =>
-        $this->session->userdata('email')])->row_array();
-
-        $roleId = $data['user']['ROLE_ID'];
-        $data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
-
-        $data['rsl'] = $this->mPerumusan->getRumusanSL();
-
+        $rsl = $this->lapan_api_library->call('perumusan/getperumusansl', ['token' => $this->session->userdata('token')]);
+        $data['rsl'] = $rsl;
         $this->load->view('templates/header', $data);
         $this->load->view('templates/side_menu');
         $this->load->view('perumusan/sl');
