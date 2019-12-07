@@ -14,15 +14,9 @@ class Profil extends CI_Controller
 
 	public function index()
 	{
-		$data['user'] = $this->db->get_where('msuserstandar', ['EMAIL' =>
-		$this->session->userdata('email')])->row_array();
-		$roleId = $data['user']['ROLE_ID'];
-		$userId = $data['user']['ID'];
-		$data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
-		$this->load->model('User_model', 'usermod');
-		$data['getUser'] = $this->usermod->getUserById($userId);
-		$data['getRoleStatus'] = $this->usermod->getUserRoleAndStatus();
+        $detailuser = $this->lapan_api_library->call('users/getuserdetail', ['token' => $this->session->userdata('token'), 'id' => $this->session->userdata('user_id')]);
 
+		$data['getUser'] =  $detailuser[0];
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/side_menu');
 		$this->load->view('profil/index', $data);
@@ -31,13 +25,9 @@ class Profil extends CI_Controller
 
 	public function edit()
 	{
-		$data['user'] = $this->db->get_where('msuserstandar', ['EMAIL' =>
-		$this->session->userdata('email')])->row_array();
-		$roleId = $data['user']['ROLE_ID'];
-		$userId = $data['user']['ID'];
-		$data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
+		$data['role'] = $this->db->get_where('msrev', array('id' => $this->session->userdata('role_id')))->row_array();
 		$this->load->model('User_model', 'usermod');
-		$data['getUser'] = $this->usermod->getUserById($userId);
+		$data['getUser'] = $this->usermod->getUserById($this->session->userdata('user_id'));
 		$data['getRoleStatus'] = $this->usermod->getUserRoleAndStatus();
 
 		$this->form_validation->set_rules('name', 'Name', 'required|trim');

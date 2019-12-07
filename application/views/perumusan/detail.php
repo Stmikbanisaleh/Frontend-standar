@@ -52,7 +52,7 @@
                                         <td>Lampiran Detail Penelitian</td>
                                         <td>
                                             <?php if ($detail['dok_detail_penelitian']) { ?>
-                                                <a class="btn btn-sm btn-success" href="<?= base_url() ?>assets/dokumen/detail_penelitian/<?= $detail['dok_detail_penelitian']; ?>" target="_blank"><i class="fa fa-download"> Download</i></a>
+                                                <a class="btn btn-sm btn-success" href="<?= URL_API_DOWNLOAD.$detail['dok_detail_penelitian']; ?>" target="_blank"><i class="fa fa-download"> Download</i></a>
                                             <?php } else { ?>
                                                 <a class="btn btn-xs btn-danger disabled" href="#">Dokumen tidak tersedia</a>
                                             <?php } ?>
