@@ -624,13 +624,6 @@ class Pengajuan extends CI_Controller
     //User Sekretariat
     public function monitoring_usulan()
     {
-<<<<<<< HEAD
-        $roleId = $this->session->userdata('role_id');
-
-        $data['diajukan'] = $this->mPengajuan->getUsulanDiajukan();
-        $data['ditolak'] = $this->mPengajuan->getUsulanDitolak();
-        $data['diterima'] = $this->mPengajuan->getUsulanDiterima();
-=======
         
         $getusulandiajukan = $this->lapan_api_library->call('usulan/getusulandiajukan', ['token' => $this->session->userdata('token')]);
             $data['diajukan'] = $getusulandiajukan;
@@ -638,7 +631,6 @@ class Pengajuan extends CI_Controller
             $data['ditolak'] = $getusulandiatolak;
             $getusulanditerima = $this->lapan_api_library->call('usulan/getusulanditerima', ['token' => $this->session->userdata('token')]);
             $data['diterima'] = $getusulanditerima;
->>>>>>> 3e6b3a0136270fead12c4fb0100436888624ead7
 
         if ($this->session->userdata('role_id') == 96 or $this->session->userdata('role_id') == 98) {
             $this->load->view('templates/header');

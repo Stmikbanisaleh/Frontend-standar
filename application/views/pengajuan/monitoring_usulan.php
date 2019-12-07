@@ -52,13 +52,8 @@
                                                             <tr>
                                                                 <td><?= $i; ?></td>
                                                                 <td><?= date('d-m-Y', strtotime($d2['tgl_input'])); ?></td>
-<<<<<<< HEAD
-                                                                <td><?= $d2['JENIS_PERUMUSAN']; ?></td>
-                                                                <td><?= $d2['KOMTEK']; ?></td>
-=======
                                                                 <td><?= $d2['jenis_perumusan']; ?></td>
                                                                 <td><?= $d2['komtek']; ?></td>
->>>>>>> 3e6b3a0136270fead12c4fb0100436888624ead7
                                                                 <td><?= $d2['judul']; ?></td>
                                                                 <td></td>
                                                                 <td></td>
