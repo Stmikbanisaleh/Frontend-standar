@@ -652,9 +652,9 @@ class Pengajuan extends CI_Controller
         $perbaikan = $this->lapan_api_library->call('usulan/getperbaikanbyid', ['token' => $this->session->userdata('token'), 'id' => $id]);
         $data['perbaikan'] = $perbaikan[0];
         $psni = $this->lapan_api_library->call('usulan/getperumusansni', ['token' => $this->session->userdata('token')]);
-        $data['psni'] = $psni[0];
+        $data['psni'] = $psni;
         $psi = $this->lapan_api_library->call('usulan/getperumusansl',['token' => $this->session->userdata('token')]);
-        $data['psl'] = $psi[0];
+        $data['psl'] = $psi;
         $jenisstandar = $this->lapan_api_library->call('usulan/jenisstandar', ['token' => $this->session->userdata('token')]);
         $data['jnstandar'] = $jenisstandar;
         $komiteteknis = $this->lapan_api_library->call('usulan/komiteteknis', ['token' => $this->session->userdata('token')]);
@@ -665,6 +665,10 @@ class Pengajuan extends CI_Controller
         $data['jlperumusan'] = $jalurrumusan;
         $konseptor = $this->lapan_api_library->call('usulan/konseptor', ['token' => $this->session->userdata('token')]);
         $data['gkonseptor'] = $konseptor;
+        $gpusni = $this->lapan_api_library->call('usulan/getprosesusulansni', ['token' => $this->session->userdata('token')]);
+        $data['prusulansni'] = $gpusni;
+        $gpusl = $this->lapan_api_library->call('usulan/getprosesusulansl', ['token' => $this->session->userdata('token')]);
+        $data['prusulansl'] = $gpusl;
         $jenisadopsi = $this->lapan_api_library->call('usulan/getjenisadopsi', ['token' => $this->session->userdata('token')]);
         $data['jnadopsi'] = $jenisadopsi;
         $metodeadopsi = $this->lapan_api_library->call('usulan/getmetodeadopsi', ['token' => $this->session->userdata('token')]);
@@ -736,8 +740,6 @@ class Pengajuan extends CI_Controller
         // } else {
         //     $dokkpp = $this->input->post('dok_ksp_lama');
         // }
-
-
         $data = [
             'jenis_perumusan' => $this->input->post('jenis_perumusan'),
             'jalur_perumusan' => $this->input->post('jalur_perumusan'),
@@ -826,7 +828,7 @@ class Pengajuan extends CI_Controller
                 'id' => $id,
             ];
             $update = $this->lapan_api_library->call('usulan/update_d_perbaikan',$dataper);
-            // print_r($dataper);exit;
+            // print_r($update);exit;
             if($update['status'] == 200 ){
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
                 Usulan telah diproses!</div>');

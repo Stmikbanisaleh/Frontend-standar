@@ -61,7 +61,7 @@
                             <div class="col-xl-10">
                                 <form id="regForm" enctype="multipart/form-data" method="post" action="<?= base_url('pengajuan/save_proses'); ?>">
                                     <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>" style="display: none">
-                                    <input type="text" id="id" name="id" value="<?= $usulan['id']; ?>">
+                                    <input type="hidden" id="id" name="id" value="<?= $usulan['id']; ?>">
 
                                     <input type="hidden" name="judul" value="<?= $usulan['judul']; ?>">
                                     <input type="hidden" name="proses_usulan_sebelumnya" value="<?= $usulan['proses_usulan']; ?>">
@@ -295,7 +295,6 @@
                                         <div id="divres7">
 
                                         </div>
-
                                         Proses Usulan Standar
                                         <select id="proses_usulan" class="form-control mb-10" name="proses_usulan" value="<?= set_value('proses_usulan'); ?>">
                                             <option value="">Pilih Proses Usulan Standar</option>
@@ -416,7 +415,7 @@
 
                                                                                     <td>
                                                                                         <input type="file" name="rsni_1" data-plugin="dropify" data-height="60">
-                                                                                        <input type="hidden" name="rsni_1_lama" value="<?= $perbaikan['RSNI_1']; ?>">
+                                                                                        <input type="hidden" name="rsni_1_lama" value="<?= $perbaikan['rsni_1']; ?>">
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>

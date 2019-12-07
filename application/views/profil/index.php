@@ -12,7 +12,7 @@
         <div class="card mb-6" style="max-width: 540px;">
           <div class="row no-gutters">
             <div class="col-md-6">
-              <img src="<?= base_url('assets/img/profile/') . $getUser['IMAGE']; ?>" height="220px" width="220px" class="card-img">
+              <img src="<?= URL_API_GATEWAY.$getUser['image']; ?>" height="220px" width="220px" class="card-img">
             </div>
             <div class="col-md-6">
               <div class="card-body">
@@ -21,23 +21,17 @@
                     <td>
                       <p class="font-weight-bold">Name</p>
                     </td>
-                    <td><?= $getUser['NAMA_LENGKAP']; ?></td>
+                    <td><?= $getUser['nama_lengkap']; ?></td>
                   </tr>
                   <tr>
                     <td>
                       <p class="font-weight-bold">Email</p>
                     </td>
-                    <td><?= $getUser['EMAIL']; ?></td>
+                    <td><?= $getUser['email']; ?></td>
                   </tr>
-                  <tr>
-                    <td>
-                      <p class="font-weight-bold">Role</p>
-                    </td>
-                    <td><?= $getUser['NAMA_REV']; ?></td>
-                  </tr>
-                  <tr>
+                  <!-- <tr>
                     <td colspan="2"><a href="<?= base_url('profil/edit') ?>" class="btn btn-primary">Edit</a></td>
-                  </tr>
+                  </tr> -->
                 </table>
               </div>
             </div>
