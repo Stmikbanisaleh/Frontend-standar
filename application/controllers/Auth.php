@@ -120,11 +120,11 @@ class Auth extends CI_Controller
 
 			//siapkan token
 			$token = $this->_token();
-			// $user_token = [
-			// 	'EMAIL' => $email,
-			// 	'TOKEN' => $token,
-			// 	'DATE_CREATED' => time()
-			// ];
+			$user_token = [
+				'email' => $email,
+				'token' => $token,
+				'date_created' => time()
+			];
 
 			$regist = $this->lapan_api_library->call_gateway('usersv2/register', $data);
 
