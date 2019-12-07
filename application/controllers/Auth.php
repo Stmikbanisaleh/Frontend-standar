@@ -251,17 +251,21 @@ class Auth extends CI_Controller
 			$this->load->view('forgotpassword');
 		} else {
 			$email = $this->input->post('email');
-			$user = $this->db->get_where('msuserstandar', ['EMAIL' => $email, 'IS_ACTIVE' => 3])->row_array();
-
+			$data = [
+				'email' => $email,
+				'is_active' => 3
+			];
+			// $user = $this->db->get_where('msuserstandar', ['EMAIL' => $email, 'IS_ACTIVE' => 3])->row_array();
+			$user = $this->lapan_api_library->call_gateway('usersv2/getuserbyemail', $data);
+			$user = $user['rows'][0];
 			if ($user) {
 				$token = $this->_token();
 				$user_token = [
-					'EMAIL' => $email,
-					'TOKEN' => $token,
-					'DATE_CREATED' => time()
+					'email' => $email,
+					'token' => $token,
+					'date_created' => time()
 				];
-
-				$this->db->insert('msusertokenstd', $user_token);
+				$insert = $this->lapan_api_library->call_gateway('usersv2/inserttoken', $user_token);
 				$this->_send_email($token, 'forgot');
 				$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
             Periksa email untuk reset password!</div>');
@@ -278,15 +282,20 @@ class Auth extends CI_Controller
 	{
 		$email = $this->input->get('email');
 		$token = $this->input->get('token');
-
-		$user = $this->db->get_where('msuserstandar', ['EMAIL' => $email])->row_array();
-
+		$data = [
+			'email' => $email,
+		];
+		$user = $this->lapan_api_library->call_gateway('usersv2/getuserbyemail', $data);
+		// $user = $this->db->get_where('msuserstandar', ['EMAIL' => $email])->row_array();
+		$user = $user['rows'][0];
 		if ($user) {
-			$user_token  = $this->db->get_where('msusertokenstd', ['TOKEN' => $token])->row_array();
-
+			$user = $this->lapan_api_library->call_gateway('usersv2/getuserbyemail', $data);
+			$token = ['token' => $token];
+			$user_token  = $this->lapan_api_library->call_gateway('usersv2/gettokenstd', $token);
+			// print_r($user_token);exit;
 			if ($user_token) {
 				$this->session->set_userdata('reset_email', $email);
-				$this->changePassword();
+				$this->changePassword($email);
 			} else {
 				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
             Reset password gagal,token salah</div>');
@@ -301,9 +310,6 @@ class Auth extends CI_Controller
 
 	public function changepassword()
 	{
-		if (!$this->session->userdata('reset_email')) {
-			redirect('auth');
-		}
 
 		$this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[8]|matches[password2]');
 		$this->form_validation->set_rules('password2', 'Password Ulang', 'required|trim|min_length[8]|matches[password1]');
@@ -313,7 +319,7 @@ class Auth extends CI_Controller
 		} else {
 			$password = password_hash($this->input->post('password1'), PASSWORD_DEFAULT);
 			$email = $this->session->userdata('reset_email');
-
+			$user_token  = $this->lapan_api_library->call_gateway('usersv2/updatepassword', $token);
 			$this->db->set('PASSWORD', $password);
 			$this->db->where('EMAIL', $email);
 			$this->db->update('msuserstandar');
