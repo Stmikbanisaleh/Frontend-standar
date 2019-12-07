@@ -671,24 +671,7 @@ class Pengajuan extends CI_Controller
         $data['mtadopsi'] = $metodeadopsi;
         $status = $this->lapan_api_library->call('usulan/getstatus', ['token' => $this->session->userdata('token')]);
         $data['status'] = $status;
-        // $data['kmteknik'] = $this->mPengajuan->getKomiteTeknis();
-        // $data['jnperumusan'] = $this->mPengajuan->getJenisPerumusan();
-        // $data['jlperumusan'] = $this->mPengajuan->getJalurPerumusan();
-
-        // $data['jnadopsi'] = $this->mPengajuan->getJenisAdopsi();
-        // $data['mtadopsi'] = $this->mPengajuan->getMetodeAdopsi();
-        // $data['prusulansni'] = $this->mPengajuan->getProsesUsulanSNI();
-        // $data['prusulansl'] = $this->mPengajuan->getProsesUsulanSL();
-
-        // $data['jnstandar'] = $this->mPengajuan->getJenisStandar();
-        // $data['usulan'] = $this->mPengajuan->getUsulanById($id);
-        // $data['psni'] = $this->mPengajuan->getPerumusanSNI();
-        // $data['psl'] = $this->mPengajuan->getPerumusanSL();
-        // $data['perbaikan'] = $this->mPengajuan->getPerbaikanById($id);
-
-        // $data['status'] = $this->mPengajuan->getStatus();
         $email['email'] = $this->session->userdata('email');
-        // print_r($email);exit;
         $data['email'] = $email;
 
         if ($this->session->userdata('role_id') == 96 or $this->session->userdata('role_id') == 98) {
@@ -703,11 +686,10 @@ class Pengajuan extends CI_Controller
             $this->load->view('templates/footer');
         }
     }
-
+    //save proses usulan
     public function save_proses()
     {
         $id = $this->input->post('id');
-
         //Upload dokumen kebutuhan mendesak
         // $configskm['file_name']          = 'surat_kebutuhan_mendesak_' . $id;
         // $configskm['upload_path']          = './assets/dokumen/kebutuhan_mendesak/';
@@ -783,93 +765,94 @@ class Pengajuan extends CI_Controller
             'token' => $this->session->userdata('token'),
             'id' => $id
         ];
-
-
-        $post = $this->input->post();
         $update = $this->lapan_api_library->call('usulan/saveprosesusulan',$data);
-        if ($update['status'] == 200) {
+        if ($update) {
             for ($i = 1; $i <= 4; $i++) {
-                //Upload dokumen SURAT PENGANTAR
-                $configsp['file_name']          = 'surat_pengantar_' . $i . '_' . $id;
-                $configsp['upload_path']          = './assets/dokumen/perbaikan_usulan/';
-                $configsp['allowed_types']        = 'pdf';
-                $configsp['overwrite']        = TRUE;
-
-                $this->upload->initialize($configsp);
-                if ($this->upload->do_upload('surat_pengantar_' . $i)) {
-                    $sp[$i] = $this->upload->data('file_name');
-                } else {
-                    $sp[$i] = $this->input->post('sp_' . $i . '_lama');
+                if(!empty($_FILES['surat_pengantar_' . $i]['tmp_name']) && file_exists($_FILES['surat_pengantar_' . $i]['tmp_name'])) {
+                    $sp[$i] = 'surat_pengantar_' . $i . '_' . $id.'.pdf';
+                    $file_tmp = $_FILES['surat_pengantar_' . $i]['tmp_name'];
+                    $data = file_get_contents($file_tmp);
+                    $sp64[$i] = base64_encode($data);
+                }else {
+                    $sp[$i] = null;
+                    $sp64[$i] = null;
                 }
-
-                //upload dokumen rsni
-                $configrsni['file_name']          = 'rsni_' . $i . '_' . $id;
-                $configrsni['upload_path']          = './assets/dokumen/perbaikan_usulan/';
-                $configrsni['allowed_types']        = 'pdf';
-                $configrsni['overwrite']        = TRUE;
-
-                $this->upload->initialize($configrsni);
-                if (!empty($_FILES['rsni_' . $i]['name'])) {
-                    $this->upload->do_upload('rsni_' . $i);
-                    $rsni[$i] = $this->upload->data('file_name');
-                } else {
-                    $rsni[$i] = $this->input->post('rsni_' . $i . '_lama');
+                if(!empty($_FILES['rsni_' . $i]['tmp_name']) && file_exists($_FILES['rsni_' . $i]['tmp_name'])) {
+                    $rsni[$i] = 'rsni_' . $i . '_' . $id.'.pdf';
+                    $file_tmp = $_FILES['rsni_' . $i]['tmp_name'];
+                    $data = file_get_contents($file_tmp);
+                    $rsni64[$i] = base64_encode($data);
+                }else {
+                    $rsni[$i] = null;
+                    $rsni64[$i] = null;
                 }
-
-                //Upload Dokumen Notulensi
-                $confignotulensi['file_name']          = 'notulensi_' . $i . '_' . $id;
-                $confignotulensi['upload_path']          = './assets/dokumen/perbaikan_usulan/';
-                $confignotulensi['allowed_types']        = 'pdf';
-                $confignotulensi['overwrite']        = TRUE;
-
-                $this->upload->initialize($confignotulensi);
-                if (!empty($_FILES['notulensi_' . $i]['name'])) {
-                    $this->upload->do_upload('notulensi_' . $i);
-                    $notulensi[$i] = $this->upload->data('file_name');
-                } else {
-                    $notulensi[$i] = $this->input->post('notulensi_' . $i . '_lama');
+                if(!empty($_FILES['notulensi_' . $i]['tmp_name']) && file_exists($_FILES['notulensi_' . $i]['tmp_name'])) {
+                    $notulensi[$i] = 'notulensi_' . $i . '_' . $id.'.pdf';
+                    $file_tmp = $_FILES['notulensi_' . $i]['tmp_name'];
+                    $data = file_get_contents($file_tmp);
+                    $notulensi64[$i] = base64_encode($data);
+                }else {
+                    $notulensi[$i] = null;
+                    $notulensi64[$i] = null;
                 }
             }
 
             $dataper = [
                 'surat_pengantar_1' => $sp[1],
+                'surat_pengantar_164' => $sp64[1],
                 'surat_pengantar_2' => $sp[2],
+                'surat_pengantar_264' => $sp64[2],
                 'surat_pengantar_3' => $sp[3],
+                'surat_pengantar_364' => $sp64[3],
                 'surat_pengantar_4' => $sp[4],
+                'surat_pengantar_464' => $sp64[4],
                 'rsni_1' => $rsni[1],
+                'rsni_164' => $rsni64[1],
                 'rsni_2' => $rsni[2],
+                'rsni_264' => $rsni64[2],
                 'rsni_3' => $rsni[3],
+                'rsni_364' => $rsni64[3],
                 'rsni_4' => $rsni[4],
+                'rsni_464' => $rsni64[4],
                 'notulensi_1' => $notulensi[1],
+                'notulensi_164' => $notulensi64[1],
+                'notulensi_264' => $notulensi64[2],
+                'notulensi_364' => $notulensi64[3],
+                'notulensi_464' => $notulensi64[4],
                 'notulensi_2' => $notulensi[2],
                 'notulensi_3' => $notulensi[3],
-                'notulensi_4' => $notulensi[4]
+                'notulensi_4' => $notulensi[4],
+                'token' => $this->session->userdata('token'),
+                'id' => $id,
             ];
-            $this->db->where('ID_USULAN', $id);
-            $this->db->update('d_perbaikan', $dataper);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-            Usulan telah diproses!</div>');
-            redirect('pengajuan/monitoring_usulan');
-            die;
-
-            $this->db->where('ID_USULAN', $id);
-            $this->db->update('d_perbaikan', $dataper);
-
-
-            $tables = array('d_acuan_sni', 'd_acuan_nonsni', 'd_bibliografi', 'd_lpk');
-            $this->db->where('ID_USULAN', $id);
-            $this->db->delete($tables);
-
-
-
-
+            $update = $this->lapan_api_library->call('usulan/update_d_perbaikan',$dataper);
+            // print_r($dataper);exit;
+            if($update['status'] == 200 ){
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+                Usulan telah diproses!</div>');
+                redirect('pengajuan/monitoring_usulan');
+            }else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+                Usulan gagal diproses!</div>');
+                redirect('pengajuan/monitoring_usulan');
+            }
+            // $this->db->where('ID_USULAN', $id);
+            // $this->db->update('d_perbaikan', $dataper);
+            // $tables = ['d_acuan_sni' => 'd_acuan_sni', 'd_acuan_nonsni' => 'd_acuan_nonsni', 'd_bibliografi' => 
+            // 'd_bibliografi', 'd_lpk' => 'd_lpk','token' => $this->session->userdata('token'),'id' => $id];
+            // $delete = $this->lapan_api_library->call('usulan/delete_d_perbaikan', $tables);
+            // if($delete['status'] != 200){
+            //     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+            //     Usulan D Perbaikan gagal diproses!</div>');
+            //     redirect('pengajuan/monitoring_usulan');
+            // }
+            // $this->db->where('ID_USULAN', $id);
+            // $this->db->delete($tables);
             //Notifikasi email berdasarkan proses usulan
             $prosesusulan = $this->input->post('proses_usulan');
             $prosesusulansebelumnya = $this->input->post('proses_usulan_sebelumnya');
-
             //cek apakah ada perubahan status proses usulan,jika ada perubahan maka akan kirim notif email
             if ($prosesusulan != $prosesusulansebelumnya) {
-
                 switch ($prosesusulan) {
                     case "104":
                         $this->_send_email('snverdok');
@@ -903,12 +886,9 @@ class Pengajuan extends CI_Controller
                         break;
                 }
             }
-
-
             //Notifikasi email berdasarkan tahapan proses perumusan
             $prosesperumusan = $this->input->post('proses_perumusan');
             $prosesperumusansebelumnya = $this->input->post('proses_perumusan_sebelumnya');
-
             //cek apakah ada perubahan status proses perumusan,jika ada perubahan maka akan kirim notif email
             if ($prosesperumusan != $prosesperumusansebelumnya) {
                 switch ($prosesperumusan) {
@@ -962,8 +942,6 @@ class Pengajuan extends CI_Controller
                         break;
                 }
             }
-
-
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
             Usulan telah diproses!</div>');
             redirect('pengajuan/monitoring_usulan');
@@ -1023,7 +1001,7 @@ class Pengajuan extends CI_Controller
         $config1['overwrite']        = TRUE;
 
         if(!empty($_FILES['dok_detail_penelitian']['tmp_name']) && file_exists($_FILES['dok_detail_penelitian']['tmp_name'])) {
-            $dokdp = 'detail_penelitian_' . $time.'.pdf';
+            $dokdp = 'detail_penelitian_' . $id.'.pdf';
             $file_tmp = $_FILES['dok_detail_penelitian']['tmp_name'];
 			$data = file_get_contents($file_tmp);
 			$dok_detail_penelitian_base64 = base64_encode($data);

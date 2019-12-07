@@ -20,6 +20,7 @@ class Profil extends CI_Controller
 		$userId = $data['user']['ID'];
 		$data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
 		$this->load->model('User_model', 'usermod');
+		
 		$data['getUser'] = $this->usermod->getUserById($userId);
 		$data['getRoleStatus'] = $this->usermod->getUserRoleAndStatus();
 

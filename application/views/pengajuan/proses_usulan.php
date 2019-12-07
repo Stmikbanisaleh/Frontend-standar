@@ -61,7 +61,7 @@
                             <div class="col-xl-10">
                                 <form id="regForm" enctype="multipart/form-data" method="post" action="<?= base_url('pengajuan/save_proses'); ?>">
                                     <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>" style="display: none">
-                                    <input type="hidden" id="id" name="id" value="<?= $usulan['id']; ?>">
+                                    <input type="text" id="id" name="id" value="<?= $usulan['id']; ?>">
 
                                     <input type="hidden" name="judul" value="<?= $usulan['judul']; ?>">
                                     <input type="hidden" name="proses_usulan_sebelumnya" value="<?= $usulan['proses_usulan']; ?>">
@@ -240,7 +240,7 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/kesediaan_paten/') . $usulan['dok_kesediaan_paten'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= URL_API_DOWNLOAD.$usulan['dok_kesediaan_paten'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                 <td>
                                                                     <input type="file" name="dok_kesediaan_paten" data-plugin="dropify" data-height="60">
@@ -385,7 +385,7 @@
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['surat_pengantar_1'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                                    <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= URL_API_DOWNLOAD. $perbaikan['surat_pengantar_1'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                                     <td>
                                                                                         <input type="file" name="surat_pengantar_1" data-plugin="dropify" data-height="60">
@@ -412,7 +412,7 @@
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['rsni_1'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                                    <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= URL_API_DOWNLOAD. $perbaikan['rsni_1'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                                     <td>
                                                                                         <input type="file" name="rsni_1" data-plugin="dropify" data-height="60">
@@ -439,7 +439,7 @@
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['notulensi_1'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                                    <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= URL_API_DOWNLOAD. $perbaikan['notulensi_1'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                                     <td>
                                                                                         <input type="file" name="notulensi_1" data-plugin="dropify" data-height="60">
@@ -457,7 +457,7 @@
                                                             Download Dokumen Perbaikan <?= $jenis; ?> Tahap 1
                                                             <div class="col mb-25">
                                                                 <?php if ($perbaikan['dok_perbaikan_1']) { ?>
-                                                                    <a href="<?= base_url() ?>assets/dokumen/dokumen_perbaikan/<?= $perbaikan['dok_perbaikan_1']; ?>" target="_blank" class="btn btn-primary mb-15">
+                                                                    <a href="<?= URL_API_DOWNLOAD.$perbaikan['dok_perbaikan_1']; ?>" target="_blank" class="btn btn-primary mb-15">
                                                                         Download
                                                                     </a>
                                                                 <?php } else { ?>
@@ -481,7 +481,7 @@
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['surat_pengantar_2'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                                    <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= URL_API_DOWNLOAD.$perbaikan['surat_pengantar_2'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                                     <td>
                                                                                         <input type="file" name="surat_pengantar_2" data-plugin="dropify" data-height="60">
@@ -508,7 +508,7 @@
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['rsni_2'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                                    <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= URL_API_DOWNLOAD.$perbaikan['rsni_2'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                                     <td>
                                                                                         <input type="file" name="rsni_2" data-plugin="dropify" data-height="60">
@@ -535,7 +535,7 @@
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['notulensi_2'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                                    <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= URL_API_DOWNLOAD. $perbaikan['notulensi_2'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                                     <td>
                                                                                         <input type="file" name="notulensi_2" data-plugin="dropify" data-height="60">
@@ -553,7 +553,7 @@
                                                             Download Dokumen Perbaikan <?= $jenis; ?> Tahap 2
                                                             <div class="col my-5">
                                                                 <?php if ($perbaikan['dok_perbaikan_2']) { ?>
-                                                                    <a href="<?= base_url() ?>assets/dokumen/dokumen_perbaikan/<?= $perbaikan['dok_perbaikan_2']; ?>" target="_blank" class="btn btn-primary mb-15">
+                                                                    <a href="<?= URL_API_DOWNLOAD.$perbaikan['dok_perbaikan_2']; ?>" target="_blank" class="btn btn-primary mb-15">
                                                                         Download
                                                                     </a>
                                                                 <?php } else { ?>
@@ -583,7 +583,7 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['surat_pengantar_3'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= URL_API_DOWNLOAD.$perbaikan['surat_pengantar_3'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                 <td>
                                                                     <input type="file" name="surat_pengantar_3" data-plugin="dropify" data-height="60">
@@ -610,7 +610,7 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['rsni_3'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= URL_API_DOWNLOAD. $perbaikan['rsni_3'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                 <td>
                                                                     <input type="file" name="rsni_3" data-plugin="dropify" data-height="60">
@@ -637,7 +637,7 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['notulensi_3'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= URL_API_DOWNLOAD.$perbaikan['notulensi_3'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                 <td>
                                                                     <input type="file" name="notulensi_3" data-plugin="dropify" data-height="60">
@@ -679,7 +679,7 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['surat_pengantar_4'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= URL_API_DOWNLOAD.$perbaikan['surat_pengantar_4'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                 <td>
                                                                     <input type="file" name="surat_pengantar_4" data-plugin="dropify" data-height="60">
@@ -706,7 +706,7 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['rsni_4'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= URL_API_DOWNLOAD.$perbaikan['rsni_4'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                 <td>
                                                                     <input type="file" name="rsni_4" data-plugin="dropify" data-height="60">
@@ -733,7 +733,7 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['notulensi_4'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= URL_API_DOWNLOAD.$perbaikan['notulensi_4'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                 <td>
                                                                     <input type="file" name="notulensi_4" data-plugin="dropify" data-height="60">
@@ -751,7 +751,7 @@
                                         Download Dokumen Perbaikan <?= $jenis; ?> tahap 4
                                         <div class="col my-5">
                                             <?php if ($perbaikan['dok_perbaikan_4']) { ?>
-                                                <a href="<?= base_url() ?>assets/dokumen/dokumen_perbaikan/<?= $perbaikan['dok_perbaikan_4']; ?>" target="_blank" class="btn btn-primary mb-15">
+                                                <a href="<?= URL_API_DOWNLOAD.$perbaikan['dok_perbaikan_4']; ?>" target="_blank" class="btn btn-primary mb-15">
                                                     Download
                                                 </a>
                                             <?php } else { ?>
@@ -991,17 +991,17 @@
         x[n].style.display = "block";
         //... and fix the Previous/Next buttons:
         if (n == 0) {
-            document.getElementByid("prevBtn").style.display = "none";
+            document.getElementById("prevBtn").style.display = "none";
         } else {
-            document.getElementByid("prevBtn").style.display = "inline";
+            document.getElementById("prevBtn").style.display = "inline";
         }
         if (n == (x.length - 1)) {
-            document.getElementByid("nextBtn").innerHTML = "Submit";
+            document.getElementById("nextBtn").innerHTML = "Submit";
         } else {
-            document.getElementByid("nextBtn").innerHTML = "<i class='fa fa-chevron-circle-right'></i>";
+            document.getElementById("nextBtn").innerHTML = "<i class='fa fa-chevron-circle-right'></i>";
         }
         //... and run a function that will display the correct step indicator:
-        fixStepIndicator(n)
+        // fixStepIndicator(n)
     }
 
     function nextPrev(n) {
@@ -1017,7 +1017,7 @@
         // if you have reached the end of the form...
         if (currentTab >= x.length) {
             // ... the form gets submitted:
-            document.getElementByid("regForm").submit();
+            document.getElementById("regForm").submit();
             return false;
         }
         // Otherwise, display the correct tab:
@@ -1030,8 +1030,8 @@
         x = document.getElementsByClassName("tab");
         inp = x[currentTab].getElementsByClassName("inputfield");
         sel = x[currentTab].getElementsByClassName("selectfield");
-        j = document.getElementByid("judul");
-        u = document.getElementByid("unit_kerja");
+        j = document.getElementById("judul");
+        u = document.getElementById("unit_kerja");
         // A loop that checks every input field in the current tab:
         for (i = 0; i < inp.length; i++) {
             // If a field is empty...
