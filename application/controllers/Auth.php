@@ -102,36 +102,37 @@ class Auth extends CI_Controller
 			$this->load->view('registrasi', $data);
 		} else {
 			$data = [
-				'NO_KTP' => htmlspecialchars($this->input->post('no_ktp', true)),
-				'NAMA_LENGKAP' => htmlspecialchars($this->input->post('nama_lengkap', true)),
-				'EMAIL' => htmlspecialchars($this->input->post('email', true)),
-				'IMAGE' => 'default.jpg',
-				'PASSWORD' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
-				'NO_HANDPHONE' => htmlspecialchars($this->input->post('no_handphone', true)),
-				'FAX' => htmlspecialchars($this->input->post('fax', true)),
-				'ALAMAT' => htmlspecialchars($this->input->post('alamat', true)),
-				'ID_PROVINSI' => $this->input->post('id_provinsi', true),
-				'ID_KOTA' => $this->input->post('id_kota', true),
-				'IS_ACTIVE' => 4,
-				'ROLE_ID' => 97,
-				'DATE_CREATED' => time()
+				'no_ktp' => htmlspecialchars($this->input->post('no_ktp', true)),
+				'nama_lengkap' => htmlspecialchars($this->input->post('nama_lengkap', true)),
+				'email' => htmlspecialchars($this->input->post('email', true)),
+				'image' => 'default.jpg',
+				'password' => $this->input->post('password1'),
+				'no_handphone' => htmlspecialchars($this->input->post('no_handphone', true)),
+				'fax' => htmlspecialchars($this->input->post('fax', true)),
+				'alamat' => htmlspecialchars($this->input->post('alamat', true)),
+				'id_provinsi' => $this->input->post('id_provinsi', true),
+				'id_kota' => $this->input->post('id_kota', true),
+				'is_active' => 4,
+				'role_id' => 97,
+				'stakeholder' => $this->input->post('stakeholder')
 			];
-			$email = $this->input->post('email');
 
 
 			//siapkan token
 			$token = $this->_token();
-			$user_token = [
-				'EMAIL' => $email,
-				'TOKEN' => $token,
-				'DATE_CREATED' => time()
-			];
+			// $user_token = [
+			// 	'EMAIL' => $email,
+			// 	'TOKEN' => $token,
+			// 	'DATE_CREATED' => time()
+			// ];
 
-			$this->db->insert('msuserstandar', $data);
-			$this->db->insert('msusertokenstd', $user_token);
+			$regist = $this->lapan_api_library->call_gateway('usersv2/register', $data);
+
+			// $this->db->insert('msuserstandar', $data);
+			// $this->db->insert('msusertokenstd', $user_token);
 
 
-			$this->_send_email($token, 'verify');
+			// $this->_send_email($token, 'verify');
 
 			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
             Registrasi sukses! Mohon konfirmasi email</div>');

@@ -65,7 +65,7 @@
                             <div class="col-xl-8">
                                 <form id="regForm" enctype="multipart/form-data" method="post" action="<?= base_url('pengajuan/update'); ?>">
                                     <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>" style="display: none">
-                                    <input type="hidden" id="id" name="id" value="<?= $usulan['ID']; ?>">
+                                    <input type="hidden" id="id" name="id" value="<?= $usulan['id']; ?>">
 
                                     <!-- One "tab" for each step in the form: -->
                                     <?= $this->session->flashdata('message'); ?>
@@ -77,10 +77,10 @@
                                         <select id="jenis_standar" class="form-control my-10" onchange="changekomtek()" name="jenis_standar" value="<?= set_value('jenis_standar'); ?>">
                                             <?php foreach ($jnstandar as $js) : ?>
                                                 <?php
-                                                    if ($usulan['JENIS_STANDAR'] == $js['ID']) {
-                                                        echo '<option selected value="' . $js['ID'] . '">' . $js['NAMA_REV'] . '</option>';
+                                                    if ($usulan['jenis_standar'] == $js['id']) {
+                                                        echo '<option selected value="' . $js['id'] . '">' . $js['nama_rev'] . '</option>';
                                                     } else {
-                                                        echo '<option value="' . $js['ID'] . '">' . $js['NAMA_REV'] . '</option>';
+                                                        echo '<option value="' . $js['id'] . '">' . $js['nama_rev'] . '</option>';
                                                     }
                                                     ?>
                                             <?php endforeach; ?>
@@ -92,10 +92,10 @@
                                                 <option value="">Pilih Komite Teknis</option>
                                                 <?php foreach ($kmteknis as $kt) : ?>
                                                     <?php
-                                                        if ($usulan['KOMITE_TEKNIS'] == $kt['ID']) {
-                                                            echo '<option selected value="' . $kt['ID'] . '">' . $kt['NAMA_REV'] . '</option>';
+                                                        if ($usulan['komite_teknis'] == $kt['id']) {
+                                                            echo '<option selected value="' . $kt['id'] . '">' . $kt['nama_rev'] . '</option>';
                                                         } else {
-                                                            echo '<option data-chained="' . $kt['KETERANGAN'] . '" value="' . $kt['ID'] . '">' . $kt['NAMA_REV'] . '</option>';
+                                                            echo '<option data-chained="' . $kt['keterangan'] . '" value="' . $kt['id'] . '">' . $kt['nama_rev'] . '</option>';
                                                         }
                                                         ?>
                                                 <?php endforeach; ?>
@@ -113,17 +113,17 @@
                                                         <!--Tambah class selectfield untuk validasi-->
                                                         <select name='konseptor[<?= $i; ?>][nik]' class="selectfield form-control" id="nik_<?= $i; ?>">
                                                             <?php foreach ($gkonseptor as $gk) {
-                                                                    if ($dkon['NIK'] == $gk['NIK']) {
-                                                                        echo '<option selected value="' . $gk['NIK'] . '">' . $gk['NAMA'] . '</option>';
+                                                                    if ($dkon['nik'] == $gk['nik']) {
+                                                                        echo '<option selected value="' . $gk['nik'] . '">' . $gk['nama'] . '</option>';
                                                                     } else {
-                                                                        echo '<option value="' . $gk['NIK'] . '">' . $gk['NAMA'] . '</option>';
+                                                                        echo '<option value="' . $gk['nik'] . '">' . $gk['nama'] . '</option>';
                                                                     }
                                                                 } ?>
 
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="konseptor[<?= $i; ?>][instansi]" id="instansi_<?= $i; ?>" class="form-control" value="<?= $dkon['INSTANSI']; ?>"></td>
+                                                        <input type="text" name="konseptor[<?= $i; ?>][instansi]" id="instansi_<?= $i; ?>" class="form-control" value="<?= $dkon['instansi']; ?>"></td>
                                                     <td>
                                                         <?php if ($i != 1) { ?>
                                                             <button class='btn btn-sm btn-danger remRow'><i class='fa fa-trash'></i>
@@ -140,25 +140,25 @@
                                             <tr>
                                                 <td>
                                                     Nama
-                                                    <input type="text" class="form-control" name="nama_konseptor" id="namakonseptor" value="<?= $konsutama['NAMA']; ?>" placeholder="Nama Konseptor">
+                                                    <input type="text" class="form-control" name="nama_konseptor" id="namakonseptor" value="<?= $konsutama['nama']; ?>" placeholder="Nama Konseptor">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
                                                     Alamat
-                                                    <input type="text" class="form-control" name="alamat_konseptor" id="alamatkonseptor" value="<?= $konsutama['ALAMAT']; ?>" placeholder="Alamat Konseptor">
+                                                    <input type="text" class="form-control" name="alamat_konseptor" id="alamatkonseptor" value="<?= $konsutama['alamat']; ?>" placeholder="Alamat Konseptor">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
                                                     No. Telepon
-                                                    <input type="text" class="form-control" name="telepon_konseptor" id="teleponkonseptor" value="<?= $konsutama['TELEPON']; ?>" placeholder="Telepon Konseptor">
+                                                    <input type="text" class="form-control" name="telepon_konseptor" id="teleponkonseptor" value="<?= $konsutama['telepon']; ?>" placeholder="Telepon Konseptor">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
                                                     Email
-                                                    <input type="text" class="form-control" name="email_konseptor" id="emailkonseptor" value="<?= $konsutama['EMAIL']; ?>" placeholder="Email Konseptor">
+                                                    <input type="text" class="form-control" name="email_konseptor" id="emailkonseptor" value="<?= $konsutama['email']; ?>" placeholder="Email Konseptor">
                                                 </td>
                                             </tr>
                                         </table>
@@ -170,11 +170,11 @@
                                     </div>
                                     <div class="tab">
                                         Judul Standar
-                                        <textarea class="form-control mb-10" name="judul" placeholder="Judul Standar"><?= $usulan['JUDUL']; ?></textarea>
+                                        <textarea class="form-control mb-10" name="judul" placeholder="Judul Standar"><?= $usulan['judul']; ?></textarea>
                                         Ruang Lingkup
-                                        <textarea class="form-control mb-10" name="ruang_lingkup" placeholder="Ruang Lingkup"><?= $usulan['RUANG_LINGKUP']; ?></textarea>
+                                        <textarea class="form-control mb-10" name="ruang_lingkup" placeholder="Ruang Lingkup"><?= $usulan['ruang_lingkup']; ?></textarea>
                                         Informasi Detail Hasil Penelitian
-                                        <textarea class="form-control mb-10" name="detail_penelitian" placeholder="Berikan informasi detil, termasuk hasil penelitian atau kajian terhadap penerapan standar tersebut, jika perlu, tulis pada lembaran terpisah sebagai lampiran"><?= $usulan['DETAIL_PENELITIAN']; ?></textarea>
+                                        <textarea class="form-control mb-10" name="detail_penelitian" placeholder="Berikan informasi detil, termasuk hasil penelitian atau kajian terhadap penerapan standar tersebut, jika perlu, tulis pada lembaran terpisah sebagai lampiran"><?= $usulan['detail_penelitian']; ?></textarea>
 
                                         Upload Lampiran Detail Hasil Penelitian
                                         <table class="table">
@@ -187,11 +187,11 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/detail_penelitian/') . $usulan['DOK_DETAIL_PENELITIAN'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/detail_penelitian/') . $usulan['dok_detail_penelitian'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                 <td>
                                                     <input type="file" name="dok_detail_penelitian" data-plugin="dropify" data-height="60">
-                                                    <input type="hidden" name="dok_det_lama" value="<?= $usulan['DOK_DETAIL_PENELITIAN']; ?>">
+                                                    <input type="hidden" name="dok_det_lama" value="<?= $usulan['dok_detail_penelitian']; ?>">
                                                 </td>
                                             </tr>
                                         </table>
@@ -203,7 +203,7 @@
                                     </div>
                                     <div class="tab">
                                         Tujuan dan alasan spesifik mengenai perumusan yang akan dilakukan
-                                        <textarea class="form-control mb-10" name="tujuan_perumusan" placeholder="Tujuan dan alasan spesifikasi mengenai perumusan yang akan dilakukan (termasuk alasan dilakukan amandemen/revisi/ralat untuk standar)"><?= $usulan['TUJUAN_PERUMUSAN']; ?></textarea>
+                                        <textarea class="form-control mb-10" name="tujuan_perumusan" placeholder="Tujuan dan alasan spesifikasi mengenai perumusan yang akan dilakukan (termasuk alasan dilakukan amandemen/revisi/ralat untuk standar)"><?= $usulan['tujuan_perumusan']; ?></textarea>
 
                                         Pihak-pihak utama yang berkepentingan <button style="cursor:pointer;" type="button" class="btn btn-xs btn-primary my-5 add-pihak">
                                             <li class="fa fa-plus"></li>
@@ -213,7 +213,7 @@
                                                 <?php $i = 1; ?>
                                                 <?php foreach ($dberkepentingan as $bkp) { ?>
                                                     <tr>
-                                                        <td><input type="text" class="form-control" name="pihak[<?= $i; ?>][nama]" value="<?= $bkp['NAMA']; ?>"></td>
+                                                        <td><input type="text" class="form-control" name="pihak[<?= $i; ?>][nama]" value="<?= $bkp['nama']; ?>"></td>
                                                     </tr>
                                                     <?php $i++; ?>
                                                 <?php } ?>
@@ -230,7 +230,7 @@
                                                 <?php $i = 1; ?>
                                                 <?php foreach ($dmanfaat as $mnf) { ?>
                                                     <tr>
-                                                        <td><input type="text" class="form-control" name="manfaat[<?= $i; ?>][isi]" value="<?= $mnf['ISI']; ?>"></td>
+                                                        <td><input type="text" class="form-control" name="manfaat[<?= $i; ?>][isi]" value="<?= $mnf['isi']; ?>"></td>
                                                     </tr>
                                                     <?php $i++; ?>
                                                 <?php } ?>
@@ -241,7 +241,7 @@
 
                                         Apakah terdapat organisasi yang mendukung usulan perumusan standar ini? (tidak termasuk pihak pengusul)
                                         <select onchange="changediv6()" name="org_pendukung" id="organisasipendukung" class="form-control mb-10">
-                                            <?php if ($usulan['ORG_PENDUKUNG'] == 1) { ?>
+                                            <?php if ($usulan['org_pendukung'] == 1) { ?>
                                                 <option value="0">Tidak</option>
                                                 <option value="1" selected>Ya</option>
                                             <?php } else { ?>
@@ -251,7 +251,7 @@
                                         </select>
                                         <div class="row">
                                             <div class="col-10" id="divres6">
-                                                <?php if ($usulan['ORG_PENDUKUNG'] == 1) { ?>
+                                                <?php if ($usulan['org_pendukung'] == 1) { ?>
                                                     <table class="table">
                                                         <tr>
                                                             <td>
@@ -262,11 +262,11 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/lampiran_organisasi/') . $usulan['DOK_ORG_PENDUKUNG'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                            <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/lampiran_organisasi/') . $usulan['dok_org_pendukung'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                             <td>
                                                                 <input type="file" name="dok_org_pendukung" data-plugin="dropify" data-height="60">
-                                                                <input type="hidden" name="dok_org_lama" value="<?= $usulan['DOK_ORG_PENDUKUNG']; ?>">
+                                                                <input type="hidden" name="dok_org_lama" value="<?= $usulan['dok_org_pendukung']; ?>">
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -284,7 +284,7 @@
                                             <li class="fa fa-download"></li> Format
                                         </a>
                                         <div class="col-lg-10 my-5">
-                                            <?php if ($usulan['SURAT_PENGAJUAN'] != '') { ?>
+                                            <?php if ($usulan['surat_pengajuan'] != '') { ?>
                                                 <table class="table">
                                                     <tr>
                                                         <td>
@@ -295,11 +295,11 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/surat_pengajuan/') . $usulan['SURAT_PENGAJUAN'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                        <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/surat_pengajuan/') . $usulan['surat_pengajuan'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                         <td>
                                                             <input type="file" name="surat_pengajuan" data-plugin="dropify" data-height="60">
-                                                            <input type="hidden" name="dok_srp_lama" value="<?= $usulan['SURAT_PENGAJUAN']; ?>">
+                                                            <input type="hidden" name="dok_srp_lama" value="<?= $usulan['surat_pengajuan']; ?>">
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -312,7 +312,7 @@
                                             <li class="fa fa-download"></li> Format
                                         </a>
                                         <div class="col-lg-10 my-5">
-                                            <?php if ($usulan['OUTLINE'] != '') { ?>
+                                            <?php if ($usulan['outline'] != '') { ?>
                                                 <table class="table">
                                                     <tr>
                                                         <td>
@@ -323,11 +323,11 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/outline/') . $usulan['OUTLINE'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                        <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/outline/') . $usulan['outline'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                         <td>
                                                             <input type="file" name="outline" data-plugin="dropify" data-height="60">
-                                                            <input type="hidden" name="dok_out_lama" value="<?= $usulan['OUTLINE']; ?>">
+                                                            <input type="hidden" name="dok_out_lama" value="<?= $usulan['outline']; ?>">
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -350,7 +350,7 @@
                                                 <?php $i = 1; ?>
                                                 <?php foreach ($dregulasi as $drg) { ?>
                                                     <tr>
-                                                        <td><input type="text" class="form-control" name="regulasi[<?= $i; ?>][nama]" value="<?= $drg['NAMA']; ?>"></td>
+                                                        <td><input type="text" class="form-control" name="regulasi[<?= $i; ?>][nama]" value="<?= $drg['nama']; ?>"></td>
                                                     </tr>
                                                     <?php $i++; ?>
                                                 <?php } ?>
@@ -367,7 +367,7 @@
                                                 <?php $i = 1; ?>
                                                 <?php foreach ($dsni as $dsn) { ?>
                                                     <tr>
-                                                        <td><input type="text" class="form-control" name="acuansni[<?= $i; ?>][nama]" value="<?= $dsn['NAMA']; ?>"></td>
+                                                        <td><input type="text" class="form-control" name="acuansni[<?= $i; ?>][nama]" value="<?= $dsn['nama']; ?>"></td>
                                                     </tr>
                                                     <?php $i++; ?>
                                                 <?php } ?>
@@ -384,7 +384,7 @@
                                                 <?php $i = 1; ?>
                                                 <?php foreach ($dnonsni as $dnsn) { ?>
                                                     <tr>
-                                                        <td><input type="text" class="form-control" name="acuannonsni[<?= $i; ?>][nama]" value="<?= $dnsn['NAMA']; ?>"></td>
+                                                        <td><input type="text" class="form-control" name="acuannonsni[<?= $i; ?>][nama]" value="<?= $dnsn['nama']; ?>"></td>
                                                     </tr>
                                                     <?php $i++; ?>
                                                 <?php } ?>
@@ -401,7 +401,7 @@
                                                 <?php $i = 1; ?>
                                                 <?php foreach ($dbibliografi as $dbib) { ?>
                                                     <tr>
-                                                        <td><input type="text" class="form-control" name="bibliografi[<?= $i; ?>][nama]" value="<?= $dbib['NAMA']; ?>"></td>
+                                                        <td><input type="text" class="form-control" name="bibliografi[<?= $i; ?>][nama]" value="<?= $dbib['nama']; ?>"></td>
                                                     </tr>
                                                     <?php $i++; ?>
                                                 <?php } ?>
@@ -418,7 +418,7 @@
                                                 <?php $i = 1; ?>
                                                 <?php foreach ($dlpk as $dlp) { ?>
                                                     <tr>
-                                                        <td><input type="text" class="form-control" name="lpk[<?= $i; ?>][nama]" value="<?= $dlp['NAMA']; ?>"></td>
+                                                        <td><input type="text" class="form-control" name="lpk[<?= $i; ?>][nama]" value="<?= $dlp['nama']; ?>"></td>
                                                     </tr>
                                                     <?php $i++; ?>
                                                 <?php } ?>
