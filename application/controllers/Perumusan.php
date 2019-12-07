@@ -10,7 +10,7 @@ class Perumusan extends CI_Controller
         if (!$this->session->userdata('email')) {
             redirect('auth');
         }
-        $this->load->model('Perumusan_model', 'mPerumusan');
+        // $this->load->model('Perumusan_model', 'mPerumusan');
     }
 
     public function index()

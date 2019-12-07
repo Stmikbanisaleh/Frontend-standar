@@ -10,8 +10,8 @@ class Pengajuan extends CI_Controller
         if (!$this->session->userdata('email')) {
             redirect('auth');
         }
-        // $this->load->library('upload');
-        // $this->load->model('Pengajuan_model', 'mPengajuan');
+        $this->load->library('upload');
+        $this->load->model('Pengajuan_model', 'mPengajuan');
     }
 
     public function index()
