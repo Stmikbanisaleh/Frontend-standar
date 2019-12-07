@@ -10,8 +10,8 @@ class Pengajuan extends CI_Controller
         if (!$this->session->userdata('email')) {
             redirect('auth');
         }
-        // $this->load->library('upload');
-        // $this->load->model('Pengajuan_model', 'mPengajuan');
+        $this->load->library('upload');
+        $this->load->model('Pengajuan_model', 'mPengajuan');
     }
 
     public function index()
@@ -574,11 +574,7 @@ class Pengajuan extends CI_Controller
     //User Sekretariat
     public function monitoring_usulan()
     {
-        $data['user'] = $this->db->get_where('msuserstandar', ['EMAIL' =>
-        $this->session->userdata('email')])->row_array();
-
-        $roleId = $data['user']['ROLE_ID'];
-        $data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
+        $roleId = $this->session->userdata('role_id');
 
         $data['diajukan'] = $this->mPengajuan->getUsulanDiajukan();
         $data['ditolak'] = $this->mPengajuan->getUsulanDitolak();

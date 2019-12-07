@@ -51,14 +51,14 @@
                                                         <?php foreach ($diajukan as $d2) { ?>
                                                             <tr>
                                                                 <td><?= $i; ?></td>
-                                                                <td><?= date('d-m-Y', strtotime($d2['TGL_INPUT'])); ?></td>
+                                                                <td><?= date('d-m-Y', strtotime($d2['tgl_input'])); ?></td>
                                                                 <td><?= $d2['JENIS_PERUMUSAN']; ?></td>
                                                                 <td><?= $d2['KOMTEK']; ?></td>
-                                                                <td><?= $d2['JUDUL']; ?></td>
+                                                                <td><?= $d2['judul']; ?></td>
                                                                 <td></td>
                                                                 <td></td>
                                                                 <td>
-                                                                    <a href="<?= base_url() ?>pengajuan/proses_usulan/<?= $d2['ID']; ?>" class="btn btn-xs btn-primary" value="<?= $d2['ID'] ?>;"><i class="fa fa-pencil"></i></a>
+                                                                    <a href="<?= base_url() ?>pengajuan/proses_usulan/<?= $d2['id']; ?>" class="btn btn-xs btn-primary" value="<?= $d2['id'] ?>;"><i class="fa fa-pencil"></i></a>
                                                                 </td>
                                                             </tr>
                                                             <?php $i++; ?>
