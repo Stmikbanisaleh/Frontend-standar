@@ -10,27 +10,20 @@ class Pembatalan extends CI_Controller
         if (!$this->session->userdata('email')) {
             redirect('auth');
         }
-        $this->load->library('upload');
-        $this->load->model('Pembatalan_model', 'mPembatalan');
     }
 
     public function index()
     {
-        $data['user'] = $this->db->get_where('msuserstandar', ['EMAIL' =>
-        $this->session->userdata('email')])->row_array();
-
-        $roleId = $data['user']['ROLE_ID'];
-        $data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
-
-        $data['ditolak'] = $this->mPembatalan->getUsulanDitolak();
-
-        if ($roleId == 96 or $roleId == 98) {
-            $this->load->view('templates/header', $data);
+        // $data['ditolak'] = $this->mPembatalan->getUsulanDitolak();
+        $ditolak = $this->lapan_api_library->call('usulan/getusulanditolak', ['token' => $this->session->userdata('token')]);
+        $data['ditolak'] = $ditolak;
+        if ($this->session->userdata('role_id') == 96 or $this->session->userdata('role_id') == 98) {
+            $this->load->view('templates/header');
             $this->load->view('templates/side_menu');
             $this->load->view('pembatalan/pembatalan_usulan', $data);
             $this->load->view('templates/footer');
         } else {
-            $this->load->view('templates/header', $data);
+            $this->load->view('templates/header');
             $this->load->view('templates/side_menu');
             $this->load->view('403.html');
             $this->load->view('templates/footer');
@@ -39,15 +32,10 @@ class Pembatalan extends CI_Controller
 
     public function add()
     {
-        $data['user'] = $this->db->get_where('msuserstandar', ['EMAIL' =>
-        $this->session->userdata('email')])->row_array();
+        $usulan = $this->lapan_api_library->call('usulan/getusulandiajukan', ['token' => $this->session->userdata('token')]);
+        $data['usulan'] = $usulan;
 
-        $roleId = $data['user']['ROLE_ID'];
-        $data['role'] = $this->db->get_where('msrev', array('ID' => $roleId))->row_array();
-
-        $data['usulan'] = $this->mPembatalan->getUsulan();
-
-        $this->load->view('templates/header', $data);
+        $this->load->view('templates/header');
         $this->load->view('templates/side_menu');
         $this->load->view('pembatalan/add', $data);
         $this->load->view('templates/footer');
@@ -62,29 +50,43 @@ class Pembatalan extends CI_Controller
         $Y = date('Y');
         $tgl = $d . '-' . $m . '-' . $Y;
 
-        //Upload dokumen surat resmi pembatalan
-        $config1['file_name']          = 'surat_pembatalan_' . $idusulan . '_' . $tgl;
+        // Upload dokumen surat resmi pembatalan
+        $filename = 'surat_pembatalan_' . $idusulan . '_' . $tgl;
         $config1['upload_path']          = './assets/dokumen/surat_pembatalan/';
         $config1['allowed_types']        = 'pdf';
         $config1['overwrite']        = TRUE;
 
-        $this->upload->initialize($config1);
+        // $this->upload->initialize($config1);
 
-        if ($this->upload->do_upload('dok_pembatalan')) {
-            $dokpembatalan = $this->upload->data('file_name');
-        } else {
-            $dokpembatalan = '';
+        // if ($this->upload->do_upload('dok_pembatalan')) {
+        //     $dokpembatalan = $this->upload->data('file_name');
+        // } else {
+        //     $dokpembatalan = '';
+        // }
+        if(!empty($_FILES['dok_pembatalan']['tmp_name']) && file_exists($_FILES['dok_pembatalan']['tmp_name'])) {
+            $dokdp = 'surat_pembatalan_' . $idusulan.'_'.$tgl.'.pdf';
+            $file_tmp = $_FILES['dok_pembatalan']['tmp_name'];
+			$data = file_get_contents($file_tmp);
+			$dokpembatalan64 = base64_encode($data);
+        }else {
+            $dokdp ='';
         }
 
         $data = [
-            'STATUS' => 101,
-            'ALASAN_PENOLAKAN' => $this->input->post('alasan'),
-            'DOK_PEMBATALAN' => $dokpembatalan
+            'status' => 101,
+            'id' => $idusulan,
+            'alasan_penolakan' => $this->input->post('alasan'),
+            'dok_pembatalan' => $dokdp,
+            'dok_pembatalan64' => $dokpembatalan64,
+            'token' => $this->session->userdata('token')
         ];
-
-        $this->db->where('ID', $idusulan);
-        $this->db->update('msusulan', $data);
-        redirect('pembatalan');
+        $insert = $this->lapan_api_library->call('usulan/savepembatalan',$data);
+        if($insert['status'] ==200){
+            redirect('pembatalan');
+        } else {
+            print_r('Gagal Uplaod');
+        }
+    
     }
 
     private function _send_email($type)

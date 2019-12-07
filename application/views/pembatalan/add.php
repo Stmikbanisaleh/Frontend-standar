@@ -31,7 +31,7 @@
                                     <select id="id_usulan" onchange="gantiJenis()" class="form-control my-10" name="id_usulan" value="<?= set_value('id_usulan'); ?>">
                                         <option value="">Pilih Judul Standar</option>
                                         <?php foreach ($usulan as $usul) : ?>
-                                            <option value="<?= $usul['ID']; ?>"><?= $usul['JUDUL'] ?></option>
+                                            <option value="<?= $usul['id']; ?>"><?= $usul['judul'] ?></option>
                                         <?php endforeach; ?>
                                     </select>
 

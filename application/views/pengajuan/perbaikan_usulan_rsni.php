@@ -61,7 +61,7 @@
                             <div class="col-xl-8">
                                 <form id="regForm" enctype="multipart/form-data" method="post" action="<?= base_url('pengajuan/save_perbaikan'); ?>">
                                     <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>" style="display: none">
-                                    <input type="hidden" id="id" name="id" value="<?= $usulan['ID']; ?>">
+                                    <input type="hidden" id="id" name="id" value="<?= $usulan['id']; ?>">
                                     <!-- One "tab" for each step in the form: -->
                                     <?= $this->session->flashdata('message'); ?>
 
@@ -74,8 +74,8 @@
                                                     Surat Pengantar
                                                 </td>
                                                 <td>
-                                                    <?php if ($perbaikan['SURAT_PENGANTAR_1']) { ?>
-                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['SURAT_PENGANTAR_1']; ?>" target="_blank">Download</a>
+                                                    <?php if ($perbaikan['surat_pengantar_1']) { ?>
+                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['surat_pengantar_1']; ?>" target="_blank">Download</a>
                                                     <?php } else { ?>
                                                         <a class="btn btn-xs btn-danger disabled" href="#">Dokumen tidak tersedia</a>
                                                     <?php } ?>
@@ -86,8 +86,8 @@
                                                     RSNI
                                                 </td>
                                                 <td>
-                                                    <?php if ($perbaikan['RSNI_1']) { ?>
-                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['RSNI_1']; ?>" target="_blank">Download</a>
+                                                    <?php if ($perbaikan['rsni_1']) { ?>
+                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['rsni_1']; ?>" target="_blank">Download</a>
                                                     <?php } else { ?>
                                                         <a class="btn btn-xs btn-danger disabled" href="#">Dokumen tidak tersedia</a>
                                                     <?php } ?>
@@ -98,8 +98,8 @@
                                                     Notulensi
                                                 </td>
                                                 <td>
-                                                    <?php if ($perbaikan['NOTULENSI_1']) { ?>
-                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['NOTULENSI_1']; ?>" target="_blank">Download</a>
+                                                    <?php if ($perbaikan['notulensi_1']) { ?>
+                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['notulensi_1']; ?>" target="_blank">Download</a>
                                                     <?php } else { ?>
                                                         <a class="btn btn-xs btn-danger disabled" href="#">Dokumen tidak tersedia</a>
                                                     <?php } ?>
@@ -109,8 +109,8 @@
 
                                         Upload Perbaikan RSNI Tahap 1
                                         <div class="col my-5">
-                                            <?php if ($perbaikan['SURAT_PENGANTAR_1'] != '' or $perbaikan['RSNI_1'] != '') { ?>
-                                                <?php if ($perbaikan['DOK_PERBAIKAN_1'] != '') { ?>
+                                            <?php if ($perbaikan['surat_pengantar_1'] != '' or $perbaikan['rsni_1'] != '') { ?>
+                                                <?php if ($perbaikan['dok_perbaikan_1'] != '') { ?>
                                                     <table class="table">
                                                         <tr>
                                                             <td>
@@ -121,11 +121,11 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['DOK_PERBAIKAN_1'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                            <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['dok_perbaikan_1'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                             <td>
                                                                 <input type="file" name="dok_perbaikan_1" data-plugin="dropify" data-height="60">
-                                                                <input type="hidden" name="dok_1_lama" value="<?= $perbaikan['DOK_PERBAIKAN_1']; ?>">
+                                                                <input type="hidden" name="dok_1_lama" value="<?= $perbaikan['dok_perbaikan_1']; ?>">
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -144,8 +144,8 @@
                                                     Surat Pengantar
                                                 </td>
                                                 <td>
-                                                    <?php if ($perbaikan['SURAT_PENGANTAR_2']) { ?>
-                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['SURAT_PENGANTAR_2']; ?>" target="_blank">Download</a>
+                                                    <?php if ($perbaikan['surat_pengantar_2']) { ?>
+                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['surat_pengantar_2']; ?>" target="_blank">Download</a>
                                                     <?php } else { ?>
                                                         <a class="btn btn-xs btn-danger disabled" href="#">Dokumen tidak tersedia</a>
                                                     <?php } ?>
@@ -156,8 +156,8 @@
                                                     RSNI
                                                 </td>
                                                 <td>
-                                                    <?php if ($perbaikan['RSNI_2']) { ?>
-                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['RSNI_2']; ?>" target="_blank">Download</a>
+                                                    <?php if ($perbaikan['rsni_2']) { ?>
+                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['rsni_2']; ?>" target="_blank">Download</a>
                                                     <?php } else { ?>
                                                         <a class="btn btn-xs btn-danger disabled" href="#">Dokumen tidak tersedia</a>
                                                     <?php } ?>
@@ -168,8 +168,8 @@
                                                     Notulensi
                                                 </td>
                                                 <td>
-                                                    <?php if ($perbaikan['NOTULENSI_2']) { ?>
-                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['NOTULENSI_2']; ?>" target="_blank">Download</a>
+                                                    <?php if ($perbaikan['notulensi_2']) { ?>
+                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['notulensi_2']; ?>" target="_blank">Download</a>
                                                     <?php } else { ?>
                                                         <a class="btn btn-xs btn-danger disabled" href="#">Dokumen tidak tersedia</a>
                                                     <?php } ?>
@@ -179,8 +179,8 @@
 
                                         Upload Perbaikan RSNI Tahap 2
                                         <div class="col my-5">
-                                            <?php if ($perbaikan['SURAT_PENGANTAR_2'] != '' or $perbaikan['RSNI_2'] != '') { ?>
-                                                <?php if ($perbaikan['DOK_PERBAIKAN_2'] != '') { ?>
+                                            <?php if ($perbaikan['surat_pengantar_2'] != '' or $perbaikan['rsni_2'] != '') { ?>
+                                                <?php if ($perbaikan['dok_perbaikan_2'] != '') { ?>
                                                     <table class="table">
                                                         <tr>
                                                             <td>
@@ -191,11 +191,11 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['DOK_PERBAIKAN_2'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                            <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['dok_perbaikan_2'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                             <td>
                                                                 <input type="file" name="dok_perbaikan_2" data-plugin="dropify" data-height="60">
-                                                                <input type="hidden" name="dok_2_lama" value="<?= $perbaikan['DOK_PERBAIKAN_2']; ?>">
+                                                                <input type="hidden" name="dok_2_lama" value="<?= $perbaikan['dok_perbaikan_2']; ?>">
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -220,8 +220,8 @@
                                                     Surat Pengantar
                                                 </td>
                                                 <td>
-                                                    <?php if ($perbaikan['SURAT_PENGANTAR_3']) { ?>
-                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['SURAT_PENGANTAR_3']; ?>" target="_blank">Download</a>
+                                                    <?php if ($perbaikan['surat_pengantar_3']) { ?>
+                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['surat_pengantar_3']; ?>" target="_blank">Download</a>
                                                     <?php } else { ?>
                                                         <a class="btn btn-xs btn-danger disabled" href="#">Dokumen tidak tersedia</a>
                                                     <?php } ?>
@@ -232,8 +232,8 @@
                                                     RSNI
                                                 </td>
                                                 <td>
-                                                    <?php if ($perbaikan['RSNI_3']) { ?>
-                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['RSNI_3']; ?>" target="_blank">Download</a>
+                                                    <?php if ($perbaikan['rsni_3']) { ?>
+                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['rsni_3']; ?>" target="_blank">Download</a>
                                                     <?php } else { ?>
                                                         <a class="btn btn-xs btn-danger disabled" href="#">Dokumen tidak tersedia</a>
                                                     <?php } ?>
@@ -244,8 +244,8 @@
                                                     Notulensi
                                                 </td>
                                                 <td>
-                                                    <?php if ($perbaikan['NOTULENSI_3']) { ?>
-                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['NOTULENSI_3']; ?>" target="_blank">Download</a>
+                                                    <?php if ($perbaikan['notulensi_3']) { ?>
+                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['notulensi_3']; ?>" target="_blank">Download</a>
                                                     <?php } else { ?>
                                                         <a class="btn btn-xs btn-danger disabled" href="#">Dokumen tidak tersedia</a>
                                                     <?php } ?>
@@ -255,8 +255,8 @@
 
                                         Upload Perbaikan RSNI Tahap 3
                                         <div class="col my-5">
-                                            <?php if ($perbaikan['SURAT_PENGANTAR_3'] != '' or $perbaikan['RSNI_3'] != '') { ?>
-                                                <?php if ($perbaikan['DOK_PERBAIKAN_3'] != '') { ?>
+                                            <?php if ($perbaikan['surat_pengantar_3'] != '' or $perbaikan['rsni_3'] != '') { ?>
+                                                <?php if ($perbaikan['dok_perbaikan_3'] != '') { ?>
                                                     <table class="table">
                                                         <tr>
                                                             <td>
@@ -267,11 +267,11 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['DOK_PERBAIKAN_3'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                            <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['dok_perbaikan_3'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                             <td>
                                                                 <input type="file" name="dok_perbaikan_3" data-plugin="dropify" data-height="60">
-                                                                <input type="hidden" name="dok_3_lama" value="<?= $perbaikan['DOK_PERBAIKAN_3']; ?>">
+                                                                <input type="hidden" name="dok_3_lama" value="<?= $perbaikan['dok_perbaikan_3']; ?>">
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -290,8 +290,8 @@
                                                     Surat Pengantar
                                                 </td>
                                                 <td>
-                                                    <?php if ($perbaikan['SURAT_PENGANTAR_4']) { ?>
-                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['SURAT_PENGANTAR_4']; ?>" target="_blank">Download</a>
+                                                    <?php if ($perbaikan['surat_pengantar_4']) { ?>
+                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['surat_pengantar_4']; ?>" target="_blank">Download</a>
                                                     <?php } else { ?>
                                                         <a class="btn btn-xs btn-danger disabled" href="#">Dokumen tidak tersedia</a>
                                                     <?php } ?>
@@ -302,8 +302,8 @@
                                                     RSNI
                                                 </td>
                                                 <td>
-                                                    <?php if ($perbaikan['RSNI_4']) { ?>
-                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['RSNI_4']; ?>" target="_blank">Download</a>
+                                                    <?php if ($perbaikan['rsni_4']) { ?>
+                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['rsni_4']; ?>" target="_blank">Download</a>
                                                     <?php } else { ?>
                                                         <a class="btn btn-xs btn-danger disabled" href="#">Dokumen tidak tersedia</a>
                                                     <?php } ?>
@@ -314,8 +314,8 @@
                                                     Notulensi
                                                 </td>
                                                 <td>
-                                                    <?php if ($perbaikan['NOTULENSI_4']) { ?>
-                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['NOTULENSI_4']; ?>" target="_blank">Download</a>
+                                                    <?php if ($perbaikan['notulensi_4']) { ?>
+                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['notulensi_4']; ?>" target="_blank">Download</a>
                                                     <?php } else { ?>
                                                         <a class="btn btn-xs btn-danger disabled" href="#">Dokumen tidak tersedia</a>
                                                     <?php } ?>
@@ -325,8 +325,8 @@
 
                                         Upload Perbaikan RSNI Tahap 4
                                         <div class="col my-5">
-                                            <?php if ($perbaikan['SURAT_PENGANTAR_4'] != '' or $perbaikan['RSNI_4'] != '') { ?>
-                                                <?php if ($perbaikan['DOK_PERBAIKAN_4'] != '') { ?>
+                                            <?php if ($perbaikan['surat_pengantar_4'] != '' or $perbaikan['rsni_4'] != '') { ?>
+                                                <?php if ($perbaikan['dok_perbaikan_4'] != '') { ?>
                                                     <table class="table">
                                                         <tr>
                                                             <td>
@@ -337,11 +337,11 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['DOK_PERBAIKAN_4'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                            <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['dok_perbaikan_4'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                             <td>
                                                                 <input type="file" name="dok_perbaikan_4" data-plugin="dropify" data-height="60">
-                                                                <input type="hidden" name="dok_4_lama" value="<?= $perbaikan['DOK_PERBAIKAN_4']; ?>">
+                                                                <input type="hidden" name="dok_4_lama" value="<?= $perbaikan['dok_perbaikan_4']; ?>">
                                                             </td>
                                                         </tr>
                                                     </table>

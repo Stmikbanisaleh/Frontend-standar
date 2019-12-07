@@ -61,7 +61,7 @@
                             <div class="col-xl-8">
                                 <form id="regForm" enctype="multipart/form-data" method="post" action="<?= base_url('pengajuan/save_perbaikan'); ?>">
                                     <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>" style="display: none">
-                                    <input type="hidden" id="id" name="id" value="<?= $usulan['ID']; ?>">
+                                    <input type="hidden" id="id" name="id" value="<?= $usulan['id']; ?>">
                                     <!-- One "tab" for each step in the form: -->
                                     <?= $this->session->flashdata('message'); ?>
 
@@ -74,8 +74,8 @@
                                                     RSL
                                                 </td>
                                                 <td>
-                                                    <?php if ($perbaikan['RSNI_1']) { ?>
-                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['RSNI_1']; ?>" target="_blank">Download</a>
+                                                    <?php if ($perbaikan['rsni_1']) { ?>
+                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['rsni_1']; ?>" target="_blank">Download</a>
                                                     <?php } else { ?>
                                                         <a class="btn btn-xs btn-danger disabled" href="#">Dokumen tidak tersedia</a>
                                                     <?php } ?>
@@ -86,8 +86,8 @@
                                                     Notulensi
                                                 </td>
                                                 <td>
-                                                    <?php if ($perbaikan['NOTULENSI_1']) { ?>
-                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['NOTULENSI_1']; ?>" target="_blank">Download</a>
+                                                    <?php if ($perbaikan['notulensi_1']) { ?>
+                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['notulensi_1']; ?>" target="_blank">Download</a>
                                                     <?php } else { ?>
                                                         <a class="btn btn-xs btn-danger disabled" href="#">Dokumen tidak tersedia</a>
                                                     <?php } ?>
@@ -97,8 +97,8 @@
 
                                         Upload Perbaikan RSL Tahap 1
                                         <div class="col my-5">
-                                            <?php if ($perbaikan['SURAT_PENGANTAR_1'] != '' or $perbaikan['RSNI_1'] != '') { ?>
-                                                <?php if ($perbaikan['DOK_PERBAIKAN_1'] != '') { ?>
+                                            <?php if ($perbaikan['surat_pengantar_1'] != '' or $perbaikan['rsni_1'] != '') { ?>
+                                                <?php if ($perbaikan['dok_perbaikan_1'] != '') { ?>
                                                     <table class="table">
                                                         <tr>
                                                             <td>
@@ -109,11 +109,11 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['DOK_PERBAIKAN_1'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                            <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['dok_perbaikan_1'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                             <td>
                                                                 <input type="file" name="dok_perbaikan_1" data-plugin="dropify" data-height="60">
-                                                                <input type="hidden" name="dok_1_lama" value="<?= $perbaikan['DOK_PERBAIKAN_1']; ?>">
+                                                                <input type="hidden" name="dok_1_lama" value="<?= $perbaikan['dok_perbaikan_1']; ?>">
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -132,8 +132,8 @@
                                                     RSL
                                                 </td>
                                                 <td>
-                                                    <?php if ($perbaikan['RSNI_2']) { ?>
-                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['RSNI_2']; ?>" target="_blank">Download</a>
+                                                    <?php if ($perbaikan['rsni_2']) { ?>
+                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['rsni_2']; ?>" target="_blank">Download</a>
                                                     <?php } else { ?>
                                                         <a class="btn btn-xs btn-danger disabled" href="#">Dokumen tidak tersedia</a>
                                                     <?php } ?>
@@ -144,8 +144,8 @@
                                                     Notulensi
                                                 </td>
                                                 <td>
-                                                    <?php if ($perbaikan['NOTULENSI_2']) { ?>
-                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['NOTULENSI_2']; ?>" target="_blank">Download</a>
+                                                    <?php if ($perbaikan['notulensi_2']) { ?>
+                                                        <a class="btn btn-xs btn-primary" href="<?= base_url() ?>assets/dokumen/perbaikan_usulan/<?= $perbaikan['notulensi_2']; ?>" target="_blank">Download</a>
                                                     <?php } else { ?>
                                                         <a class="btn btn-xs btn-danger disabled" href="#">Dokumen tidak tersedia</a>
                                                     <?php } ?>
@@ -155,8 +155,8 @@
 
                                         Upload Perbaikan RSL Tahap 2
                                         <div class="col my-5">
-                                            <?php if ($perbaikan['SURAT_PENGANTAR_2'] != '' or $perbaikan['RSNI_2'] != '') { ?>
-                                                <?php if ($perbaikan['DOK_PERBAIKAN_2'] != '') { ?>
+                                            <?php if ($perbaikan['surat_pengantar_2'] != '' or $perbaikan['rsni_2'] != '') { ?>
+                                                <?php if ($perbaikan['dok_perbaikan_2'] != '') { ?>
                                                     <table class="table">
                                                         <tr>
                                                             <td>
@@ -167,11 +167,11 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['DOK_PERBAIKAN_2'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                            <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['dok_perbaikan_2'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                             <td>
                                                                 <input type="file" name="dok_perbaikan_2" data-plugin="dropify" data-height="60">
-                                                                <input type="hidden" name="dok_2_lama" value="<?= $perbaikan['DOK_PERBAIKAN_2']; ?>">
+                                                                <input type="hidden" name="dok_2_lama" value="<?= $perbaikan['dok_perbaikan_2']; ?>">
                                                             </td>
                                                         </tr>
                                                     </table>

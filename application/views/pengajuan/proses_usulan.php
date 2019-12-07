@@ -61,29 +61,29 @@
                             <div class="col-xl-10">
                                 <form id="regForm" enctype="multipart/form-data" method="post" action="<?= base_url('pengajuan/save_proses'); ?>">
                                     <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>" style="display: none">
-                                    <input type="hidden" id="id" name="id" value="<?= $usulan['ID']; ?>">
+                                    <input type="hidden" id="id" name="id" value="<?= $usulan['id']; ?>">
 
-                                    <input type="hidden" name="judul" value="<?= $usulan['JUDUL']; ?>">
-                                    <input type="hidden" name="proses_usulan_sebelumnya" value="<?= $usulan['PROSES_USULAN']; ?>">
-                                    <input type="hidden" name="proses_perumusan_sebelumnya" value="<?= $usulan['PROSES_PERUMUSAN']; ?>">
-                                    <input type="hidden" name="email" value="<?= $email['EMAIL']; ?>">
+                                    <input type="hidden" name="judul" value="<?= $usulan['judul']; ?>">
+                                    <input type="hidden" name="proses_usulan_sebelumnya" value="<?= $usulan['proses_usulan']; ?>">
+                                    <input type="hidden" name="proses_perumusan_sebelumnya" value="<?= $usulan['proses_perumusan']; ?>">
+                                    <input type="hidden" name="email" value="<?= $email['email']; ?>">
 
                                     <!-- One "tab" for each step in the form: -->
                                     <?= $this->session->flashdata('message'); ?>
                                     <div class="tab">
 
                                         Kode
-                                        <input class="form-control mb-10" type="text" name="kode" placeholder="Kode PNPS/PPSL" value="<?= $usulan['KODE']; ?>">
+                                        <input class="form-control mb-10" type="text" name="kode" placeholder="Kode PNPS/PPSL" value="<?= $usulan['kode']; ?>">
 
                                         Jenis Perumusan
                                         <select onchange="changediv1()" id="jenisperumusan" class="form-control mb-10" name="jenis_perumusan" value="<?= set_value('jenis_perumusan'); ?>">
                                             <option value="">Pilih Jenis Perumusan</option>
                                             <?php foreach ($jnperumusan as $jp) : ?>
                                                 <?php
-                                                    if ($usulan['JENIS_PERUMUSAN'] == $jp['ID']) {
-                                                        echo '<option selected value="' . $jp['ID'] . '">' . $jp['NAMA_REV'] . '</option>';
+                                                    if ($usulan['jenis_perumusan'] == $jp['id']) {
+                                                        echo '<option selected value="' . $jp['id'] . '">' . $jp['nama_rev'] . '</option>';
                                                     } else {
-                                                        echo '<option value="' . $jp['ID'] . '">' . $jp['NAMA_REV'] . '</option>';
+                                                        echo '<option value="' . $jp['id'] . '">' . $jp['nama_rev'] . '</option>';
                                                     }
                                                     ?>
                                             <?php endforeach; ?>
@@ -94,48 +94,48 @@
                                         <div class="row-lg-12" id="divres1">
                                             <!-- Baru atau Revisi-->
 
-                                            <?php if ($usulan['JENIS_PERUMUSAN'] == 54 or $usulan['JENIS_PERUMUSAN'] == 55) { ?>
+                                            <?php if ($usulan['jenis_perumusan'] == 54 or $usulan['jenis_perumusan'] == 55) { ?>
                                                 Jalur Perumusan
                                                 <select onchange="changediv2()" id="jalurperumusan" class="form-control mb-10" name="jalur_perumusan" value="<?= set_value('jalur_perumusan'); ?>">
                                                     <?php foreach ($jlperumusan as $jlp) : ?>
                                                         <?php
-                                                                if ($usulan['JALUR_PERUMUSAN'] == $jlp['ID']) {
-                                                                    echo '<option selected value="' . $jlp['ID'] . '">' . $jlp['NAMA_REV'] . '</option>';
+                                                                if ($usulan['jalur_perumusan'] == $jlp['id']) {
+                                                                    echo '<option selected value="' . $jlp['id'] . '">' . $jlp['nama_rev'] . '</option>';
                                                                 } else {
-                                                                    echo '<option value="' . $jlp['ID'] . '">' . $jlp['NAMA_REV'] . '</option>';
+                                                                    echo '<option value="' . $jlp['id'] . '">' . $jlp['nama_rev'] . '</option>';
                                                                 }
                                                                 ?>
                                                     <?php endforeach; ?>
                                                 </select>
 
                                                 <!-- Ralat -->
-                                            <?php } elseif ($usulan['JENIS_PERUMUSAN'] == 56) { ?>
-                                                Nomor SNI yang diralat<input type='text' class='form-control focus' name='no_sni_ralat' value="<?= $usulan['NO_SNI_RALAT'] ?>">
-                                                Pasal SNI yang diralat<input type='text' class='form-control focus' name='p_sni_ralat' value="<?= $usulan['P_SNI_RALAT'] ?>">
+                                            <?php } elseif ($usulan['jenis_perumusan'] == 56) { ?>
+                                                Nomor SNI yang diralat<input type='text' class='form-control focus' name='no_sni_ralat' value="<?= $usulan['no_sni_ralat'] ?>">
+                                                Pasal SNI yang diralat<input type='text' class='form-control focus' name='p_sni_ralat' value="<?= $usulan['p_sni_ralat'] ?>">
 
                                                 <!-- Amandemen-->
-                                            <?php } elseif ($usulan['JENIS_PERUMUSAN'] == 57) { ?>
-                                                Nomor SNI yang di amandemen<input type='text' class='form-control focus' name='no_sni_amandemen' value="<?= $usulan['NO_SNI_AMANDEMEN'] ?>">
-                                                Pasal SNI yang di amandemen<input type='text' class='form-control focus' name='p_sni_amandemen' value="<?= $usulan['P_SNI_AMANDEMEN'] ?>">
+                                            <?php } elseif ($usulan['jenis_perumusan'] == 57) { ?>
+                                                Nomor SNI yang di amandemen<input type='text' class='form-control focus' name='no_sni_amandemen' value="<?= $usulan['no_sni_amademen'] ?>">
+                                                Pasal SNI yang di amandemen<input type='text' class='form-control focus' name='p_sni_amandemen' value="<?= $usulan['p_sni_amademen'] ?>">
 
                                                 <!-- Terjemah-->
-                                            <?php } elseif ($usulan['JENIS_PERUMUSAN'] == 58) { ?>
-                                                Nomor judul SNI yang akan diterjemahkan <input type='text' class='form-control focus' name='no_sni_terjemah' value="<?= $usulan['NO_SNI_TERJEMAH'] ?>">
+                                            <?php } elseif ($usulan['jenis_perumusan'] == 58) { ?>
+                                                Nomor judul SNI yang akan diterjemahkan <input type='text' class='form-control focus' name='no_sni_terjemah' value="<?= $usulan['no_sni_terjemah'] ?>">
 
                                                 <!-- -->
                                             <?php } ?>
                                         </div>
 
                                         <div class="row-lg-12" id="divres2">
-                                            <?php if ($usulan['JALUR_PERUMUSAN'] == 68) { ?>
+                                            <?php if ($usulan['jenis_perumusan'] == 68) { ?>
                                                 Jenis Adopsi
                                                 <select onchange="changediv3()" id="jenisadopsi" class="form-control mb-10" name="jenis_adopsi" value="<?= set_value('jenis_adopsi'); ?>">
                                                     <?php foreach ($jnadopsi as $jad) : ?>
                                                         <?php
-                                                                if ($usulan['JENIS_ADOPSI'] == $jad['ID']) {
-                                                                    echo '<option selected value="' . $jad['ID'] . '">' . $jad['NAMA_REV'] . '</option>';
+                                                                if ($usulan['jenis_adopsi'] == $jad['id']) {
+                                                                    echo '<option selected value="' . $jad['id'] . '">' . $jad['nama_rev'] . '</option>';
                                                                 } else {
-                                                                    echo '<option value="' . $jad['ID'] . '">' . $jad['NAMA_REV'] . '</option>';
+                                                                    echo '<option value="' . $jad['id'] . '">' . $jad['nama_rev'] . '</option>';
                                                                 }
                                                                 ?>
                                                     <?php endforeach; ?>
@@ -144,16 +144,16 @@
                                         </div>
 
                                         <div class="row-lg-12" id="divres3">
-                                            <?php if ($usulan['JALUR_PERUMUSAN'] == 68) { ?>
+                                            <?php if ($usulan['jalur_perumusan'] == 68) { ?>
                                                 Metode Adopsi
                                                 <select id="metode" class="form-control mb-10" name="metode_adopsi" value="<?= set_value('metode_adopsi'); ?>">
-                                                    <?php if ($usulan['JENIS_ADOPSI'] == 69) { ?>
+                                                    <?php if ($usulan['jenis_adopsi'] == 69) { ?>
                                                         <option value="71" selected>Publikasi Ulang</option>
-                                                    <?php } elseif ($usulan['JENIS_ADOPSI'] == 70) { ?>
-                                                        <?php if ($usulan['METODE_ADOPSI'] == 72) { ?>
+                                                    <?php } elseif ($usulan['jenis_adopsi'] == 70) { ?>
+                                                        <?php if ($usulan['metode_adopsi'] == 72) { ?>
                                                             <option value="72" selected>Terjemahan 1 Bahasa(Indonesia)</option>
                                                             <option value="73">Terjemahan 2 Bahasa(Indonesia&Inggris)</option>
-                                                        <?php } elseif ($usulan['METODE_ADOPSI'] == 73) { ?>
+                                                        <?php } elseif ($usulan['metode_adopsi'] == 73) { ?>
                                                             <option value="72">Terjemahan 1 Bahasa(Indonesia)</option>
                                                             <option value="73" selected>Terjemahan 2 Bahasa(Indonesia&Inggris)</option>
                                                         <?php } else { ?>
@@ -175,7 +175,7 @@
 
                                         Kebutuhan Mendesak ?
                                         <select onchange="changediv4()" name="keb_mendesak" id="keb_mendesak" class="form-control mb-10">
-                                            <?php if ($usulan['KEB_MENDESAK'] == 1) { ?>
+                                            <?php if ($usulan['keb_mendesak'] == 1) { ?>
                                                 <option value="0">Tidak</option>
                                                 <option value="1" selected>Ya</option>
                                             <?php } else { ?>
@@ -186,8 +186,8 @@
 
                                         <div class="row">
                                             <div class="col-10" id="divres4">
-                                                <?php if ($usulan['KEB_MENDESAK'] == 1) { ?>
-                                                    <?php if ($usulan['DOK_KEB_MENDESAK'] != '') { ?>
+                                                <?php if ($usulan['keb_mendesak'] == 1) { ?>
+                                                    <?php if ($usulan['dok_keb_mendesak'] != '') { ?>
                                                         Surat Kebutuhan Mendesak
                                                         <table class="table">
                                                             <tr>
@@ -199,11 +199,11 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/kebutuhan_mendesak/') . $usulan['DOK_KEB_MENDESAK'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= URL_API_DOWNLOAD.$usulan['dok_keb_mendesak'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                 <td>
                                                                     <input type="file" name="dok_keb_mendesak" data-plugin="dropify" data-height="60">
-                                                                    <input type="hidden" name="dok_skm_lama" value="<?= $usulan['DOK_KEB_MENDESAK']; ?>">
+                                                                    <input type="hidden" name="dok_skm_lama" value="<?= $usulan['dok_keb_mendesak']; ?>">
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -217,7 +217,7 @@
 
                                         Terdapat isi dari Standar yang terkait dengan hak paten ?
                                         <select onchange="changediv5()" name="terkait_paten" id="terkait_paten" class="form-control mb-10">
-                                            <?php if ($usulan['TERKAIT_PATEN'] == 1) { ?>
+                                            <?php if ($usulan['terkait_paten'] == 1) { ?>
                                                 <option value="0">Tidak</option>
                                                 <option value="1" selected>Ya</option>
                                             <?php } else { ?>
@@ -227,8 +227,8 @@
                                         </select>
                                         <div class="row">
                                             <div class="col-lg-10" id="divres5">
-                                                <?php if ($usulan['TERKAIT_PATEN'] == 1) { ?>
-                                                    <?php if ($usulan['DOK_KESEDIAAN_PATEN'] != '') { ?>
+                                                <?php if ($usulan['terkait_paten'] == 1) { ?>
+                                                    <?php if ($usulan['dok_kesediaan_paten'] != '') { ?>
                                                         Surat Kesediaan Pencantuman Paten
                                                         <table class="table">
                                                             <tr>
@@ -240,11 +240,11 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/kesediaan_paten/') . $usulan['DOK_KESEDIAAN_PATEN'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/kesediaan_paten/') . $usulan['dok_kesediaan_paten'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                 <td>
                                                                     <input type="file" name="dok_kesediaan_paten" data-plugin="dropify" data-height="60">
-                                                                    <input type="hidden" name="dok_ksp_lama" value="<?= $usulan['DOK_KESEDIAAN_PATEN']; ?>">
+                                                                    <input type="hidden" name="dok_ksp_lama" value="<?= $usulan['dok_kesediaan_paten']; ?>">
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -262,14 +262,14 @@
                                         </div>
                                     </div>
                                     <div class="tab">
-                                        Kesesuaian dengan program pemerintah
-                                        <?php if ($usulan['KESESUAIAN']) { ?>
-                                            <textarea class="form-control" name="kesesuaian"><?= $usulan['KESESUAIAN']; ?></textarea>
+                                        kesesuaian dengan program pemerintah
+                                        <?php if ($usulan['kesesuaian']) { ?>
+                                            <textarea class="form-control" name="kesesuaian"><?= $usulan['kesesuaian']; ?></textarea>
                                         <?php } else { ?>
-                                            <textarea class="form-control" name="kesesuaian" placeholder="Kesesuaian dengan program pemerintah (Sebutkan secara terperinci)"></textarea>
+                                            <textarea class="form-control" name="kesesuaian" placeholder="kesesuaian dengan program pemerintah (Sebutkan secara terperinci)"></textarea>
                                         <?php } ?>
                                         Ulasan
-                                        <?php if ($usulan['ULASAN']) { ?>
+                                        <?php if ($usulan['ulasan']) { ?>
                                             <textarea class="form-control" name="ulasan"><?= $usulan['ULASAN']; ?></textarea>
                                         <?php } else { ?>
                                             <textarea class=" form-control" name="ulasan" placeholder="Ulasan (Sebutkan secara terperinci)"></textarea>
@@ -283,11 +283,11 @@
                                     <div class="tab">
 
 
-                                        Status
+                                        status
                                         <select onchange="changediv7()" id="status" class="form-control mb-10" name="status" value="<?= set_value('status'); ?>">
                                             <?php foreach ($status as $st) { ?>
-                                                <?php if ($st['ID'] == $usulan['STATUS']) { ?>
-                                                    <option value="<?= $st['ID']; ?>" selected> <?= $st['NAMA_REV']; ?></option> <?php } else { ?> <option value="<?= $st['ID']; ?>"><?= $st['NAMA_REV']; ?></option>
+                                                <?php if ($st['id'] == $usulan['status']) { ?>
+                                                    <option value="<?= $st['id']; ?>" selected> <?= $st['nama_rev']; ?></option> <?php } else { ?> <option value="<?= $st['id']; ?>"><?= $st['nama_rev']; ?></option>
                                                 <?php } ?>
                                             <?php } ?>
                                         </select>
@@ -385,7 +385,7 @@
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['SURAT_PENGANTAR_1'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                                    <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['surat_pengantar_1'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                                     <td>
                                                                                         <input type="file" name="surat_pengantar_1" data-plugin="dropify" data-height="60">
@@ -401,7 +401,7 @@
                                                                 <tr>
                                                                     <td>RSNI</td>
                                                                     <td>
-                                                                        <?php if ($perbaikan['RSNI_1']) { ?>
+                                                                        <?php if ($perbaikan['rsni_1']) { ?>
                                                                             <table class="table">
                                                                                 <tr>
                                                                                     <td>
@@ -412,7 +412,7 @@
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['RSNI_1'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                                    <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['rsni_1'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                                     <td>
                                                                                         <input type="file" name="rsni_1" data-plugin="dropify" data-height="60">
@@ -428,7 +428,7 @@
                                                                 <tr>
                                                                     <td>Notulensi</td>
                                                                     <td>
-                                                                        <?php if ($perbaikan['NOTULENSI_1']) { ?>
+                                                                        <?php if ($perbaikan['notulensi_1']) { ?>
                                                                             <table class="table">
                                                                                 <tr>
                                                                                     <td>
@@ -439,11 +439,11 @@
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['NOTULENSI_1'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                                    <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['notulensi_1'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                                     <td>
                                                                                         <input type="file" name="notulensi_1" data-plugin="dropify" data-height="60">
-                                                                                        <input type="hidden" name="notulensi_1_lama" value="<?= $perbaikan['NOTULENSI_1']; ?>">
+                                                                                        <input type="hidden" name="notulensi_1_lama" value="<?= $perbaikan['notulensi_1']; ?>">
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -456,8 +456,8 @@
 
                                                             Download Dokumen Perbaikan <?= $jenis; ?> Tahap 1
                                                             <div class="col mb-25">
-                                                                <?php if ($perbaikan['DOK_PERBAIKAN_1']) { ?>
-                                                                    <a href="<?= base_url() ?>assets/dokumen/dokumen_perbaikan/<?= $perbaikan['DOK_PERBAIKAN_1']; ?>" target="_blank" class="btn btn-primary mb-15">
+                                                                <?php if ($perbaikan['dok_perbaikan_1']) { ?>
+                                                                    <a href="<?= base_url() ?>assets/dokumen/dokumen_perbaikan/<?= $perbaikan['dok_perbaikan_1']; ?>" target="_blank" class="btn btn-primary mb-15">
                                                                         Download
                                                                     </a>
                                                                 <?php } else { ?>
@@ -470,7 +470,7 @@
                                                                 <tr>
                                                                     <td>Surat Pengantar</td>
                                                                     <td>
-                                                                        <?php if ($perbaikan['SURAT_PENGANTAR_2']) { ?>
+                                                                        <?php if ($perbaikan['surat_pengantar_2']) { ?>
                                                                             <table class="table">
                                                                                 <tr>
                                                                                     <td>
@@ -481,11 +481,11 @@
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['SURAT_PENGANTAR_2'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                                    <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['surat_pengantar_2'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                                     <td>
                                                                                         <input type="file" name="surat_pengantar_2" data-plugin="dropify" data-height="60">
-                                                                                        <input type="hidden" name="sp_2_lama" value="<?= $perbaikan['SURAT_PENGANTAR_2']; ?>">
+                                                                                        <input type="hidden" name="sp_2_lama" value="<?= $perbaikan['surat_pengantar_2']; ?>">
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -497,7 +497,7 @@
                                                                 <tr>
                                                                     <td>RSNI</td>
                                                                     <td>
-                                                                        <?php if ($perbaikan['RSNI_2']) { ?>
+                                                                        <?php if ($perbaikan['rsni_2']) { ?>
                                                                             <table class="table">
                                                                                 <tr>
                                                                                     <td>
@@ -508,11 +508,11 @@
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['RSNI_2'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                                    <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['rsni_2'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                                     <td>
                                                                                         <input type="file" name="rsni_2" data-plugin="dropify" data-height="60">
-                                                                                        <input type="hidden" name="rsni_2_lama" value="<?= $perbaikan['RSNI_2']; ?>">
+                                                                                        <input type="hidden" name="rsni_2_lama" value="<?= $perbaikan['rsni_2']; ?>">
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -524,7 +524,7 @@
                                                                 <tr>
                                                                     <td>Notulensi</td>
                                                                     <td>
-                                                                        <?php if ($perbaikan['NOTULENSI_2']) { ?>
+                                                                        <?php if ($perbaikan['notulensi_2']) { ?>
                                                                             <table class="table">
                                                                                 <tr>
                                                                                     <td>
@@ -535,11 +535,11 @@
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['NOTULENSI_2'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                                    <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['notulensi_2'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                                     <td>
                                                                                         <input type="file" name="notulensi_2" data-plugin="dropify" data-height="60">
-                                                                                        <input type="hidden" name="notulensi_2_lama" value="<?= $perbaikan['NOTULENSI_2']; ?>">
+                                                                                        <input type="hidden" name="notulensi_2_lama" value="<?= $perbaikan['notulensi_2']; ?>">
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -552,8 +552,8 @@
 
                                                             Download Dokumen Perbaikan <?= $jenis; ?> Tahap 2
                                                             <div class="col my-5">
-                                                                <?php if ($perbaikan['DOK_PERBAIKAN_2']) { ?>
-                                                                    <a href="<?= base_url() ?>assets/dokumen/dokumen_perbaikan/<?= $perbaikan['DOK_PERBAIKAN_2']; ?>" target="_blank" class="btn btn-primary mb-15">
+                                                                <?php if ($perbaikan['dok_perbaikan_2']) { ?>
+                                                                    <a href="<?= base_url() ?>assets/dokumen/dokumen_perbaikan/<?= $perbaikan['dok_perbaikan_2']; ?>" target="_blank" class="btn btn-primary mb-15">
                                                                         Download
                                                                     </a>
                                                                 <?php } else { ?>
@@ -572,7 +572,7 @@
                                             <tr>
                                                 <td>Surat Pengantar</td>
                                                 <td>
-                                                    <?php if ($perbaikan['SURAT_PENGANTAR_3']) { ?>
+                                                    <?php if ($perbaikan['surat_pengantar_3']) { ?>
                                                         <table class="table">
                                                             <tr>
                                                                 <td>
@@ -583,11 +583,11 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['SURAT_PENGANTAR_3'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['surat_pengantar_3'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                 <td>
                                                                     <input type="file" name="surat_pengantar_3" data-plugin="dropify" data-height="60">
-                                                                    <input type="hidden" name="sp_3_lama" value="<?= $perbaikan['SURAT_PENGANTAR_3']; ?>">
+                                                                    <input type="hidden" name="sp_3_lama" value="<?= $perbaikan['surat_pengantar_3']; ?>">
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -599,7 +599,7 @@
                                             <tr>
                                                 <td>RSNI</td>
                                                 <td>
-                                                    <?php if ($perbaikan['RSNI_3']) { ?>
+                                                    <?php if ($perbaikan['rsni_3']) { ?>
                                                         <table class="table">
                                                             <tr>
                                                                 <td>
@@ -610,11 +610,11 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['RSNI_3'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['rsni_3'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                 <td>
                                                                     <input type="file" name="rsni_3" data-plugin="dropify" data-height="60">
-                                                                    <input type="hidden" name="rsni_3_lama" value="<?= $perbaikan['RSNI_3']; ?>">
+                                                                    <input type="hidden" name="rsni_3_lama" value="<?= $perbaikan['rsni_3']; ?>">
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -626,7 +626,7 @@
                                             <tr>
                                                 <td>Notulensi</td>
                                                 <td>
-                                                    <?php if ($perbaikan['NOTULENSI_3']) { ?>
+                                                    <?php if ($perbaikan['notulensi_3']) { ?>
                                                         <table class="table">
                                                             <tr>
                                                                 <td>
@@ -637,11 +637,11 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['NOTULENSI_3'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['notulensi_3'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                 <td>
                                                                     <input type="file" name="notulensi_3" data-plugin="dropify" data-height="60">
-                                                                    <input type="hidden" name="notulensi_3_lama" value="<?= $perbaikan['NOTULENSI_3']; ?>">
+                                                                    <input type="hidden" name="notulensi_3_lama" value="<?= $perbaikan['notulensi_3']; ?>">
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -654,8 +654,8 @@
 
                                         Download Dokumen Perbaikan <?= $jenis; ?> tahap 3
                                         <div class="col mb-25">
-                                            <?php if ($perbaikan['DOK_PERBAIKAN_3']) { ?>
-                                                <a href="<?= base_url() ?>assets/dokumen/dokumen_perbaikan/<?= $perbaikan['DOK_PERBAIKAN_3']; ?>" target="_blank" class="btn btn-primary mb-15">
+                                            <?php if ($perbaikan['dok_perbaikan_3']) { ?>
+                                                <a href="<?= base_url() ?>assets/dokumen/dokumen_perbaikan/<?= $perbaikan['dok_perbaikan_3']; ?>" target="_blank" class="btn btn-primary mb-15">
                                                     Download
                                                 </a>
                                             <?php } else { ?>
@@ -668,7 +668,7 @@
                                             <tr>
                                                 <td>Surat Pengantar</td>
                                                 <td>
-                                                    <?php if ($perbaikan['SURAT_PENGANTAR_4']) { ?>
+                                                    <?php if ($perbaikan['surat_pengantar_4']) { ?>
                                                         <table class="table">
                                                             <tr>
                                                                 <td>
@@ -679,11 +679,11 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['SURAT_PENGANTAR_4'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['surat_pengantar_4'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                 <td>
                                                                     <input type="file" name="surat_pengantar_4" data-plugin="dropify" data-height="60">
-                                                                    <input type="hidden" name="sp_4_lama" value="<?= $perbaikan['SURAT_PENGANTAR_4']; ?>">
+                                                                    <input type="hidden" name="sp_4_lama" value="<?= $perbaikan['surat_pengantar_4']; ?>">
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -695,7 +695,7 @@
                                             <tr>
                                                 <td>RSNI</td>
                                                 <td>
-                                                    <?php if ($perbaikan['RSNI_4']) { ?>
+                                                    <?php if ($perbaikan['rsni_4']) { ?>
                                                         <table class="table">
                                                             <tr>
                                                                 <td>
@@ -706,11 +706,11 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['RSNI_4'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['rsni_4'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                 <td>
                                                                     <input type="file" name="rsni_4" data-plugin="dropify" data-height="60">
-                                                                    <input type="hidden" name="rsni_4_lama" value="<?= $perbaikan['RSNI_4']; ?>">
+                                                                    <input type="hidden" name="rsni_4_lama" value="<?= $perbaikan['rsni_4']; ?>">
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -722,7 +722,7 @@
                                             <tr>
                                                 <td>Notulensi</td>
                                                 <td>
-                                                    <?php if ($perbaikan['NOTULENSI_4']) { ?>
+                                                    <?php if ($perbaikan['notulensi_4']) { ?>
                                                         <table class="table">
                                                             <tr>
                                                                 <td>
@@ -733,11 +733,11 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['NOTULENSI_4'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/perbaikan_usulan/') . $perbaikan['notulensi_4'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
 
                                                                 <td>
                                                                     <input type="file" name="notulensi_4" data-plugin="dropify" data-height="60">
-                                                                    <input type="hidden" name="notulensi_4_lama" value="<?= $perbaikan['NOTULENSI_4']; ?>">
+                                                                    <input type="hidden" name="notulensi_4_lama" value="<?= $perbaikan['notulensi_4']; ?>">
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -750,8 +750,8 @@
 
                                         Download Dokumen Perbaikan <?= $jenis; ?> tahap 4
                                         <div class="col my-5">
-                                            <?php if ($perbaikan['DOK_PERBAIKAN_4']) { ?>
-                                                <a href="<?= base_url() ?>assets/dokumen/dokumen_perbaikan/<?= $perbaikan['DOK_PERBAIKAN_4']; ?>" target="_blank" class="btn btn-primary mb-15">
+                                            <?php if ($perbaikan['dok_perbaikan_4']) { ?>
+                                                <a href="<?= base_url() ?>assets/dokumen/dokumen_perbaikan/<?= $perbaikan['dok_perbaikan_4']; ?>" target="_blank" class="btn btn-primary mb-15">
                                                     Download
                                                 </a>
                                             <?php } else { ?>
@@ -890,7 +890,7 @@
         }
 
         if (sel2 == 68) {
-            var markup = "Jenis Adopsi<select onchange='changediv3()' name='jenis_adopsi' id='jenisadopsi' class='selectfield form-control mb-5'><option value=''>Pilih Jenis Adopsi</option><option value='69'>Identik</option>";
+            var markup = "Jenis Adopsi<select onchange='changediv3()' name='jenis_adopsi' id='jenisadopsi' class='selectfield form-control mb-5'><option value=''>Pilih Jenis Adopsi</option><option value='69'>identik</option>";
             markup += "<option value='70'>Modifikasi</option>";
             markup += "</select>";
 
@@ -991,14 +991,14 @@
         x[n].style.display = "block";
         //... and fix the Previous/Next buttons:
         if (n == 0) {
-            document.getElementById("prevBtn").style.display = "none";
+            document.getElementByid("prevBtn").style.display = "none";
         } else {
-            document.getElementById("prevBtn").style.display = "inline";
+            document.getElementByid("prevBtn").style.display = "inline";
         }
         if (n == (x.length - 1)) {
-            document.getElementById("nextBtn").innerHTML = "Submit";
+            document.getElementByid("nextBtn").innerHTML = "Submit";
         } else {
-            document.getElementById("nextBtn").innerHTML = "<i class='fa fa-chevron-circle-right'></i>";
+            document.getElementByid("nextBtn").innerHTML = "<i class='fa fa-chevron-circle-right'></i>";
         }
         //... and run a function that will display the correct step indicator:
         fixStepIndicator(n)
@@ -1017,7 +1017,7 @@
         // if you have reached the end of the form...
         if (currentTab >= x.length) {
             // ... the form gets submitted:
-            document.getElementById("regForm").submit();
+            document.getElementByid("regForm").submit();
             return false;
         }
         // Otherwise, display the correct tab:
@@ -1030,8 +1030,8 @@
         x = document.getElementsByClassName("tab");
         inp = x[currentTab].getElementsByClassName("inputfield");
         sel = x[currentTab].getElementsByClassName("selectfield");
-        j = document.getElementById("judul");
-        u = document.getElementById("unit_kerja");
+        j = document.getElementByid("judul");
+        u = document.getElementByid("unit_kerja");
         // A loop that checks every input field in the current tab:
         for (i = 0; i < inp.length; i++) {
             // If a field is empty...
