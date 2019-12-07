@@ -96,7 +96,20 @@ class Auth extends CI_Controller
 		$this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[8]|matches[password2]');
 		$this->form_validation->set_rules('password2', 'Konfirmasi Password', 'required|trim|min_length[8]|matches[password1]');
 
+		$email = htmlspecialchars($this->input->post('email', true));
+
+		$email_data = $this->lapan_api_library->call_gateway('usersv2/getuserbyemail', ['token' => $this->session->userdata('token'), 'email' => $email]);
+
+		// print_r(json_encode($email_data));exit;
+
 		if ($this->form_validation->run($this) == false) {
+			$data['provinsi'] = $this->db->get('msprovinsi')->result_array();
+			$data['kota'] = $this->db->get('mskota')->result_array();
+			$this->load->view('registrasi', $data);
+		}else if($email_data['count']>0){
+			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+            Email sudah digunakan!</div>');
+
 			$data['provinsi'] = $this->db->get('msprovinsi')->result_array();
 			$data['kota'] = $this->db->get('mskota')->result_array();
 			$this->load->view('registrasi', $data);
@@ -126,17 +139,18 @@ class Auth extends CI_Controller
 				'date_created' => time()
 			];
 
-			$regist = $this->lapan_api_library->call_gateway('usersv2/register', $data);
+			$this->lapan_api_library->call_gateway('usersv2/register', $data);
+			$this->lapan_api_library->call_gateway('usersv2/inserttoken', $user_token);
 
 			// $this->db->insert('msuserstandar', $data);
 			// $this->db->insert('msusertokenstd', $user_token);
 
 
-			// $this->_send_email($token, 'verify');
+			$this->_send_email($token, 'verify');
 
 			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
             Registrasi sukses! Mohon konfirmasi email</div>');
-			redirect('auth');
+			// redirect('auth');
 		}
 	}
 
@@ -212,15 +226,24 @@ class Auth extends CI_Controller
 
 	public function verify()
 	{
+		$user = $this->lapan_api_library->call_gateway('usersv2/getuserbyemail', ['email' => 'dediprasetio03@gmail.com']);
+
+		
+
 		$email = $this->input->get('email');
 		$token = $this->input->get('token');
 
-		$user = $this->db->get_where('msuserstandar', ['EMAIL' => $email])->row_array();
+		// $user = $this->db->get_where('msuserstandar', ['EMAIL' => $email])->row_array();
 
-		if ($user) {
-			$user_token  = $this->db->get_where('msusertokenstd', ['token' => $token])->row_array();
+		if ($user['count']>0) {
+			// print_r(json_encode("jadi"));exit;
+			// $user_token  = $this->db->get_where('msusertokenstd', ['token' => $token])->row_array();
 
-			if ($user_token) {
+			$user_token = $this->lapan_api_library->call_gateway('usersv2/getuserstdbytoken', ['token' => $token]);
+
+			
+
+			if (count($user_token)>0) {
 				$this->db->set('is_active', 3);
 				$this->db->where('EMAIL', $email);
 				$this->db->update('msuserstandar');
@@ -230,16 +253,19 @@ class Auth extends CI_Controller
 				Aktivasi berhasil,silahkan Login</div>');
 
 				$this->db->delete('msusertokenstd', ['EMAIL' => $email]);
+				print_r(json_encode($dataaa));exit;
+
 				redirect('auth');
 			} else {
 				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
             Aktivasi gagal,token salah</div>');
+				print_r(json_encode($user_token));exit;
 				redirect('auth');
 			}
 		} else {
 			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
             Aktivasi gagal,User salah</div>');
-			redirect('auth');
+			// redirect('auth');
 		}
 	}
 
