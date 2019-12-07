@@ -228,44 +228,34 @@ class Auth extends CI_Controller
 	{
 		$user = $this->lapan_api_library->call_gateway('usersv2/getuserbyemail', ['email' => 'dediprasetio03@gmail.com']);
 
-		
-
 		$email = $this->input->get('email');
 		$token = $this->input->get('token');
 
-		// $user = $this->db->get_where('msuserstandar', ['EMAIL' => $email])->row_array();
-
 		if ($user['count']>0) {
-			// print_r(json_encode("jadi"));exit;
-			// $user_token  = $this->db->get_where('msusertokenstd', ['token' => $token])->row_array();
 
 			$user_token = $this->lapan_api_library->call_gateway('usersv2/getuserstdbytoken', ['token' => $token]);
 
-			
-
 			if (count($user_token)>0) {
-				$this->db->set('is_active', 3);
-				$this->db->where('EMAIL', $email);
-				$this->db->update('msuserstandar');
+
+				$this->lapan_api_library->call_gateway('usersv2/aktivasiuser', ['is_active' => '3', 'email' => $email]);
 
 
 				$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
 				Aktivasi berhasil,silahkan Login</div>');
 
-				$this->db->delete('msusertokenstd', ['EMAIL' => $email]);
-				print_r(json_encode($dataaa));exit;
+				$haha = $this->lapan_api_library->call_gateway('usersv2/hapusregistertoken', ['email' => $email]);
+				print_r(json_encode($haha));exit;
 
 				redirect('auth');
 			} else {
 				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
             Aktivasi gagal,token salah</div>');
-				print_r(json_encode($user_token));exit;
 				redirect('auth');
 			}
 		} else {
 			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
             Aktivasi gagal,User salah</div>');
-			// redirect('auth');
+			redirect('auth');
 		}
 	}
 
