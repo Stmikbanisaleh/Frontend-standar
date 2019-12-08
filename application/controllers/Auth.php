@@ -150,7 +150,7 @@ class Auth extends CI_Controller
 
 			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
             Registrasi sukses! Mohon konfirmasi email</div>');
-			// redirect('auth');
+			redirect('auth');
 		}
 	}
 
@@ -226,26 +226,22 @@ class Auth extends CI_Controller
 
 	public function verify()
 	{
-		$user = $this->lapan_api_library->call_gateway('usersv2/getuserbyemail', ['email' => 'dediprasetio03@gmail.com']);
-
+		// print_r($user);exit;
 		$email = $this->input->get('email');
 		$token = $this->input->get('token');
-
-		if ($user['count']>0) {
+		$user = $this->lapan_api_library->call_gateway('usersv2/getuserbyemail2', ['email' => $email]);
+		// print_r($user);exit;
+		if ($user) {
 
 			$user_token = $this->lapan_api_library->call_gateway('usersv2/getuserstdbytoken', ['token' => $token]);
-
-			if (count($user_token)>0) {
-
-				$this->lapan_api_library->call_gateway('usersv2/aktivasiuser', ['is_active' => '3', 'email' => $email]);
-
-
-				$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+			// print_r($user_token);exit;
+			if (count($user_token)) {
+				$aktivasi = $this->lapan_api_library->call_gateway('usersv2/aktivasiuser', ['is_active' => '3', 'email' => $email]);
+				if($aktivasi['status'] == 200){
+					$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
 				Aktivasi berhasil,silahkan Login</div>');
-
-				$haha = $this->lapan_api_library->call_gateway('usersv2/hapusregistertoken', ['email' => $email]);
-				print_r(json_encode($haha));exit;
-
+				}
+				$haha = $this->lapan_api_library->call_gateway('usersv2/deletetoken', ['email' => $email]);
 				redirect('auth');
 			} else {
 				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
@@ -307,11 +303,10 @@ class Auth extends CI_Controller
 		if ($user) {
 			$user = $this->lapan_api_library->call_gateway('usersv2/getuserbyemail', $data);
 			$token = ['token' => $token];
-			$user_token  = $this->lapan_api_library->call_gateway('usersv2/gettokenstd', $token);
-			// print_r($user_token);exit;
-			if ($user_token) {
+			$user_token  = $this->lapan_api_library->call_gateway('usersv2/getuserstdbytoken', $token);
+			if ($user_token[0]) {
 				$this->session->set_userdata('reset_email', $email);
-				$this->changePassword($email);
+				$this->changePassword();
 			} else {
 				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
             Reset password gagal,token salah</div>');
@@ -333,17 +328,45 @@ class Auth extends CI_Controller
 		if ($this->form_validation->run() == false) {
 			$this->load->view('changepassword');
 		} else {
-			$password = password_hash($this->input->post('password1'), PASSWORD_DEFAULT);
+			$password = $this->input->post('password1');
 			$email = $this->session->userdata('reset_email');
-			$user_token  = $this->lapan_api_library->call_gateway('usersv2/updatepassword', $token);
-			$this->db->set('PASSWORD', $password);
-			$this->db->where('EMAIL', $email);
-			$this->db->update('msuserstandar');
-
-			$this->db->delete('msusertokenstd', ['EMAIL' => $email]);
+			$data = [
+				'password' => $password,
+				'email' => $email
+			];
+			$user_token  = $this->lapan_api_library->call_gateway('usersv2/updatepassword', $data);
+			// print_r($user_token);exit;
+			// $this->db->set('PASSWORD', $password);
+			// $this->db->where('EMAIL', $email);
+			// $this->db->update('msuserstandar');
+			$deletetoken  = $this->lapan_api_library->call_gateway('usersv2/deletetoken', $data);
+			// $this->db->delete('msusertokenstd', ['EMAIL' => $email]);
 
 			$this->session->unset_userdata('reset_email');
 
+			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+            Password telah diubah,silahkan Login</div>');
+			redirect('auth');
+		}
+	}
+
+	public function changepassword2($email)
+	{
+
+		$this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[8]|matches[password2]');
+		$this->form_validation->set_rules('password2', 'Password Ulang', 'required|trim|min_length[8]|matches[password1]');
+
+		if ($this->form_validation->run() == false) {
+			$this->load->view('changepassword');
+		} else {
+			$password = $this->input->post('password1');
+			$data = [
+				'password' => $password,
+				'email' => $email
+			];
+			$user_token  = $this->lapan_api_library->call_gateway('usersv2/updatepassword', $data);
+			$deletetoken  = $this->lapan_api_library->call_gateway('usersv2/deletetoken', $data);
+			$this->session->unset_userdata('reset_email');
 			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
             Password telah diubah,silahkan Login</div>');
 			redirect('auth');

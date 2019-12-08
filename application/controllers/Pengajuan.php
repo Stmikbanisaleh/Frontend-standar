@@ -83,7 +83,7 @@ class Pengajuan extends CI_Controller
         $data['dkonseptor'] = $this->lapan_api_library->call('usulan/getdkonseptor', ['token' => $this->session->userdata('token'), 'id' => $id]);
 
         $data['dberkepentingan'] = $this->lapan_api_library->call('usulan/getdberkepentingan', ['token' => $this->session->userdata('token'), 'id' => $id]);
-
+        // print_r($data['dberkepentingan']);exit;
         $data['dmanfaat'] = $this->lapan_api_library->call('usulan/getdmanfaat', ['token' => $this->session->userdata('token'), 'id' => $id]);
 
         $data['dregulasi'] = $this->lapan_api_library->call('usulan/getdregulasi', ['token' => $this->session->userdata('token'), 'id' => $id]);
@@ -91,6 +91,7 @@ class Pengajuan extends CI_Controller
         $data['dsni'] = $this->lapan_api_library->call('usulan/getdsni', ['token' => $this->session->userdata('token'), 'id' => $id]);
 
         $data['dnonsni'] = $this->lapan_api_library->call('usulan/getdnonsni', ['token' => $this->session->userdata('token'), 'id' => $id]);
+        // print_r($data['dnonsni']);exit;
 
         $data['dbibliografi'] = $this->lapan_api_library->call('usulan/getdbibliografi', ['token' => $this->session->userdata('token'), 'id' => $id]);
 
@@ -328,7 +329,7 @@ class Pengajuan extends CI_Controller
                 $nsni = array();
                 if ($post['acuannonsni']) {
                     foreach ($post['acuannonsni'] as $ann) {
-                        $nsni['id_acuan'] = $insert['id'];
+                        $nsni['id_usulan'] = $insert['id'];
                         $nsni['nama'] = $ann['nama'];
                         $nsni['token'] =  $this->session->userdata('token');
                         $insert_d_acuannonsni = $this->lapan_api_library->call('usulan/add_d_acuannonsni', $nsni);
@@ -371,9 +372,10 @@ class Pengajuan extends CI_Controller
     {
         $userId = $this->session->userdata('user_id');
         // print_r(json_encode($this->input->post()));exit;
-
+        $post = $this->input->post();
+        $id = $post['id'];
         $time = time();
-
+        // print_r($post);exit;
         //Upload dokumen detail penelitian
         $configddp['file_name']          = 'detail_penelitian_' . $time;
         // $configddp['upload_path']          = './assets/dokumen/detail_penelitian/';
@@ -394,8 +396,10 @@ class Pengajuan extends CI_Controller
             $data = file_get_contents($file_tmp);
             $dok_detail_penelitian_base64 = base64_encode($data);
         }else {
-            $dokdp ='';
-            $dok_detail_penelitian_base64 = NULL;
+            $dokdp = $post['dok_det_lama'];
+            // $file_tmp = $_FILES['dok_det_lama']['tmp_name'];
+            // $data = file_get_contents($file_tmp);
+            $dok_detail_penelitian_base64 = null;
         }
 
         //Upload dokumen bukti pendukung
@@ -418,7 +422,9 @@ class Pengajuan extends CI_Controller
             $data = file_get_contents($file_tmp);
             $dok_org_pendukung_base64 = base64_encode($data);
         }else {
-            $doklop ='';
+            $doklop = $post['dok_org_lama'];
+            // $file_tmp = $_FILES['dok_org_lama']['tmp_name'];
+            // $data = file_get_contents($file_tmp);
             $dok_org_pendukung_base64 = null;
         }
 
@@ -442,7 +448,9 @@ class Pengajuan extends CI_Controller
             $data = file_get_contents($file_tmp);
             $surat_pengajuan_base64 = base64_encode($data);
         }else {
-            $doksrp ='';
+            $doksrp =  $post['dok_srp_lama'];
+            // $file_tmp = $_FILES['dok_srp_lama']['tmp_name'];
+            // $data = file_get_contents($file_tmp);
             $surat_pengajuan_base64 = null;
         }
 
@@ -466,8 +474,10 @@ class Pengajuan extends CI_Controller
             $data = file_get_contents($file_tmp);
             $outline_base64 = base64_encode($data);
         }else {
-            $dokout ='';
-            $outline_base64= null;
+            $dokout = $post['dok_out_lama'];
+            // $file_tmp = $_FILES['dok_out_lama']['tmp_name'];
+            // $data = file_get_contents($file_tmp);
+            $outline_base64 = null;
         }
 
         //tahapan standar
@@ -516,15 +526,15 @@ class Pengajuan extends CI_Controller
             'user_input' => $userId,
             'tgl_input' => date('Y-m-d h:i:s'),
             'token' => $this->session->userdata('token'),
+            'id' => $id
         ];
 
-        $post = $this->input->post();
-        $id = $post['id'];
+      
 
         // $this->db->where('ID', $id);
 
-        $update = $this->lapan_api_library->call('usulan/addusulan', $data);
-
+        $update = $this->lapan_api_library->call('usulan/updateusulan', $data);
+        // print_r($update);exit;
         // print_r(json_encode($update['status']));exit;
         // if ($this->db->update('msusulan', $data)) {
         if ($update['status'] == 200) {
@@ -537,7 +547,7 @@ class Pengajuan extends CI_Controller
             // $this->db->delete('d_bibliografi', array('ID_USULAN' => $post['id']));
             // $this->db->delete('d_lpk', array('ID_USULAN' => $post['id']));
 
-            $this->lapan_api_library->call('usulan/hapusdkonseptor', ['id' => $post['id'], 'token' => $this->session->userdata('token')]);
+            $res = $this->lapan_api_library->call('usulan/hapusdkonseptor', ['id' => $post['id'], 'token' => $this->session->userdata('token')]);
             $this->lapan_api_library->call('usulan/hapusdmanfaat', ['id' => $post['id'], 'token' => $this->session->userdata('token')]);
             $this->lapan_api_library->call('usulan/hapusdkepentingan', ['id' => $post['id'], 'token' => $this->session->userdata('token')]);
             $this->lapan_api_library->call('usulan/hapusdkregulasi', ['id' => $post['id'], 'token' => $this->session->userdata('token')]);
@@ -649,7 +659,7 @@ class Pengajuan extends CI_Controller
             $nsni = array();
             if ($post['acuannonsni']) {
                 foreach ($post['acuannonsni'] as $ann) {
-                    $nsni['id_acuan'] = $post['id'];
+                    $nsni['id_usulan'] = $post['id'];
                     $nsni['nama'] = $ann['nama'];
                     $nsni['token'] =  $this->session->userdata('token');
                     $insert_d_acuannonsni = $this->lapan_api_library->call('usulan/add_d_acuannonsni', $nsni);
@@ -917,7 +927,7 @@ class Pengajuan extends CI_Controller
             'dok_kesediaan_paten64' => $dokkpp64,
             'informasi_paten' => $this->input->post('informasi_paten'),
             'kesesuaian' => htmlspecialchars($this->input->post('kesesuaian', true)),
-            'ulasan' => htmlspecialchars($this->input->post('ulasan', true)),
+            'ulasan' => $this->input->post('ulasan', true),
             'status' => $this->input->post('status'),
             'alasan_penolakan' => htmlspecialchars($this->input->post('alasan_penolakan', true)),
             'proses_usulan' => $this->input->post('proses_usulan'),

@@ -64,7 +64,7 @@
                         <small class="form-text text-danger"><?= form_error('password2'); ?></small>
                     </div>
 
-                    <button style="cursor:pointer;" type="submit" class="btn btn-primary btn-block btn-lg mt-40">Sign up</button>
+                    <button style="cursor:pointer;" type="submit" class="btn btn-primary btn-block btn-lg mt-40">Update Password</button>
                 </form>
             </div>
         </div>

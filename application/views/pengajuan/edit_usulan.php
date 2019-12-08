@@ -187,8 +187,14 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/detail_penelitian/') . $usulan['dok_detail_penelitian'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
-
+                                            <?php if ($usulan['dok_detail_penelitian']) { ?>
+                                                <td class="text-center"><a href="<?= URL_API_DOWNLOAD.$usulan['dok_detail_penelitian']; ?>" target="_blank" class="btn btn-primary mb-15">
+                                                                        Download
+                                                                    </a></td>
+                                                                <?php } else { ?>
+                                                                    <td class="text-center"><a class="btn btn-danger" disabled>Tidak Ada Dokumen</a></td>
+                                                                <?php } ?>
+                                                <!-- <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= URL_API_DOWNLOAD. $usulan['dok_detail_penelitian'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td> -->
                                                 <td>
                                                     <input type="file" name="dok_detail_penelitian" data-plugin="dropify" data-height="60">
                                                     <input type="hidden" name="dok_det_lama" value="<?= $usulan['dok_detail_penelitian']; ?>">
@@ -262,7 +268,14 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/lampiran_organisasi/') . $usulan['dok_org_pendukung'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                        <?php if ($usulan['dok_org_pendukung']) { ?>
+                                                <td class="text-center"><a href="<?= URL_API_DOWNLOAD.$usulan['dok_org_pendukung']; ?>" target="_blank" class="btn btn-primary mb-15">
+                                                                        Download
+                                                                    </a></td>
+                                                                <?php } else { ?>
+                                                                    <td class="text-center"><a class="btn btn-danger" disabled>Tidak Ada Dokumen</a></td>
+                                                                <?php } ?>
+                                                            <!-- <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= URL_API_DOWNLOAD. $usulan['dok_org_pendukung'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td> -->
 
                                                             <td>
                                                                 <input type="file" name="dok_org_pendukung" data-plugin="dropify" data-height="60">
@@ -280,7 +293,7 @@
                                         </div>
                                     </div>
                                     <div class="tab">
-                                        Download Dokumen Surat Pengajuan PNPS/Standar <a href="<?= base_url() ?>assets/download/format_surat/format_surat_pengajuan_standar.docx" target="_blank" class="btn btn-xs btn-primary">
+                                        Download Dokumen Surat Pengajuan PNPS/Standar <a href="<?= URL_API_DOWNLOAD.'/format_surat_pengajuan_standar.docx'?>" target="_blank" class="btn btn-xs btn-primary">
                                             <li class="fa fa-download"></li> Format
                                         </a>
                                         <div class="col-lg-10 my-5">
@@ -295,7 +308,14 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/surat_pengajuan/') . $usulan['surat_pengajuan'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                    <?php if ($usulan['surat_pengajuan']) { ?>
+                                                <td class="text-center"><a href="<?= URL_API_DOWNLOAD.$usulan['surat_pengajuan']; ?>" target="_blank" class="btn btn-primary mb-15">
+                                                                        Download
+                                                                    </a></td>
+                                                                <?php } else { ?>
+                                                                    <td class="text-center"><a class="btn btn-danger" disabled>Tidak Ada Dokumen</a></td>
+                                                                <?php } ?>
+                                                        <!-- <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= URL_API_DOWNLOAD.$usulan['surat_pengajuan'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td> -->
 
                                                         <td>
                                                             <input type="file" name="surat_pengajuan" data-plugin="dropify" data-height="60">
@@ -308,7 +328,7 @@
                                             <?php } ?>
                                         </div>
 
-                                        Outline RSNI/RSL <a href="<?= base_url() ?>assets/download/format_surat/format_outline.docx" target="_blank" class="btn btn-xs btn-primary">
+                                        Outline RSNI/RSL <a href=<?= URL_API_DOWNLOAD.'format_outline.docx'?> target="_blank" class="btn btn-xs btn-primary">
                                             <li class="fa fa-download"></li> Format
                                         </a>
                                         <div class="col-lg-10 my-5">
@@ -323,7 +343,14 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= base_url('assets/dokumen/outline/') . $usulan['outline'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td>
+                                                    <?php if ($usulan['outline']) { ?>
+                                                <td class="text-center"><a href="<?= URL_API_DOWNLOAD.$usulan['outline']; ?>" target="_blank" class="btn btn-primary mb-15">
+                                                                        Download
+                                                                    </a></td>
+                                                                <?php } else { ?>
+                                                                    <td class="text-center"><a class="btn btn-danger" disabled>Tidak Ada Dokumen</a></td>
+                                                                <?php } ?>
+                                                        <!-- <td class="text-center"><a class="btn btn-default" target="_blank" href="<?= URL_API_DOWNLOAD.$usulan['outline'] ?>"><i class="fa fa-eye"></i> Lihat File</a></td> -->
 
                                                         <td>
                                                             <input type="file" name="outline" data-plugin="dropify" data-height="60">

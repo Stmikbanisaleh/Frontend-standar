@@ -270,7 +270,7 @@
                                         <?php } ?>
                                         Ulasan
                                         <?php if ($usulan['ulasan']) { ?>
-                                            <textarea class="form-control" name="ulasan"><?= $usulan['ULASAN']; ?></textarea>
+                                            <textarea class="form-control" name="ulasan"><?= $usulan['ulasan']; ?></textarea>
                                         <?php } else { ?>
                                             <textarea class=" form-control" name="ulasan" placeholder="Ulasan (Sebutkan secara terperinci)"></textarea>
                                         <?php } ?>
